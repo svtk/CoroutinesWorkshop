@@ -6,6 +6,7 @@ import kotlin.concurrent.thread
 
 fun loadContributorsBackground(req: RequestData, callback: (List<User>) -> Unit) {
     thread {
-        loadContributorsBlocking(req)
+        val contributors = loadContributorsBlocking(req)
+        callback(contributors)
     }
 }

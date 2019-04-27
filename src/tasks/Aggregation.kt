@@ -9,7 +9,9 @@ import contributors.User
 //  with the total value of contributions for all the repositories.
 //  Users should be sorted in a descending order by their contributions.
 fun List<User>.aggregate(): List<User> =
-    this
+    groupBy { it.login }
+        .map { (login, group) -> User(login, group.sumBy { it.contributions }) }
+        .sortedByDescending { it.contributions }
 
 // Example
 fun main() {

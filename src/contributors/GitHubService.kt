@@ -3,6 +3,7 @@ package contributors
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -22,6 +23,17 @@ interface GitHubService {
         @Path("owner") owner: String,
         @Path("repo") repo: String
     ): Call<List<User>>
+
+    @GET("orgs/{org}/repos?per_page=100")
+    fun getOrgReposAsync(
+        @Path("org") org: String
+    ): Deferred<List<Repo>>
+
+    @GET("repos/{owner}/{repo}/contributors?per_page=100")
+    fun getRepoContributorsAsync(
+        @Path("owner") owner: String,
+        @Path("repo") repo: String
+    ): Deferred<List<User>>
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
