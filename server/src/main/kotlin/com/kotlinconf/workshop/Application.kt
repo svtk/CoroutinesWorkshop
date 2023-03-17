@@ -1,5 +1,6 @@
 package com.kotlinconf.workshop
 
+import com.kotlinconf.workshop.db.DAOInMemoryImpl
 import com.kotlinconf.workshop.plugins.configureRouting
 import com.kotlinconf.workshop.plugins.configureSerialization
 import com.kotlinconf.workshop.plugins.configureSockets
@@ -16,7 +17,8 @@ fun main() {
 
 @Suppress("unused")
 fun Application.module() {
+    val dao = DAOInMemoryImpl()
     configureSerialization()
     configureSockets()
-    configureRouting()
+    configureRouting(dao)
 }
