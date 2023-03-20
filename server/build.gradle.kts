@@ -1,6 +1,3 @@
-import kotlinx.kover.api.IntellijEngine
-import kotlinx.kover.api.JacocoEngine
-
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization") version "1.8.0"
@@ -34,6 +31,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
+    implementation("io.ktor:ktor-server-call-logging-jvm")
     implementation("io.ktor:ktor-server-websockets")
     implementation("io.ktor:ktor-server-netty")
     implementation("ch.qos.logback:logback-classic:$logback_version")
