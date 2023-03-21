@@ -69,7 +69,7 @@ fun CommentView(comment: Comment) {
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = comment.text,
+                text = comment.content,
             )
         }
     }
