@@ -1,13 +1,13 @@
 package com.kotlinconf.workshop
 
-import com.kotlinconf.workshop.kettle.Temperature
+import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
 suspend fun main() {
     val kettleService = KettleService()
-    kettleService.switchOn(Temperature(90.0))
-    var temperature: Temperature
+    kettleService.switchOn(CelsiusTemperature(90.0))
+    var temperature: CelsiusTemperature
     val startTime = System.currentTimeMillis()
     while(true) {
         temperature = kettleService.getTemperature()

@@ -1,0 +1,4 @@
+Task 1. Implement KettleService.observeTemperature
+Task 2. Implement KettleViewModel.fahrenheitTemperature (+ add 'stateIn' to celsiusTemperature!)
+Task 3. Use flow from ws
+Task 4. Create flow from callbacks API

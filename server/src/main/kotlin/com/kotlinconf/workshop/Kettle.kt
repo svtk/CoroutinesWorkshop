@@ -1,6 +1,6 @@
 package com.kotlinconf.workshop
 
-import com.kotlinconf.workshop.kettle.Temperature
+import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -16,7 +16,7 @@ class Kettle(
     private var currentTemperature = ROOM_TEMPERATURE
     private var changingTemperatureJob: Job? = null
     private val mutex = Mutex()
-    suspend fun switchOn(desired: Temperature = Temperature(BOILING_TEMPERATURE)) = mutex.withLock {
+    suspend fun switchOn(desired: CelsiusTemperature = CelsiusTemperature(BOILING_TEMPERATURE)) = mutex.withLock {
         switchedOn = true
         desiredTemperature = desired.value
         changingTemperatureJob?.cancel()
@@ -52,7 +52,7 @@ class Kettle(
         currentTemperature = (currentTemperature - 0.02).coerceAtLeast(ROOM_TEMPERATURE)
     }
 
-    fun getTemperature(): Temperature {
-        return Temperature(currentTemperature)
+    fun getTemperature(): CelsiusTemperature {
+        return CelsiusTemperature(currentTemperature)
     }
 }

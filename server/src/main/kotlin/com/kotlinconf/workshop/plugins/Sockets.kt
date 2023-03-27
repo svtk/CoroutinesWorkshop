@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.serialization.json.Json
 import java.time.Duration
 
-fun Application.configureSockets(issueTracker: IssueTracker) {
+fun Application.configureSockets() {
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
         timeout = Duration.ofSeconds(15)
@@ -18,6 +18,9 @@ fun Application.configureSockets(issueTracker: IssueTracker) {
         masking = false
         contentConverter = KotlinxWebsocketSerializationConverter(Json)
     }
+}
+
+fun Application.configureEventsSockets(issueTracker: IssueTracker) {
     routing {
         webSocket("/issueEvents") { // websocketSession
             issueTracker.issueEvents.onEach {

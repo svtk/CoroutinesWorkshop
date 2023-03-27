@@ -4,9 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.kotlinconf.workshop.network.KettleService
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class KettleViewModel(
@@ -30,7 +28,29 @@ class KettleViewModel(
         }
     }
 
-    val temperature: StateFlow<Temperature> = kettleService
-        .observeTemperature()
-        .stateIn(scope, SharingStarted.Lazily, 20.0.celsius)
+/*    init {
+        scope.launch {
+            kettleService
+                .observeTemperature()
+                .collect {
+                    celsiusTemperature1.value = it
+                    fahrenheitTemperature1.value = it.toFahrenheit()
+                }
+        }
+    }
+
+    val celsiusTemperature1 = MutableStateFlow<CelsiusTemperature>(20.0.celsius)
+
+    val fahrenheitTemperature1 = MutableStateFlow<FahrenheitTemperature>(68.0.fahrenheit)*/
+
+
+    val celsiusTemperature: Flow<CelsiusTemperature?> =
+        kettleService.observeTemperature()
+        // initial code (no stateIn):
+        .stateIn(scope, SharingStarted.Lazily, null)
+
+    val fahrenheitTemperature: Flow<FahrenheitTemperature?> =
+        // initial code:
+//        flowOf(null)
+        celsiusTemperature.map { it?.toFahrenheit() }
 }

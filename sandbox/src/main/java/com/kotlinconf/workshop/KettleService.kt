@@ -1,6 +1,6 @@
 package com.kotlinconf.workshop
 
-import com.kotlinconf.workshop.kettle.Temperature
+import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -24,7 +24,7 @@ class KettleService {
     private val offEndpoint = "$host/kettle/off"
     private val temperatureEndpoint = "$host/kettle/temperature"
 
-    suspend fun switchOn(desiredTemperature: Temperature) {
+    suspend fun switchOn(desiredTemperature: CelsiusTemperature) {
         client.post(onEndpoint) {
             contentType(ContentType.Application.Json)
             setBody(desiredTemperature)
@@ -35,7 +35,7 @@ class KettleService {
         client.post(offEndpoint)
     }
 
-    suspend fun getTemperature(): Temperature {
+    suspend fun getTemperature(): CelsiusTemperature {
         return client.get(temperatureEndpoint).body()
     }
 }

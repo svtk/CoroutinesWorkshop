@@ -17,9 +17,11 @@ fun Application.module() {
     configureMonitoring()
     configureSerialization()
     configureBlogRouting()
+    configureSockets()
 //    val issueTracker = setupIssueTracker()
 //    configureRouting(issueTracker)
 //    configureSockets(issueTracker)
     val kettle = Kettle(CoroutineScope(coroutineContext))
     configureKettleRouting(kettle)
+    configureSockets()
 }
