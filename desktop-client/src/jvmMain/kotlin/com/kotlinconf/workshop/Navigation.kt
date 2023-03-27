@@ -13,7 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.kotlinconf.workshop.ui.ArticlesView
-import com.kotlinconf.workshop.ui.ArticlesViewModel
+import com.kotlinconf.workshop.articles.ArticlesViewModel
 
 enum class TaskScreen(
     val label: String,

@@ -1,15 +1,14 @@
-package com.kotlinconf.workshop.ui
+package com.kotlinconf.workshop.articles
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.kotlinconf.workshop.blog.User
-import com.kotlinconf.workshop.model.Article
 import com.kotlinconf.workshop.network.BlogService
 import com.kotlinconf.workshop.network.BlogServiceBlocking
 import com.kotlinconf.workshop.tasks.*
-import com.kotlinconf.workshop.ui.ArticlesViewModel.LoadingMode.*
-import com.kotlinconf.workshop.ui.ArticlesViewModel.LoadingStatus.*
+import com.kotlinconf.workshop.articles.LoadingMode.*
+import com.kotlinconf.workshop.articles.ArticlesViewModel.LoadingStatus.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
@@ -20,17 +19,6 @@ class ArticlesViewModel(
     private val service: BlogService,
     private val scope: CoroutineScope
 ) {
-    enum class LoadingMode {
-        BLOCKING,
-        SUSPENDING,
-        CONCURRENT,
-        NON_CANCELLABLE,
-        WITH_ERRORS,
-        WITH_PROGRESS,
-        WITH_PROGRESS_WITH_ERRORS,
-        CONCURRENT_WITH_PROGRESS,
-    }
-
     var loadingMode by mutableStateOf(BLOCKING)
         private set
 
@@ -57,6 +45,16 @@ class ArticlesViewModel(
     private val _articlesFlow = MutableStateFlow(listOf<Article>())
     val articlesFlow: StateFlow<List<Article>> get() = _articlesFlow
 
+    init {
+        try {
+            changeLoadingMode(loadStoredMode())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            removeStoredMode()
+        }
+    }
+
+
 //    private val _activeUsers = MutableStateFlow(setOf<User>())
 //    val activeUsers: StateFlow<Set<User>> get() = _activeUsers
     // TODO use as the last task?
@@ -66,6 +64,7 @@ class ArticlesViewModel(
 
 
     fun loadComments() {
+        saveParams(loadingMode)
         clearResults()
         cancellationEnabled = true
         loadingJob = scope.launch {

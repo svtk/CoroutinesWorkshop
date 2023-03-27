@@ -1,4 +1,4 @@
-package com.kotlinconf.workshop.model
+package com.kotlinconf.workshop.articles
 
 import com.kotlinconf.workshop.blog.ArticleInfo
 import com.kotlinconf.workshop.blog.Comment

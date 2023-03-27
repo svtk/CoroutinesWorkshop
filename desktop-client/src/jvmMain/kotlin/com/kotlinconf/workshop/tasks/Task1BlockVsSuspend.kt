@@ -2,7 +2,7 @@ package com.kotlinconf.workshop.tasks
 
 import com.kotlinconf.workshop.blog.ArticleInfo
 import com.kotlinconf.workshop.network.*
-import com.kotlinconf.workshop.model.Article
+import com.kotlinconf.workshop.articles.Article
 
 // TODO
 // Implement 'loadArticlesWithComments' in two versions: blocking and suspend

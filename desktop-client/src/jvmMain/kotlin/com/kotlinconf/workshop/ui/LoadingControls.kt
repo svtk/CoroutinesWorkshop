@@ -8,7 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kotlinconf.workshop.ui.ArticlesViewModel.LoadingMode
+import com.kotlinconf.workshop.articles.LoadingMode
 
 @Composable
 fun LoadingControls(

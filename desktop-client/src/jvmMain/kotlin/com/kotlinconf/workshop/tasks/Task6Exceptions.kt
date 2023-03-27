@@ -2,7 +2,7 @@ package com.kotlinconf.workshop.tasks
 
 import com.kotlinconf.workshop.blog.ArticleInfo
 import com.kotlinconf.workshop.blog.Comment
-import com.kotlinconf.workshop.model.Article
+import com.kotlinconf.workshop.articles.Article
 import com.kotlinconf.workshop.network.BlogService
 import kotlinx.coroutines.flow.*
 

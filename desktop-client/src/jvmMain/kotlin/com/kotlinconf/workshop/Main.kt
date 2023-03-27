@@ -14,7 +14,7 @@ import androidx.compose.ui.window.rememberWindowState
 import com.kotlinconf.workshop.network.BlogService
 import com.kotlinconf.workshop.network.createBlogServiceBlocking
 import com.kotlinconf.workshop.ui.ArticlesView
-import com.kotlinconf.workshop.ui.ArticlesViewModel
+import com.kotlinconf.workshop.articles.ArticlesViewModel
 
 @Composable
 @Preview

@@ -13,7 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.blog.User
-import com.kotlinconf.workshop.model.Article
+import com.kotlinconf.workshop.articles.Article
+import com.kotlinconf.workshop.articles.ArticlesViewModel
 import ui.LoadingControls
 
 @Composable

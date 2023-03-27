@@ -1,6 +1,6 @@
 package com.kotlinconf.workshop.tasks
 
-import com.kotlinconf.workshop.model.Article
+import com.kotlinconf.workshop.articles.Article
 import com.kotlinconf.workshop.network.BlogService
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

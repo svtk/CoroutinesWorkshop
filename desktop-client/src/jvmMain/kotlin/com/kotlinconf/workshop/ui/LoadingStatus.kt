@@ -6,7 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kotlinconf.workshop.ui.ArticlesViewModel.LoadingStatus.*
+import com.kotlinconf.workshop.articles.ArticlesViewModel
+import com.kotlinconf.workshop.articles.ArticlesViewModel.LoadingStatus.*
 
 @Composable
 fun LoadingStatus(
