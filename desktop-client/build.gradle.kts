@@ -13,6 +13,7 @@ version = "1.0-SNAPSHOT"
 val ktor_version: String by project
 val datetime_version: String by project
 val logback_version: String by project
+val retrofit_version: String by project
 
 java {
     toolchain {
@@ -33,7 +34,10 @@ kotlin {
                 implementation(project(":shared"))
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0-RC")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+                implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+                implementation("com.squareup.retrofit2:retrofit-mock:$retrofit_version")
+                implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
                 implementation("io.ktor:ktor-client-core:$ktor_version")
                 implementation("io.ktor:ktor-client-cio:$ktor_version")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
@@ -51,6 +55,9 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
             }
+        }
+        all {
+            languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
     }
 }

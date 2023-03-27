@@ -1,4 +1,4 @@
-package com.kotlinconf.workshop
+package com.kotlinconf.workshop.kettle
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
@@ -7,32 +7,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.kotlinconf.workshop.network.BlogService
-import com.kotlinconf.workshop.network.BlogServiceBlocking
-import com.kotlinconf.workshop.network.createBlogServiceBlocking
-import com.kotlinconf.workshop.ui.ArticlesView
-import com.kotlinconf.workshop.ui.ArticlesViewModel
+import com.kotlinconf.workshop.network.KettleService
 
 @Composable
 @Preview
-fun App(viewModel: ArticlesViewModel) {
-    ArticlesView(viewModel)
+fun App(kettleViewModel: KettleViewModel) {
+    KettleView(kettleViewModel)
 }
 
 fun main() = application {
     val scope = rememberCoroutineScope()
-    val viewModel = ArticlesViewModel(
-        blockingService = createBlogServiceBlocking(),
-        service = BlogService(),
-        scope = scope
-    )
+    val kettleViewModel = KettleViewModel(KettleService(), scope)
     Window(
         onCloseRequest = {
             exitApplication()
         },
-        title = "Coroutine Workshop",
+        title = "Kettle Flow Example",
         state = rememberWindowState(width = 800.dp, height = 600.dp),
     ) {
-        App(viewModel)
+        App(kettleViewModel)
     }
 }

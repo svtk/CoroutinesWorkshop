@@ -1,22 +1,25 @@
 package com.kotlinconf.workshop
 
-import com.kotlinconf.workshop.plugins.configureMonitoring
-import com.kotlinconf.workshop.plugins.configureRouting
-import com.kotlinconf.workshop.plugins.configureSerialization
-import com.kotlinconf.workshop.plugins.configureSockets
+import com.kotlinconf.workshop.WorkshopServerConfig.HOST
+import com.kotlinconf.workshop.WorkshopServerConfig.PORT
+import com.kotlinconf.workshop.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import kotlinx.coroutines.CoroutineScope
 
 fun main() {
-    embeddedServer(Netty, port = 9010, host = "0.0.0.0", module = Application::module)
+    embeddedServer(Netty, port = PORT, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
 
 fun Application.module() {
     configureMonitoring()
     configureSerialization()
-    val issueTracker = setupIssueTracker()
-    configureRouting(issueTracker)
-    configureSockets(issueTracker)
+    configureBlogRouting()
+//    val issueTracker = setupIssueTracker()
+//    configureRouting(issueTracker)
+//    configureSockets(issueTracker)
+    val kettle = Kettle(CoroutineScope(coroutineContext))
+    configureKettleRouting(kettle)
 }

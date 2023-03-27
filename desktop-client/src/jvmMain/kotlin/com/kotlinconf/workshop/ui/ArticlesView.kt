@@ -11,11 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.kotlinconf.workshop.Comment
+import com.kotlinconf.workshop.blog.User
+import com.kotlinconf.workshop.model.Article
 import ui.LoadingControls
 
 @Composable
-fun CommentsView(viewModel: ViewModel) {
+fun ArticlesView(viewModel: ArticlesViewModel) {
     Column {
         LoadingControls(
             modifier = Modifier,
@@ -26,31 +27,44 @@ fun CommentsView(viewModel: ViewModel) {
             cancelLoading = viewModel::cancelLoading,
             cancellationEnabled = viewModel.cancellationEnabled
         )
-        val comments = viewModel.comments.collectAsState(listOf()).value
+        val articles = viewModel.articlesFlow.collectAsState(listOf()).value
         LoadingStatus(
-            commentsNumber = comments.size,
+            articlesNumber = articles.size,
             loadingStatus = viewModel.loadingStatus,
             currentLoadingTimeMillis = viewModel.currentLoadingTimeMillis,
         )
-        CommentsView(
-            comments = comments,
+        ActiveUsersView(
+            activeUsers = viewModel.activeUsers.collectAsState(setOf()).value
+        )
+        ArticlesView(
+            articles = articles,
         )
     }
 }
+
 @Composable
-fun CommentsView(
-    comments: List<Comment>
+fun ActiveUsersView(activeUsers: Set<User>) {
+    val text = if (activeUsers.isNotEmpty()) {
+        "Active users: " + activeUsers.joinToString { it.name }
+    }
+    else ""
+    Text(text)
+}
+
+@Composable
+fun ArticlesView(
+    articles: List<Article>
 ) {
     LazyColumn {
-        items(comments) { comment ->
+        items(articles) { article ->
             Spacer(modifier = Modifier.height(10.dp))
-            CommentView(comment)
+            ArticleView(article)
         }
     }
 }
 
 @Composable
-fun CommentView(comment: Comment) {
+fun ArticleView(article: Article) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,7 +75,7 @@ fun CommentView(comment: Comment) {
             modifier = Modifier.fillMaxWidth(0.5f).padding(start = 20.dp),
         ) {
             Text(
-                text = comment.author.name,
+                text = article.author.name,
             )
         }
         Box(
@@ -69,7 +83,7 @@ fun CommentView(comment: Comment) {
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = comment.content,
+                text = article.info.title,
             )
         }
     }

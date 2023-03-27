@@ -1,26 +1,26 @@
 package com.kotlinconf.workshop.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kotlinconf.workshop.ui.ViewModel.LoadingStatus.*
+import com.kotlinconf.workshop.ui.ArticlesViewModel.LoadingStatus.*
 
 @Composable
 fun LoadingStatus(
-    commentsNumber: Int,
-    loadingStatus: ViewModel.LoadingStatus,
+    articlesNumber: Int,
+    loadingStatus: ArticlesViewModel.LoadingStatus,
     currentLoadingTimeMillis: Long,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (loadingStatus == NOT_STARTED) {
+            LinearProgressIndicator()
+        }
         Card(
             modifier = Modifier
                 .padding(20.dp)
@@ -51,7 +51,7 @@ fun LoadingStatus(
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
                             style = MaterialTheme.typography.subtitle1,
-                            text = "Number of comments: $commentsNumber"
+                            text = "Number of loaded articles: $articlesNumber"
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))

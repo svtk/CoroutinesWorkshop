@@ -15,12 +15,15 @@ fun Application.setupIssueTracker(): IssueTracker {
     repeat(20) {
         vUser.createRandomIssue(issueTracker)
     }
-    vUser.beginPosting(this, issueTracker) // TODO: is there a nicer syntax for this without context receivers? :)
-    launch {
-        issueTracker.issueEvents.onEach {
-            println(it)
-        }.collect()
+    repeat(200) {
+        vUser.createRandomCommentEvent(issueTracker)
     }
+//    vUser.beginPosting(this, issueTracker) // TODO: is there a nicer syntax for this without context receivers? :)
+//    launch {
+//        issueTracker.issueEvents.onEach {
+//            println(it)
+//        }.collect()
+//    }
     return issueTracker
 }
 
