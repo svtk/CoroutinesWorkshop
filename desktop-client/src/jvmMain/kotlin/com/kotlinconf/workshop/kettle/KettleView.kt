@@ -10,8 +10,8 @@ import androidx.compose.runtime.collectAsState
 fun KettleView(kettleViewModel: KettleViewModel) {
     KettleView(
         kettleViewModel.isWorking.value,
-        kettleViewModel.celsiusTemperature.collectAsState(20.0.celsius).value,
-        kettleViewModel.fahrenheitTemperature.collectAsState(68.0.fahrenheit).value,
+        kettleViewModel.celsiusTemperature.collectAsState(null).value,
+        kettleViewModel.fahrenheitTemperature.collectAsState(null).value,
         kettleViewModel::switchOn,
         kettleViewModel::switchOff,
     )

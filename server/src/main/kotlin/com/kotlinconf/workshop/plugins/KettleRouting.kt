@@ -27,9 +27,14 @@ fun Application.configureKettleRouting(kettle: Kettle) {
 fun Application.configureKettleSockets(kettle: Kettle) {
     routing {
         webSocket("/kettle-ws") {
+            var prevTemperature: CelsiusTemperature? = null
             while (true) {
-                sendSerialized(kettle.getTemperature())
-                delay(500)
+                val temperature = kettle.getTemperature()
+                if (temperature != prevTemperature) {
+                    sendSerialized(temperature)
+                    prevTemperature = temperature
+                }
+                delay(1000)
             }
         }
     }

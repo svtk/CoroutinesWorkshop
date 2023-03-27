@@ -28,29 +28,13 @@ class KettleViewModel(
         }
     }
 
-/*    init {
-        scope.launch {
-            kettleService
-                .observeTemperature()
-                .collect {
-                    celsiusTemperature1.value = it
-                    fahrenheitTemperature1.value = it.toFahrenheit()
-                }
-        }
-    }
-
-    val celsiusTemperature1 = MutableStateFlow<CelsiusTemperature>(20.0.celsius)
-
-    val fahrenheitTemperature1 = MutableStateFlow<FahrenheitTemperature>(68.0.fahrenheit)*/
-
-
     val celsiusTemperature: Flow<CelsiusTemperature?> =
-        kettleService.observeTemperature()
+        kettleService.observeTemperatureViaWebsockets()
         // initial code (no stateIn):
-        .stateIn(scope, SharingStarted.Lazily, null)
+        //.stateIn(scope, SharingStarted.Lazily, null)
 
     val fahrenheitTemperature: Flow<FahrenheitTemperature?> =
         // initial code:
-//        flowOf(null)
-        celsiusTemperature.map { it?.toFahrenheit() }
+        flowOf(null)
+//        celsiusTemperature.map { it?.toFahrenheit() }
 }

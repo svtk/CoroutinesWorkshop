@@ -1,9 +1,10 @@
 package com.kotlinconf.workshop
 
 object WorkshopServerConfig {
-    const val HOST = "http://0.0.0.0"
+    const val HOST = "0.0.0.0"
     const val PORT = 9020
-    const val WORKSHOP_SERVER_URL = "$HOST:$PORT"
+    const val WORKSHOP_SERVER_URL = "http://$HOST:$PORT"
+    const val WS_SERVER_URL = "ws://$HOST:$PORT"
 
     // ?
     val articlesEndpoint = "$WORKSHOP_SERVER_URL/articles"
