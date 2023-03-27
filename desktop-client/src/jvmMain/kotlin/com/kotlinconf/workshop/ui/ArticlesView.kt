@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.blog.User
 import com.kotlinconf.workshop.model.Article
@@ -33,9 +34,9 @@ fun ArticlesView(viewModel: ArticlesViewModel) {
             loadingStatus = viewModel.loadingStatus,
             currentLoadingTimeMillis = viewModel.currentLoadingTimeMillis,
         )
-        ActiveUsersView(
-            activeUsers = viewModel.activeUsers.collectAsState(setOf()).value
-        )
+//        ActiveUsersView(
+//            activeUsers = viewModel.activeUsers.collectAsState(setOf()).value
+//        )
         ArticlesView(
             articles = articles,
         )
@@ -56,6 +57,9 @@ fun ArticlesView(
     articles: List<Article>
 ) {
     LazyColumn {
+        item {
+            ThreeColumn("Author", "Title", "Number of Comments", FontWeight.ExtraBold)
+        }
         items(articles) { article ->
             Spacer(modifier = Modifier.height(10.dp))
             ArticleView(article)
@@ -64,7 +68,7 @@ fun ArticlesView(
 }
 
 @Composable
-fun ArticleView(article: Article) {
+fun ThreeColumn(first: String, second: String, third: String, fontWeight: FontWeight = FontWeight.Normal) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,10 +76,20 @@ fun ArticleView(article: Article) {
             .padding(5.dp)
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth(0.5f).padding(start = 20.dp),
+            modifier = Modifier.fillMaxWidth(0.2f).padding(start = 20.dp),
         ) {
             Text(
-                text = article.author.name,
+                text = first,
+                fontWeight = fontWeight
+            )
+        }
+        Box(
+            modifier = Modifier.fillMaxWidth(0.8f),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = second,
+                fontWeight = fontWeight
             )
         }
         Box(
@@ -83,9 +97,16 @@ fun ArticleView(article: Article) {
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = article.info.title,
+                modifier = Modifier.fillMaxSize(),
+                text = third,
+                fontWeight = fontWeight
             )
         }
     }
+}
+
+@Composable
+fun ArticleView(article: Article) {
+    ThreeColumn(article.author.name, article.info.title, "${article.comments.size} comments")
 }
 

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.launch
 
-suspend fun BlogService.loadArticlesConcurrentlyFlow(): Flow<List<Article>> {
+suspend fun BlogService.loadArticlesConcurrentlyFlow(): Flow<Article> {
     return channelFlow {
         val list = getArticleInfoList()
         for (articleInfo in list) {
@@ -16,7 +16,6 @@ suspend fun BlogService.loadArticlesConcurrentlyFlow(): Flow<List<Article>> {
             }
         }
     }
-        .runningFold(listOf()) { list, article -> list + article }
 }
 
 suspend fun BlogService.loadArticlesConcurrentlyWithProgressFlow(): Flow<List<Article>> {
