@@ -7,14 +7,20 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.launch
 
-suspend fun BlogService.loadArticlesConcurrentlyWithProgress(): Flow<List<Article>> {
+suspend fun BlogService.loadArticlesConcurrentlyFlow(): Flow<List<Article>> {
     return channelFlow {
-        getArticleInfoList()
-            .map { article ->
-                launch {
-                    this@channelFlow.send(Article(article, getComments(article)))
-                }
+        val list = getArticleInfoList()
+        for (articleInfo in list) {
+            launch {
+                send(Article(articleInfo, getComments(articleInfo)))
             }
+        }
     }
         .runningFold(listOf()) { list, article -> list + article }
 }
+
+suspend fun BlogService.loadArticlesConcurrentlyWithProgressFlow(): Flow<List<Article>> {
+    return loadArticlesConcurrentlyFlow()
+        .runningFold(listOf()) { list, article -> list + article }
+}
+

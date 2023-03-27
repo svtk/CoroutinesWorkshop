@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.kotlinconf.workshop.blog.User
 import com.kotlinconf.workshop.model.Article
-import com.kotlinconf.workshop.model.findActiveUsers
 import com.kotlinconf.workshop.network.BlogService
 import com.kotlinconf.workshop.network.BlogServiceBlocking
 import com.kotlinconf.workshop.tasks.*
@@ -109,7 +108,7 @@ class ArticlesViewModel(
                         .collect()
                 }
                 CONCURRENT_WITH_PROGRESS -> {
-                    service.loadArticlesConcurrentlyWithProgress()
+                    service.loadArticlesConcurrentlyWithProgressFlow()
                         .onEach { updateResults(it, startTime, completed = false) }
                         .onCompletion {
                             markLoadingCompletion(it)
