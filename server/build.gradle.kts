@@ -12,7 +12,7 @@ val datetime_version: String by project // = "0.4.0"
 group = "com.kcworkshop.coroutines"
 version = "0.0.1"
 application {
-    mainClass.set("com.kcworkshop.coroutines.ApplicationKt")
+    mainClass.set("com.kotlinconf.workshop.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
