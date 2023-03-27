@@ -1,6 +1,5 @@
 package com.kotlinconf.workshop
 
-import com.kotlinconf.workshop.WorkshopServerConfig.HOST
 import com.kotlinconf.workshop.WorkshopServerConfig.PORT
 import com.kotlinconf.workshop.plugins.*
 import io.ktor.server.application.*
@@ -23,5 +22,5 @@ fun Application.module() {
 //    configureSockets(issueTracker)
     val kettle = Kettle(CoroutineScope(coroutineContext))
     configureKettleRouting(kettle)
-    configureSockets()
+    configureKettleSockets(kettle)
 }
