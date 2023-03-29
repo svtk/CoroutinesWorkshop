@@ -15,4 +15,4 @@ rootProject.name = "CoroutinesWorkshop"
 include(":desktop-client")
 include(":server")
 include("shared")
-include("sandbox")
+include("livedemo")
