@@ -84,10 +84,6 @@ class ArticlesViewModel(
                     val articles = service.loadArticlesNonCancelable()
                     updateResults(articles, startTime)
                 }
-                UNSTABLE -> {
-                    val articles = service.loadArticlesUnstable()
-                    updateResults(articles, startTime)
-                }
                 WITH_PROGRESS -> {
                     service.observeArticlesLoadingWithProgress()
                         .onEach { updateResults(it, startTime, completed = false) }
@@ -103,6 +99,10 @@ class ArticlesViewModel(
                             markLoadingCompletion(it)
                         }
                         .collect()
+                }
+                UNSTABLE -> {
+                    val articles = service.loadArticlesUnstable()
+                    updateResults(articles, startTime)
                 }
             }
         }
