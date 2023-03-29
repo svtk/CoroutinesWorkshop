@@ -43,7 +43,7 @@ class KettleService {
     private fun temperatureEndpoint(): String {
         val stableEndpoint = "$host/kettle/temperature"
         return if (stableNetwork) stableEndpoint
-        else "$stableEndpoint?failure=0.5"
+        else "$stableEndpoint?failure=0.3"
     }
 
     private suspend fun openWebSocketSession(): DefaultClientWebSocketSession {
@@ -79,6 +79,8 @@ class KettleService {
     }
 
     fun observeTemperature(): Flow<CelsiusTemperature?> = flow {
+        // initial code:
+//        emit(getTemperature())
         while (true) {
             delay(1000)
             emit(getTemperature())
@@ -86,6 +88,11 @@ class KettleService {
     }
 
     fun observeKettleState(): Flow<KettleState> = flow {
+        // initial code:
+//        val socketSession = openWebSocketSession()
+//        val kettleState: KettleState = socketSession.receiveDeserialized()
+//        log("Received element via websocket: $kettleState")
+
         val socketSession = openWebSocketSession()
         while (socketSession.isActive) {
             val kettleState: KettleState = socketSession.receiveDeserialized()

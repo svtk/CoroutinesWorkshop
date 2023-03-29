@@ -45,7 +45,6 @@ class BlogService {
         val response = client.get(commentsUnstableEndpoint(articleInfo.id))
         if (!response.status.isSuccess()) {
             log("Loaded comments failure for article ${articleInfo.title}: ${response.status}")
-            return listOf()
         }
         return response.body<List<Comment>>()
             .also {

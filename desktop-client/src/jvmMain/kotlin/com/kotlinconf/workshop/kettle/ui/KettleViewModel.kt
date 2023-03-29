@@ -8,7 +8,8 @@ import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-// TODO Task
+// initial code:
+//const val ALLOW_UNSTABLE_NETWORK = false
 const val ALLOW_UNSTABLE_NETWORK = true
 
 class KettleViewModel(
@@ -30,6 +31,8 @@ class KettleViewModel(
         CoroutineExceptionHandler { _, throwable -> showErrorMessage(throwable) }
 
     private val scope = CoroutineScope(
+        // initial code:
+//        parentScope.coroutineContext
         parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler
     )
 
