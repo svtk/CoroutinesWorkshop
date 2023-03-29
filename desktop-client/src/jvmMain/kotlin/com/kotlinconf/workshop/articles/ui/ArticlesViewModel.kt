@@ -89,7 +89,7 @@ class ArticlesViewModel(
                     updateResults(articles, startTime)
                 }
                 WITH_PROGRESS -> {
-                    service.loadArticlesWithProgress()
+                    service.observeArticlesLoadingWithProgress()
                         .onEach { updateResults(it, startTime, completed = false) }
                         .onCompletion {
                             markLoadingCompletion(it)
@@ -97,7 +97,7 @@ class ArticlesViewModel(
                         .collect()
                 }
                 CONCURRENT_WITH_PROGRESS -> {
-                    service.loadArticlesConcurrentlyWithProgress()
+                    service.observeArticlesConcurrentlyWithProgress()
                         .onEach { updateResults(it, startTime, completed = false) }
                         .onCompletion {
                             markLoadingCompletion(it)

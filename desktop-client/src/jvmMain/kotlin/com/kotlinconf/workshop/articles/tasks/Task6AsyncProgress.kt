@@ -18,7 +18,7 @@ fun BlogService.observeArticlesConcurrently(): Flow<Article> {
     }
 }
 
-fun BlogService.loadArticlesConcurrentlyWithProgress(): Flow<List<Article>> {
+fun BlogService.observeArticlesConcurrentlyWithProgress(): Flow<List<Article>> {
     return observeArticlesConcurrently()
         .runningFold(listOf()) { list, article -> list + article }
 }

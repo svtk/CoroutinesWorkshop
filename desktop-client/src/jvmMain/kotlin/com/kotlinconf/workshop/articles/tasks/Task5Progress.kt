@@ -13,7 +13,7 @@ fun BlogService.observeArticlesLoading(): Flow<Article> = flow {
     }
 }
 
-fun BlogService.loadArticlesWithProgress(): Flow<List<Article>> {
+fun BlogService.observeArticlesLoadingWithProgress(): Flow<List<Article>> {
     return observeArticlesLoading()
         .runningFold(listOf()) { list, article -> list + article }
 }
