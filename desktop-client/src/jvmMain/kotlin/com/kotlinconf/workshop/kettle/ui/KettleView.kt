@@ -44,6 +44,7 @@ fun KettleView(
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Spacer(modifier = Modifier.height(30.dp))
         Row {
@@ -93,13 +94,9 @@ fun KettleView(
             text = "Temperature:",
             style = MaterialTheme.typography.h6
         )
-        if (celsiusTemperature != null) {
-            Text("$celsiusTemperature C", style = MaterialTheme.typography.h4)
-        }
+        Text("${celsiusTemperature ?: '?'} C", style = MaterialTheme.typography.h4)
         Spacer(modifier = Modifier.height(10.dp))
-        if (fahrenheitTemperature != null) {
-            Text("$fahrenheitTemperature F", style = MaterialTheme.typography.h4)
-        }
+        Text("${fahrenheitTemperature ?: '?'} F", style = MaterialTheme.typography.h4)
     }
 }
 
