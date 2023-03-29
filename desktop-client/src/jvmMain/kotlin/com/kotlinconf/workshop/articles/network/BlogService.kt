@@ -45,11 +45,13 @@ class BlogService {
         val response = client.get(commentsUnstableEndpoint(articleInfo.id))
         if (!response.status.isSuccess()) {
             log("Loaded comments failure for article ${articleInfo.title}: ${response.status}")
+            throw NetworkException("Loading article ${articleInfo.id} was unsuccessful.")
         }
         return response.body<List<Comment>>()
             .also {
                 log("Loaded comments unstable for article ${articleInfo.title}")
             }
     }
-
 }
+
+class NetworkException(message: String) : Exception(message)
