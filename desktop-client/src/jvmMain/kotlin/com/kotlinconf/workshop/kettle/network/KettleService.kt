@@ -17,7 +17,6 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.isActive
 import kotlinx.serialization.json.Json
 
 class KettleService {
@@ -94,7 +93,7 @@ class KettleService {
 //        log("Received element via websocket: $kettleState")
 
         val socketSession = openWebSocketSession()
-        while (socketSession.isActive) {
+        while (true) {
             val kettleState: KettleState = socketSession.receiveDeserialized()
             log("Received element via websocket: $kettleState")
             emit(kettleState)
