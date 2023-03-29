@@ -1,0 +1,9 @@
+Task 1. Implement KettleService.observeTemperature
+Task 2. Complete implementation of observeKettleState (starting code receives one element)
+Task 3. Implement KettleViewModel.fahrenheitTemperature (+ add 'stateIn' to celsiusTemperature!)
+Task 4.
+1. Change ALLOW_UNSTABLE_NETWORK to true. Click on "unstable network" and make sure the app crashes!
+2. Change the scope in KettleViewModel to use SupervisorJob and the provided coroutineExceptionHandler
+See what happens now - only the flow crashes, the app stays responsive (despite not working properly).
+We have the error information in the log.
+3. Fix getTemperature flow properly to emit nulls if there's no value.

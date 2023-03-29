@@ -7,12 +7,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.kotlinconf.workshop.network.KettleService
+import com.github.jetbrains.timetracker.androidapp.ui.theme.KettleAppTheme
+import com.kotlinconf.workshop.kettle.network.KettleService
+import com.kotlinconf.workshop.kettle.ui.KettleView
+import com.kotlinconf.workshop.kettle.ui.KettleViewModel
 
 @Composable
 @Preview
 fun App(kettleViewModel: KettleViewModel) {
-    KettleView(kettleViewModel)
+    KettleAppTheme {
+        KettleView(kettleViewModel)
+    }
 }
 
 fun main() = application {
@@ -23,7 +28,7 @@ fun main() = application {
             exitApplication()
         },
         title = "Kettle Flow Example",
-        state = rememberWindowState(width = 800.dp, height = 600.dp),
+        state = rememberWindowState(width = 200.dp, height = 500.dp),
     ) {
         App(kettleViewModel)
     }

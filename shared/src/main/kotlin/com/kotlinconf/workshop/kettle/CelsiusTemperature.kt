@@ -5,7 +5,14 @@ import kotlin.math.roundToInt
 
 @Serializable
 @JvmInline
-value class CelsiusTemperature(val value: Double) {
+value class CelsiusTemperature(val value: Double): Comparable<CelsiusTemperature> {
+    override fun compareTo(other: CelsiusTemperature): Int =
+        this.value.compareTo(other.value)
+
+    operator fun plus(diff: Double) = CelsiusTemperature(this.value + diff)
+
+    operator fun minus(diff: Double) = CelsiusTemperature(this.value - diff)
+
     override fun toString(): String {
         return "${value.roundToInt()}"
     }

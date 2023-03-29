@@ -1,6 +1,7 @@
 package com.kotlinconf.workshop
 
 import com.kotlinconf.workshop.WorkshopServerConfig.PORT
+import com.kotlinconf.workshop.data.Kettle
 import com.kotlinconf.workshop.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
