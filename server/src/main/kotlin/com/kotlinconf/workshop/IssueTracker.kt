@@ -4,9 +4,6 @@ import io.ktor.server.application.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 
 fun Application.setupIssueTracker(): IssueTracker {
@@ -18,6 +15,7 @@ fun Application.setupIssueTracker(): IssueTracker {
     repeat(200) {
         vUser.createRandomCommentEvent(issueTracker)
     }
+    vUser.beginPosting(this, issueTracker)
 //    vUser.beginPosting(this, issueTracker) // TODO: is there a nicer syntax for this without context receivers? :)
 //    launch {
 //        issueTracker.issueEvents.onEach {

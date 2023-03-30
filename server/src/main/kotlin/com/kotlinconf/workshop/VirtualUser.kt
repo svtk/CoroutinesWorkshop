@@ -3,6 +3,7 @@ package com.kotlinconf.workshop
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class VirtualUser {
     fun createRandomCommentEvent(issueTracker: IssueTracker): AddCommentToIssueEvent {
@@ -10,7 +11,7 @@ class VirtualUser {
         val subject = subject.random()
         val text = listOf(
             "Wow, nice!",
-            "What if $subject $action?",
+            "What if $subject ${action.random()}?",
             "Don't forget about the $subject.",
             "Could the $subject become relevant here?",
             "Is it possible to make the error messages more like a $subject?",
@@ -54,9 +55,15 @@ class VirtualUser {
     fun beginPosting(coroutineScope: CoroutineScope, issueTracker: IssueTracker) {
         coroutineScope.launch {
             while (true) {
-                delay(1000)
+                delay(Random.nextLong(200, 3000))
                 val randomCommentEvent = createRandomCommentEvent(issueTracker)
                 issueTracker.addComment(randomCommentEvent.forIssue, randomCommentEvent.comment)
+            }
+        }
+        coroutineScope.launch {
+            while (true) {
+                delay(Random.nextLong(1800, 5000))
+                createRandomIssue(issueTracker)
             }
         }
     }

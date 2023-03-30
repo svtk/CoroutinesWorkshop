@@ -20,7 +20,7 @@ fun Application.configureSockets() {
     }
 }
 
-fun Application.configureEventsSockets(issueTracker: IssueTracker) {
+fun Application.configureIssueTrackerEventSockets(issueTracker: IssueTracker) {
     routing {
         webSocket("/issueEvents") { // websocketSession
             issueTracker.issueEvents.onEach {
