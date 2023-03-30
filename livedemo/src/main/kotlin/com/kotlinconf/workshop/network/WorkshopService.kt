@@ -11,6 +11,11 @@ data class UserData(val id: UserID, val name: String)
 data class BlogInfo(val title: String)
 
 interface WorkshopService {
+
+    suspend fun networkCall(): String
+
+    suspend fun anotherNetworkCall(): String
+
     suspend fun login(username: String, password: String): UserID
     suspend fun loadBlogInfo(): BlogInfo
 
@@ -19,16 +24,31 @@ interface WorkshopService {
 }
 
 class WorkshopServiceImpl : WorkshopService {
+
+    override suspend fun networkCall(): String {
+        log("Sending network request")
+        delay(1000)
+        log("Receiving result")
+        return "Result"
+    }
+
+    override suspend fun anotherNetworkCall(): String {
+        log("Sending another network request")
+        delay(1000)
+        log("Receiving another result")
+        return "Another Result"
+    }
+
     override suspend fun login(username: String, password: String): UserID {
         log("Login $username starts")
         delay(1000)
         return UserID(0)
-            .also { log("Login: user logged with $it") }
+            .also { log("User $username successfully logged!") }
     }
 
     override suspend fun loadBlogInfo(): BlogInfo {
         log("Loading blog info starts")
-        delay(500)
+        delay(1000)
         return BlogInfo("Kotlin")
             .also { log("Loading blog info completes: $it") }
     }
