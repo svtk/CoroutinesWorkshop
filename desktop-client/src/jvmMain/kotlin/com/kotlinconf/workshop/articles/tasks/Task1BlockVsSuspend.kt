@@ -22,7 +22,7 @@ suspend fun loadArticles(service: BlogService): List<Article> {
 }
 
 fun main1() {
-    val serviceBlocking = createBlogServiceBlocking()
+    val serviceBlocking = BlogServiceBlocking()
     val articles = loadArticles(serviceBlocking)
     println(articles)
 }

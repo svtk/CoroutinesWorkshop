@@ -5,16 +5,15 @@ import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.kotlinconf.workshop.articles.network.BlogService
-import com.kotlinconf.workshop.articles.network.createBlogServiceBlocking
-import com.kotlinconf.workshop.articles.ui.views.ArticlesView
+import com.kotlinconf.workshop.articles.network.BlogServiceBlocking
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
+import com.kotlinconf.workshop.articles.ui.views.ArticlesView
 
 @Composable
 @Preview
@@ -24,7 +23,7 @@ fun App(viewModel: ArticlesViewModel) {
 
 fun main() = application {
     val viewModel = ArticlesViewModel(
-        blockingService = createBlogServiceBlocking(),
+        blockingService = BlogServiceBlocking(),
         service = BlogService(),
     )
     Window(
