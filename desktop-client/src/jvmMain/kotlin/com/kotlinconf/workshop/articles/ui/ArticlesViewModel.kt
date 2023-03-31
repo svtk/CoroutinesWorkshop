@@ -72,27 +72,27 @@ class ArticlesViewModel(
             val startTime = System.currentTimeMillis()
             when (loadingMode) {
                 BLOCKING -> {
-                    val articleList = blockingService.loadArticles()
+                    val articleList = loadArticles(blockingService)
                     updateResults(articleList, startTime)
                 }
                 SUSPENDING -> {
-                    val articleList = service.loadArticles()
+                    val articleList = loadArticles(service)
                     updateResults(articleList, startTime)
                 }
                 CONCURRENT -> {
-                    val articleList = service.loadArticlesConcurrently()
+                    val articleList = loadArticlesConcurrently(service)
                     updateResults(articleList, startTime)
                 }
                 NON_CANCELLABLE -> {
-                    val articleList = service.loadArticlesNonCancelable()
+                    val articleList = loadArticlesNonCancelable(service)
                     updateResults(articleList, startTime)
                 }
                 WITH_PROGRESS -> {
-                    val articleFlow = service.observeArticlesLoading()
+                    val articleFlow = observeArticlesLoading(service)
                     updateResultsWithProgress(articleFlow, startTime)
                 }
                 CONCURRENT_WITH_PROGRESS -> {
-                    val articleFlow = service.observeArticlesConcurrently()
+                    val articleFlow = observeArticlesConcurrently(service)
                     updateResultsWithProgress(articleFlow, startTime)
                 }
                 UNSTABLE_NETWORK -> {

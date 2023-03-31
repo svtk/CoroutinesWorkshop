@@ -6,12 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 
-fun BlogService.observeArticlesConcurrently(): Flow<Article> {
+fun observeArticlesConcurrently(service: BlogService): Flow<Article> {
     return channelFlow {
-        val list = getArticleInfoList()
+        val list = service.getArticleInfoList()
         for (articleInfo in list) {
             launch {
-                send(Article(articleInfo, getComments(articleInfo)))
+                send(Article(articleInfo, service.getComments(articleInfo)))
             }
         }
     }

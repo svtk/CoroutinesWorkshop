@@ -6,11 +6,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
-suspend fun BlogService.loadArticlesConcurrently(): List<Article> = coroutineScope {
-    val articleInfoList = getArticleInfoList()
+suspend fun loadArticlesConcurrently(service: BlogService): List<Article> = coroutineScope {
+    val articleInfoList = service.getArticleInfoList()
     val deferreds = articleInfoList.map { article ->
         async {
-            Article(article, getComments(article))
+            Article(article, service.getComments(article))
         }
     }
     deferreds.awaitAll()

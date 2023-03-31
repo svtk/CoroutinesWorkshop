@@ -7,27 +7,27 @@ import com.kotlinconf.workshop.blog.ArticleInfo
 // TODO
 // Implement 'loadArticlesWithComments' in two versions: blocking and suspend
 
-fun BlogServiceBlocking.loadArticles(): List<Article> {
-    val articleInfoList = getArticleInfoList()
+fun loadArticles(serviceBlocking: BlogServiceBlocking): List<Article> {
+    val articleInfoList = serviceBlocking.getArticleInfoList()
     return articleInfoList.map { articleInfo: ArticleInfo ->
-        Article(articleInfo, getComments(articleInfo))
+        Article(articleInfo, serviceBlocking.getComments(articleInfo))
     }
 }
 
-suspend fun BlogService.loadArticles(): List<Article> {
-    val articleInfoList = getArticleInfoList()
+suspend fun loadArticles(service: BlogService): List<Article> {
+    val articleInfoList = service.getArticleInfoList()
     return articleInfoList.map { articleInfo: ArticleInfo ->
-        Article(articleInfo, getComments(articleInfo))
+        Article(articleInfo, service.getComments(articleInfo))
     }
 }
 
 fun main1() {
     val serviceBlocking = createBlogServiceBlocking()
-    val articles = serviceBlocking.loadArticles()
+    val articles = loadArticles(serviceBlocking)
     println(articles)
 }
 
 suspend fun main() {
     val service = BlogService()
-    println(service.loadArticles())
+    println(loadArticles(service))
 }
