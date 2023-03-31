@@ -33,7 +33,7 @@ class KettleViewModel(
     private val scope = CoroutineScope(
         // initial code:
 //        parentScope.coroutineContext
-        parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler
+        SupervisorJob() + coroutineExceptionHandler
     )
 
     private val _stableNetwork = mutableStateOf(true)

@@ -9,5 +9,5 @@ object WorkshopServerConfig {
     // ?
     val articlesEndpoint = "$WORKSHOP_SERVER_URL/articles"
     fun commentsEndpoint(id: Int) = "$WORKSHOP_SERVER_URL/articles/$id/comments"
-    fun commentsUnstableEndpoint(id: Int) = commentsEndpoint(id) + "?failure=5"
+    fun commentsUnstableEndpoint(id: Int) = commentsEndpoint(id) + "?failure=0.3"
 }

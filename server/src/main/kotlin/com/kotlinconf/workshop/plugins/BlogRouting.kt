@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 fun Application.configureBlogRouting() {
     routing {
@@ -15,8 +16,8 @@ fun Application.configureBlogRouting() {
         }
         get("/articles/{id}/comments") {
             call.parameters["id"]?.toIntOrNull()?.let { id ->
-                val failureId = call.request.queryParameters["failure"]?.toIntOrNull()
-                if (failureId == id) {
+                val failureProbability = call.request.queryParameters["failure"]?.toDouble() ?: 0.0
+                if (Random.nextDouble() < failureProbability) {
                     return@get call.respond(HttpStatusCode.InternalServerError)
                 }
                 delay(BlogFakeData.getDelay(id))

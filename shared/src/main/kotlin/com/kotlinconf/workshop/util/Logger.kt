@@ -8,7 +8,7 @@ import kotlinx.datetime.toLocalDateTime
 //val log: Logger = LoggerFactory.getLogger("IssueTracker")
 private const val loggerOn = true
 
-fun log(message: String?) {
+fun log(message: Any?) {
 //    log.info(message)
     if (!loggerOn) return
     val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())

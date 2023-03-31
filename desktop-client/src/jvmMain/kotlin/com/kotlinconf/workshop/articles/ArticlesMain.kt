@@ -23,11 +23,9 @@ fun App(viewModel: ArticlesViewModel) {
 }
 
 fun main() = application {
-    val scope = rememberCoroutineScope()
     val viewModel = ArticlesViewModel(
         blockingService = createBlogServiceBlocking(),
         service = BlogService(),
-        scope = scope
     )
     Window(
         onCloseRequest = {
