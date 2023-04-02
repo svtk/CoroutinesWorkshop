@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.onEach
 fun Application.configureIssueTrackerEventSockets(issueTracker: IssueTracker) {
     routing {
         webSocket("/issueEvents") { // websocketSession
-            GlobalVirtualUser.instance.beginPosting(this, issueTracker)
+            GlobalVirtualUser.instance.beginPosting(issueTracker)
             issueTracker.issueEvents.onEach {
                 sendSerialized(it)
             }.collect()

@@ -60,7 +60,8 @@ class VirtualUser {
     var postingCommentJob: Job? = null
     var postingIssueJob: Job? = null
     val m = Mutex()
-    suspend fun beginPosting(coroutineScope: CoroutineScope, issueTracker: IssueTracker) {
+    val coroutineScope = CoroutineScope(SupervisorJob())
+    suspend fun beginPosting(issueTracker: IssueTracker) {
         m.withLock {
             if (postingCommentJob?.isActive == true && postingIssueJob?.isActive == true) {
                 log("Already virtually posting.")
