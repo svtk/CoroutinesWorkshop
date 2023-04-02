@@ -72,17 +72,17 @@ class KettleViewModel(
         celsiusTemperature.map { it?.toFahrenheit() }
 
     // Alternative implementation using StateFlow
-    val _celsiusStateFlow = MutableStateFlow<CelsiusTemperature?>(null)
+    private val _celsiusStateFlow = MutableStateFlow<CelsiusTemperature?>(null)
     val celsiusStateFlow: StateFlow<CelsiusTemperature?> get() = _celsiusStateFlow
 
-    val fahrenheitStateFlow = MutableStateFlow<FahrenheitTemperature?>(null)
-    val _fahrenheitStateFlow: StateFlow<FahrenheitTemperature?> get() = fahrenheitStateFlow
+    private val _fahrenheitStateFlow = MutableStateFlow<FahrenheitTemperature?>(null)
+    val fahrenheitStateFlow: StateFlow<FahrenheitTemperature?> get() = _fahrenheitStateFlow
 
     init {
         scope.launch {
             kettleService.observeTemperature().collect {
                 _celsiusStateFlow.value = it
-                fahrenheitStateFlow.value = it?.toFahrenheit()
+                _fahrenheitStateFlow.value = it?.toFahrenheit()
             }
         }
     }
