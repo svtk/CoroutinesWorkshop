@@ -1,7 +1,7 @@
 package com.kotlinconf.workshop.data
 
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
-import com.kotlinconf.workshop.kettle.KettleState
+import com.kotlinconf.workshop.kettle.KettlePowerState
 import com.kotlinconf.workshop.kettle.celsius
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -15,13 +15,13 @@ private val BOILING_TEMPERATURE = 100.0.celsius
 class Kettle(
     private val scope: CoroutineScope
 ) {
-    private var kettleState = MutableStateFlow(KettleState.OFF)
+    private var kettlePowerState = MutableStateFlow(KettlePowerState.OFF)
     private var desiredTemperature = BOILING_TEMPERATURE
     private var currentTemperature = ROOM_TEMPERATURE
     private var changingTemperatureJob: Job? = null
     private val mutex = Mutex()
     suspend fun switchOn(desired: CelsiusTemperature = BOILING_TEMPERATURE) = mutex.withLock {
-        kettleState.value = KettleState.ON
+        kettlePowerState.value = KettlePowerState.ON
         desiredTemperature = desired
         changingTemperatureJob?.cancel()
         changingTemperatureJob = scope.launch {
@@ -35,7 +35,7 @@ class Kettle(
     }
 
     suspend fun switchOff() = mutex.withLock {
-        kettleState.value = KettleState.OFF
+        kettlePowerState.value = KettlePowerState.OFF
         changingTemperatureJob?.cancel()
         changingTemperatureJob = scope.launch {
             while (currentTemperature > ROOM_TEMPERATURE) {
@@ -60,7 +60,7 @@ class Kettle(
         return currentTemperature
     }
 
-    fun observeKettleState(): Flow<KettleState> {
-        return kettleState
+    fun observeKettleState(): Flow<KettlePowerState> {
+        return kettlePowerState
     }
 }

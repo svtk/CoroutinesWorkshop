@@ -55,8 +55,8 @@ class KettleViewModel(
         }
     }
 
-    val kettleState: Flow<KettleState> =
-        kettleService.observeKettleState()
+    val kettlePowerState: Flow<KettlePowerState> =
+        kettleService.observeKettlePowerState()
 //            .stateIn(scope, SharingStarted.Lazily, KettleState.OFF)
             .shareIn(scope, SharingStarted.Lazily)
 

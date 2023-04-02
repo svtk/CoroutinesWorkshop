@@ -4,7 +4,7 @@ import com.kotlinconf.workshop.WorkshopServerConfig.HOST
 import com.kotlinconf.workshop.WorkshopServerConfig.PORT
 import com.kotlinconf.workshop.WorkshopServerConfig.WS_SERVER_URL
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
-import com.kotlinconf.workshop.kettle.KettleState
+import com.kotlinconf.workshop.kettle.KettlePowerState
 import com.kotlinconf.workshop.util.log
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -86,17 +86,17 @@ class KettleService {
         }
     }
 
-    fun observeKettleState(): Flow<KettleState> = flow {
+    fun observeKettlePowerState(): Flow<KettlePowerState> = flow {
         // initial code:
 //        val socketSession = openWebSocketSession()
-//        val kettleState: KettleState = socketSession.receiveDeserialized()
-//        log("Received element via websocket: $kettleState")
+//        val kettlePowerState: KettlePowerState = socketSession.receiveDeserialized()
+//        log("Received element via websocket: $kettlePowerState")
 
         val socketSession = openWebSocketSession()
         while (true) {
-            val kettleState: KettleState = socketSession.receiveDeserialized()
-            log("Received element via websocket: $kettleState")
-            emit(kettleState)
+            val kettlePowerState: KettlePowerState = socketSession.receiveDeserialized()
+            log("Received element via websocket: $kettlePowerState")
+            emit(kettlePowerState)
         }
     }
 }

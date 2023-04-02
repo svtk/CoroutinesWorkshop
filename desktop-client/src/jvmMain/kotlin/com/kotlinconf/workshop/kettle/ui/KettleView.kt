@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import com.kotlinconf.workshop.kettle.FahrenheitTemperature
-import com.kotlinconf.workshop.kettle.KettleState
+import com.kotlinconf.workshop.kettle.KettlePowerState
 
 @Composable
 fun KettleView(kettleViewModel: KettleViewModel) {
     KettleView(
-        kettleViewModel.kettleState.collectAsState(KettleState.OFF).value,
+        kettleViewModel.kettlePowerState.collectAsState(KettlePowerState.OFF).value,
         kettleViewModel.isStableNetwork.value,
         kettleViewModel::setStableNetwork,
         kettleViewModel.errorMessage.value,
@@ -32,7 +32,7 @@ fun KettleView(kettleViewModel: KettleViewModel) {
 
 @Composable
 fun KettleView(
-    kettleState: KettleState,
+    kettlePowerState: KettlePowerState,
     isStable: Boolean,
     onStableChange: (Boolean) -> Unit,
     errorMessage: String,
@@ -54,7 +54,7 @@ fun KettleView(
                 imageVector = Icons.Filled.PlayCircle,
                 color = MaterialTheme.colors.secondary,
                 onClick = switchOn,
-                enabled = kettleState == KettleState.OFF,
+                enabled = kettlePowerState == KettlePowerState.OFF,
             )
             ActionButton(
                 modifier = Modifier.fillMaxWidth(),
@@ -62,18 +62,18 @@ fun KettleView(
                 imageVector = Icons.Filled.StopCircle,
                 color = MaterialTheme.colors.primary,
                 onClick = switchOff,
-                enabled = kettleState == KettleState.ON,
+                enabled = kettlePowerState == KettlePowerState.ON,
             )
 
             Button(
                 onClick = switchOn,
-                enabled = kettleState == KettleState.OFF,
+                enabled = kettlePowerState == KettlePowerState.OFF,
             ) {
                 Text("On")
             }
             Button(
                 onClick = switchOff,
-                enabled = kettleState == KettleState.ON,
+                enabled = kettlePowerState == KettlePowerState.ON,
             ) {
                 Text("Off")
             }
