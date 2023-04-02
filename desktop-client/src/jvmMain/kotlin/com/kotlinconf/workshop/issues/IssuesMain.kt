@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -27,8 +26,7 @@ fun App(issuesViewModel: IssuesViewModel) {
 }
 
 fun main() = application {
-    val scope = rememberCoroutineScope()
-    val issuesViewModel = IssuesViewModel(IssuesService(), scope)
+    val issuesViewModel = IssuesViewModel(IssuesService())
     Window(
         onCloseRequest = {
             exitApplication()

@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class IssuesViewModel(val issuesService: IssuesService, parentScope: CoroutineScope) {
-    val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob())
+class IssuesViewModel(val issuesService: IssuesService) {
+    private val scope = CoroutineScope(SupervisorJob())
     private val _issueFlow: MutableStateFlow<List<Issue>> = MutableStateFlow(listOf())
     val issueFlow: StateFlow<List<Issue>> get() = _issueFlow
 
