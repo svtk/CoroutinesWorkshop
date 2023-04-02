@@ -1,9 +1,14 @@
 package com.kotlinconf.workshop
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.kotlinconf.workshop.util.log
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlin.random.Random
+
+object GlobalVirtualUser {
+    val instance = VirtualUser()
+}
 
 class VirtualUser {
     fun createRandomCommentEvent(issueTracker: IssueTracker): AddCommentToIssueEvent {
@@ -52,18 +57,30 @@ class VirtualUser {
         )
     }
 
-    fun beginPosting(coroutineScope: CoroutineScope, issueTracker: IssueTracker) {
-        coroutineScope.launch {
-            while (true) {
-                delay(Random.nextLong(200, 3000))
-                val randomCommentEvent = createRandomCommentEvent(issueTracker)
-                issueTracker.addComment(randomCommentEvent.forIssue, randomCommentEvent.comment)
+    var postingCommentJob: Job? = null
+    var postingIssueJob: Job? = null
+    val m = Mutex()
+    suspend fun beginPosting(coroutineScope: CoroutineScope, issueTracker: IssueTracker) {
+        m.withLock {
+            if (postingCommentJob?.isActive == true && postingIssueJob?.isActive == true) {
+                log("Already virtually posting.")
+                return
             }
-        }
-        coroutineScope.launch {
-            while (true) {
-                delay(Random.nextLong(1800, 5000))
-                createRandomIssue(issueTracker)
+            log("Beginning to post.")
+            postingCommentJob?.cancelAndJoin()
+            postingIssueJob?.cancelAndJoin()
+            postingCommentJob = coroutineScope.launch {
+                while (true) {
+                    delay(Random.nextLong(200, 3000))
+                    val randomCommentEvent = createRandomCommentEvent(issueTracker)
+                    issueTracker.addComment(randomCommentEvent.forIssue, randomCommentEvent.comment)
+                }
+            }
+            postingIssueJob = coroutineScope.launch {
+                while (true) {
+                    delay(Random.nextLong(1800, 5000))
+                    createRandomIssue(issueTracker)
+                }
             }
         }
     }

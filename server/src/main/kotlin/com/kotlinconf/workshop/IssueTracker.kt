@@ -8,20 +8,13 @@ import kotlinx.coroutines.flow.asSharedFlow
 
 fun Application.setupIssueTracker(): IssueTracker {
     val issueTracker = IssueTracker()
-    val vUser = VirtualUser()
+    val vUser = GlobalVirtualUser.instance
     repeat(20) {
         vUser.createRandomIssue(issueTracker)
     }
     repeat(200) {
         vUser.createRandomCommentEvent(issueTracker)
     }
-    vUser.beginPosting(this, issueTracker)
-//    vUser.beginPosting(this, issueTracker) // TODO: is there a nicer syntax for this without context receivers? :)
-//    launch {
-//        issueTracker.issueEvents.onEach {
-//            println(it)
-//        }.collect()
-//    }
     return issueTracker
 }
 
