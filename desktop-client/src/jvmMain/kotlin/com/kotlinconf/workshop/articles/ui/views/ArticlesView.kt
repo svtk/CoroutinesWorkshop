@@ -12,13 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.kotlinconf.workshop.blog.User
 import com.kotlinconf.workshop.articles.model.Article
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
+import com.kotlinconf.workshop.blog.User
 
 @Composable
 fun ArticlesView(viewModel: ArticlesViewModel) {
     Column {
+        Box(Modifier.padding(top = 10.dp).size(32.dp).align(Alignment.CenterHorizontally)) {
+            RotatingEmoji()
+        }
         LoadingControls(
             modifier = Modifier,
             loadingMode = viewModel.loadingMode,

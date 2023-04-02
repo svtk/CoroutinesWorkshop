@@ -1,7 +1,10 @@
 package com.kotlinconf.workshop.articles.ui.views
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,9 +22,6 @@ fun LoadingStatus(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (loadingStatus == NOT_STARTED) {
-            LinearProgressIndicator()
-        }
         Card(
             modifier = Modifier
                 .padding(20.dp)
