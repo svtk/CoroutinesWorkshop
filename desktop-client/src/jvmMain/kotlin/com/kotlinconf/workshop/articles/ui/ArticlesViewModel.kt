@@ -83,10 +83,12 @@ class ArticlesViewModel(
                     val articleList = loadArticlesConcurrently(service)
                     updateResults(articleList, startTime)
                 }
-                NON_CANCELLABLE -> {
+
+                NON_CANCELABLE -> {
                     val articleList = loadArticlesNonCancelable(service)
                     updateResults(articleList, startTime)
                 }
+
                 WITH_PROGRESS -> {
                     val articleFlow = observeArticlesLoading(service)
                     updateResultsWithProgress(articleFlow, startTime)
