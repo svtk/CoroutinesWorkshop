@@ -79,7 +79,7 @@ class KettleService {
 
     fun observeTemperature(): Flow<CelsiusTemperature?> = flow {
         // initial code:
-//        emit(null)
+//        (no code)
         while (true) {
             delay(1000)
             emit(getTemperature())
