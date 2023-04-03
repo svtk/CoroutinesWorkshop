@@ -18,7 +18,8 @@ import kotlinx.coroutines.flow.*
 
 class ArticlesViewModel(
     private val blockingService: BlogServiceBlocking,
-    private val service: BlogService
+    private val service: BlogService,
+    parentScope: CoroutineScope
 ) {
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         markLoadingCompletion(exception)
@@ -27,7 +28,7 @@ class ArticlesViewModel(
     // Task X.
     // initial code: Job()
     // Replace Job() with SupervisorJob() and make sure the app keeps working on a child failure (LoadingMode.UNSTABLE_NETWORK).
-    private val scope = CoroutineScope(SupervisorJob() + coroutineExceptionHandler)
+    private val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler)
 
     var loadingMode by mutableStateOf(BLOCKING)
         private set
