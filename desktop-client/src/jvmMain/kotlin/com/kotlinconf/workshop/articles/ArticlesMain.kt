@@ -5,6 +5,7 @@ import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
@@ -22,10 +23,12 @@ fun App(viewModel: ArticlesViewModel) {
 }
 
 fun main() = application {
-    val viewModel = ArticlesViewModel(
-        blockingService = BlogServiceBlocking(),
-        service = BlogService(),
-    )
+    val viewModel = remember {
+        ArticlesViewModel(
+            blockingService = BlogServiceBlocking(),
+            service = BlogService(),
+        )
+    }
     Window(
         onCloseRequest = {
             exitApplication()
