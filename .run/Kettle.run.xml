@@ -3,6 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="com.kotlinconf.workshop.kettle.KettleMainKt" />
     <module name="CoroutinesWorkshop.desktop-client.jvmMain" />
     <shortenClasspath name="NONE" />
+    <option name="VM_PARAMETERS" value="-Dkotlinx.coroutines.debug"/>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

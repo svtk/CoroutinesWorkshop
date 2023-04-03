@@ -47,7 +47,6 @@ class IssueTracker {
         MutableSharedFlow<IssueEvent>(onBufferOverflow = BufferOverflow.DROP_OLDEST, replay = 1)
     val issueEvents = _issueEvents.asSharedFlow()
 
-    // this function seems very much not thread safe
     fun addComment(issueId: IssueId, comment: Comment) {
         val issue = allIssues().firstOrNull { it.id == issueId } ?: return
         val allComments = comments.getOrPut(issue.id) { mutableListOf() }
@@ -62,7 +61,6 @@ class IssueTracker {
     }
 
     fun addIssue(author: User, title: String): Issue {
-        // TODO: This is very much not thread-safe :)
         val newId = IssueId(allIssues().maxOf { it.id.id } + 1)
         val newIssue = Issue(id = newId, author = author, title = title, status = IssueStatus.OPEN)
         issues.add(newIssue)

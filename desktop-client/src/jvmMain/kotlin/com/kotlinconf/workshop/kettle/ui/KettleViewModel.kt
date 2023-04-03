@@ -71,6 +71,14 @@ class KettleViewModel(
 //        flowOf(null)
         celsiusTemperature.map { it?.toFahrenheit() }
 
+    val smoothCelsiusTemperature: Flow<CelsiusTemperature> =
+        celsiusTemperature
+            .filterNotNull()
+            .map { it.value }
+            .averageOfLast(5)
+            .map { it.celsius }
+
+
     // Alternative implementation using StateFlow
     private val _celsiusStateFlow = MutableStateFlow<CelsiusTemperature?>(null)
     val celsiusStateFlow: StateFlow<CelsiusTemperature?> get() = _celsiusStateFlow
@@ -85,5 +93,16 @@ class KettleViewModel(
                 _fahrenheitStateFlow.value = it?.toFahrenheit()
             }
         }
+    }
+}
+
+private fun Flow<Double>.averageOfLast(n: Int): Flow<Double> = flow {
+    val deque = ArrayDeque<Double>(n)
+    this@averageOfLast.collect {
+        if (deque.size > n) {
+            deque.removeFirst()
+        }
+        deque.addLast(it)
+        emit(deque.average())
     }
 }

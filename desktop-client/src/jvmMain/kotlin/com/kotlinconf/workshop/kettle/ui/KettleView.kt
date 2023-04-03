@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import com.kotlinconf.workshop.kettle.FahrenheitTemperature
 import com.kotlinconf.workshop.kettle.KettlePowerState
+import com.kotlinconf.workshop.kettle.celsius
 
 @Composable
 fun KettleView(kettleViewModel: KettleViewModel) {
@@ -25,6 +26,7 @@ fun KettleView(kettleViewModel: KettleViewModel) {
         kettleViewModel.errorMessage.value,
         kettleViewModel.celsiusTemperature.collectAsState(null).value,
         kettleViewModel.fahrenheitTemperature.collectAsState(null).value,
+        kettleViewModel.smoothCelsiusTemperature.collectAsState(0.0.celsius).value,
         kettleViewModel::switchOn,
         kettleViewModel::switchOff,
     )
@@ -38,6 +40,7 @@ fun KettleView(
     errorMessage: String,
     celsiusTemperature: CelsiusTemperature?,
     fahrenheitTemperature: FahrenheitTemperature?,
+    smoothedCelsiusTemperature: CelsiusTemperature,
     switchOn: () -> Unit,
     switchOff: () -> Unit,
 ) {
@@ -97,6 +100,13 @@ fun KettleView(
         Text("${celsiusTemperature ?: '?'} C", style = MaterialTheme.typography.h4)
         Spacer(modifier = Modifier.height(10.dp))
         Text("${fahrenheitTemperature ?: '?'} F", style = MaterialTheme.typography.h4)
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            modifier = Modifier.padding(20.dp),
+            text = "Smoothed temperature:",
+            style = MaterialTheme.typography.h6
+        )
+        Text("$smoothedCelsiusTemperature C", style = MaterialTheme.typography.h4)
     }
 }
 
