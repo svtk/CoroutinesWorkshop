@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.kotlinconf.workshop.articles.network.BlogService
 import com.kotlinconf.workshop.articles.network.BlogServiceBlocking
+import com.kotlinconf.workshop.articles.network.createBlogService
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
 import com.kotlinconf.workshop.articles.ui.views.ArticlesView
 
@@ -28,7 +28,7 @@ fun main() = application {
     val viewModel = remember {
         ArticlesViewModel(
             blockingService = BlogServiceBlocking(),
-            service = BlogService(),
+            service = createBlogService(),
             parentScope = coroutineScope
         )
     }

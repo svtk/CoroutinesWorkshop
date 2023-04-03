@@ -16,7 +16,7 @@ fun main() {
 fun Application.module() {
     configureMonitoring()
     configureSerialization()
-    configureBlogRouting()
+    configureArticlesRouting()
     configureSockets()
     val issueTracker = setupIssueTracker()
     configureRouting(issueTracker)

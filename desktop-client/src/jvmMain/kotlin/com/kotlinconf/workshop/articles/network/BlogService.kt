@@ -14,7 +14,17 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-class BlogService {
+interface BlogService {
+    suspend fun getArticleInfoList(): List<ArticleInfo>
+
+    suspend fun getComments(articleInfo: ArticleInfo): List<Comment>
+
+    suspend fun getCommentsUnstable(articleInfo: ArticleInfo): List<Comment>
+}
+
+fun createBlogService(): BlogService = BlogServiceImpl()
+
+private class BlogServiceImpl: BlogService {
     private val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -24,14 +34,14 @@ class BlogService {
         }
     }
 
-    suspend fun getArticleInfoList(): List<ArticleInfo> {
+    override suspend fun getArticleInfoList(): List<ArticleInfo> {
         log("Started loading articles")
         return client.get(articlesEndpoint)
             .body<List<ArticleInfo>>()
             .also { log("Loaded articles") }
     }
 
-    suspend fun getComments(articleInfo: ArticleInfo): List<Comment> {
+    override suspend fun getComments(articleInfo: ArticleInfo): List<Comment> {
         log("Started loading comments for article ${articleInfo.title}")
         return client.get(commentsEndpoint(articleInfo.id))
             .body<List<Comment>>()
@@ -40,7 +50,7 @@ class BlogService {
             }
     }
 
-    suspend fun getCommentsUnstable(articleInfo: ArticleInfo): List<Comment> {
+    override suspend fun getCommentsUnstable(articleInfo: ArticleInfo): List<Comment> {
         log("Started loading comments for article ${articleInfo.title}")
         val response = client.get(commentsUnstableEndpoint(articleInfo.id))
         if (!response.status.isSuccess()) {

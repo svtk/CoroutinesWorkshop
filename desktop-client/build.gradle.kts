@@ -14,6 +14,7 @@ val ktor_version: String by project
 val datetime_version: String by project
 val logback_version: String by project
 val retrofit_version: String by project
+val coroutines_version: String by project
 
 java {
     toolchain {
@@ -34,6 +35,7 @@ kotlin {
                 implementation(project(":shared"))
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
                 implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
                 implementation("com.squareup.retrofit2:retrofit-mock:$retrofit_version")
@@ -54,6 +56,10 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
+                implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+                implementation("app.cash.turbine:turbine:0.12.3")
+
             }
         }
         all {

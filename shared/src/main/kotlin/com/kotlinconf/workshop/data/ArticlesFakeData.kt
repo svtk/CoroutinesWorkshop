@@ -6,16 +6,7 @@ import com.kotlinconf.workshop.blog.User
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-
-data class ArticleFullInfo(
-    val id: Int,
-    val delay: Duration,
-    val user: User,
-    val title: String,
-    val numberOfComments: Int,
-)
-
-object BlogFakeData {
+object ArticlesFakeData {
     private val users = mutableSetOf<User>()
     private val articleInfoList = mutableListOf<ArticleInfo>()
     private val commentsMap = mutableMapOf<Int, List<Comment>>()
@@ -31,7 +22,7 @@ object BlogFakeData {
         return delays.getValue(articleId)
     }
 
-    fun user(name: String): User {
+    private fun user(name: String): User {
         val existingUser = users.find { it.name == name }
         if (existingUser != null) return existingUser
 
@@ -41,7 +32,7 @@ object BlogFakeData {
         return newUser
     }
 
-    fun addArticle(
+    private fun addArticle(
         delay: Duration,
         author: String,
         title: String,
@@ -75,11 +66,4 @@ object BlogFakeData {
         addArticle(1.25.seconds, "Ekaterina", "We Are Looking For EAP Champions!",
             listOf("Emma", "Luca", "Milan"))
     }
-
-    private val commenters = listOf(
-        "Emma", "Julia", "Mila", "Sophie", "Olivia", "Yara", "Saar", "Nora", "Tess", "Noor",
-        "Noah", "Liam", "Luca", "Mees", "Finn", "James", "Milan", "Levi", "Sem"
-    )
-
-
 }

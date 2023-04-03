@@ -28,6 +28,6 @@ fun main1() {
 }
 
 suspend fun main() {
-    val service = BlogService()
+    val service = createBlogService()
     println(loadArticles(service))
 }
