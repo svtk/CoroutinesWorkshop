@@ -20,8 +20,10 @@ class FakeKettleService : KettleService() {
 }
 
 class TurbineTest {
+
     @Test
     fun `viewmodel should properly convert celsius to fahrenheit`() = runBlocking {
+        // initial code: just the runBlocking
         val vm = KettleViewModel(FakeKettleService(), this)
         vm.fahrenheitTemperature.test {
             assertEquals(68.0, awaitItem()!!.value, 0.05)
