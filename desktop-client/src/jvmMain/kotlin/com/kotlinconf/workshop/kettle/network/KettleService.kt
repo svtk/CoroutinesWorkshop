@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
-class KettleService {
+open class KettleService {
     private val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -56,18 +56,18 @@ class KettleService {
         }
     }
 
-    suspend fun switchOn(desiredTemperature: CelsiusTemperature) {
+    open suspend fun switchOn(desiredTemperature: CelsiusTemperature) {
         client.post(onEndpoint) {
             contentType(ContentType.Application.Json)
             setBody(desiredTemperature)
         }
     }
 
-    suspend fun switchOff() {
+    open suspend fun switchOff() {
         client.post(offEndpoint)
     }
 
-    suspend fun getTemperature(): CelsiusTemperature? {
+    open suspend fun getTemperature(): CelsiusTemperature? {
         val response = client.get(temperatureEndpoint())
         if (!response.status.isSuccess()) {
             log("Network error occurred: ${response.status}")
@@ -77,7 +77,7 @@ class KettleService {
             .also { log("Loading temperature: $it Celsius") }
     }
 
-    fun observeTemperature(): Flow<CelsiusTemperature?> = flow {
+    open fun observeTemperature(): Flow<CelsiusTemperature?> = flow {
         // initial code:
 //        emit(getTemperature())
         while (true) {
@@ -86,7 +86,7 @@ class KettleService {
         }
     }
 
-    fun observeKettlePowerState(): Flow<KettlePowerState> = flow {
+    open fun observeKettlePowerState(): Flow<KettlePowerState> = flow {
         // initial code:
 //        val socketSession = openWebSocketSession()
 //        val kettlePowerState: KettlePowerState = socketSession.receiveDeserialized()
