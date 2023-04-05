@@ -21,8 +21,6 @@ import com.kotlinconf.workshop.kettle.celsius
 fun KettleView(kettleViewModel: KettleViewModel) {
     KettleView(
         kettleViewModel.kettlePowerState.collectAsState(KettlePowerState.OFF).value,
-        kettleViewModel.isStableNetwork.value,
-        kettleViewModel::setStableNetwork,
         kettleViewModel.errorMessage.value,
         kettleViewModel.celsiusTemperature.collectAsState(null).value,
         kettleViewModel.fahrenheitTemperature.collectAsState(null).value,
@@ -35,8 +33,6 @@ fun KettleView(kettleViewModel: KettleViewModel) {
 @Composable
 fun KettleView(
     kettlePowerState: KettlePowerState,
-    isStable: Boolean,
-    onStableChange: (Boolean) -> Unit,
     errorMessage: String,
     celsiusTemperature: CelsiusTemperature?,
     fahrenheitTemperature: FahrenheitTemperature?,
@@ -80,14 +76,6 @@ fun KettleView(
             ) {
                 Text("Off")
             }
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(
-                checked = isStable,
-                onCheckedChange = onStableChange,
-                enabled = ALLOW_UNSTABLE_NETWORK
-            )
-            Text("Stable network")
         }
         if (errorMessage.isNotEmpty()) {
             Text(text = errorMessage, color = MaterialTheme.colors.error, style = MaterialTheme.typography.caption)

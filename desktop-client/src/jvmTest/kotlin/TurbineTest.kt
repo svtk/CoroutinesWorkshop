@@ -1,5 +1,6 @@
 import app.cash.turbine.test
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
+import com.kotlinconf.workshop.kettle.KettlePowerState
 import com.kotlinconf.workshop.kettle.celsius
 import com.kotlinconf.workshop.kettle.network.KettleService
 import com.kotlinconf.workshop.kettle.ui.KettleViewModel
@@ -9,13 +10,21 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class FakeKettleService : KettleService() {
-//    override suspend fun getTemperature(): CelsiusTemperature {
-//        return 20.0.celsius
-//    }
+class FakeKettleService : KettleService {
+    override suspend fun switchOn(desiredTemperature: CelsiusTemperature) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun switchOff() {
+        TODO("Not yet implemented")
+    }
 
     override fun observeTemperature(): Flow<CelsiusTemperature?> {
         return flowOf(20.0.celsius, 25.0.celsius, 100.0.celsius)
+    }
+
+    override fun observeKettlePowerState(): Flow<KettlePowerState> {
+        TODO("Not yet implemented")
     }
 }
 

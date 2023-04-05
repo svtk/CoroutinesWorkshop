@@ -36,13 +36,6 @@ class KettleViewModel(
         SupervisorJob() + coroutineExceptionHandler
     )
 
-    private val _stableNetwork = mutableStateOf(true)
-    val isStableNetwork get() = _stableNetwork
-    fun setStableNetwork(stable: Boolean) {
-        _stableNetwork.value = stable
-        kettleService.changeNetworkStability(stable)
-    }
-
     fun switchOn() {
         scope.launch {
             kettleService.switchOn(100.0.celsius)

@@ -9,7 +9,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.github.jetbrains.timetracker.androidapp.ui.theme.KettleAppTheme
-import com.kotlinconf.workshop.kettle.network.KettleService
+import com.kotlinconf.workshop.kettle.network.NetworkKettleService
 import com.kotlinconf.workshop.kettle.ui.KettleView
 import com.kotlinconf.workshop.kettle.ui.KettleViewModel
 
@@ -23,7 +23,7 @@ fun App(kettleViewModel: KettleViewModel) {
 
 fun main() = application {
     val scope = rememberCoroutineScope()
-    val kettleViewModel = remember { KettleViewModel(KettleService(), scope) }
+    val kettleViewModel = remember { KettleViewModel(NetworkKettleService(), scope) }
     Window(
         onCloseRequest = {
             exitApplication()
