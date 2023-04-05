@@ -8,10 +8,6 @@ import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-// initial code:
-//const val ALLOW_UNSTABLE_NETWORK = false
-const val ALLOW_UNSTABLE_NETWORK = true
-
 class KettleViewModel(
     private val kettleService: KettleService,
     parentScope: CoroutineScope,
@@ -33,7 +29,7 @@ class KettleViewModel(
     private val scope = CoroutineScope(
         // initial code:
 //        parentScope.coroutineContext
-        SupervisorJob() + coroutineExceptionHandler
+        parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler
     )
 
     fun switchOn() {
