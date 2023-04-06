@@ -8,7 +8,9 @@ import kotlinx.coroutines.delay
 data class UserID(val id: Long)
 data class UserData(val id: UserID, val name: String)
 
-data class BlogInfo(val title: String)
+data class ShopInfo(val title: String)
+
+data class Order(val userId: UserID, val description: String)
 
 interface WorkshopService {
 
@@ -17,10 +19,10 @@ interface WorkshopService {
     suspend fun anotherNetworkCall(): String
 
     suspend fun login(username: String, password: String): UserID
-    suspend fun loadBlogInfo(): BlogInfo
+    suspend fun loadShopInfo(): ShopInfo
 
-    suspend fun loadBlogInfoFailing(): BlogInfo
-    suspend fun loadArticles(userId: UserID, blogInfo: BlogInfo): List<ArticleInfo>
+    suspend fun loadShopInfoFailing(): ShopInfo
+    suspend fun loadOrders(userId: UserID, shopInfo: ShopInfo): List<Order>
 }
 
 class WorkshopServiceImpl : WorkshopService {
@@ -34,7 +36,7 @@ class WorkshopServiceImpl : WorkshopService {
 
     override suspend fun anotherNetworkCall(): String {
         log("Sending another network request")
-        delay(1000)
+        delay(800)
         log("Receiving another result")
         return "Another Result"
     }
@@ -46,23 +48,23 @@ class WorkshopServiceImpl : WorkshopService {
             .also { log("User $username successfully logged!") }
     }
 
-    override suspend fun loadBlogInfo(): BlogInfo {
+    override suspend fun loadShopInfo(): ShopInfo {
         log("Loading blog info starts")
         delay(1000)
-        return BlogInfo("Kotlin")
+        return ShopInfo("Kotlin")
             .also { log("Loading blog info completes: $it") }
     }
 
-    override suspend fun loadBlogInfoFailing(): BlogInfo {
+    override suspend fun loadShopInfoFailing(): ShopInfo {
         log("Loading blog info starts")
         delay(500)
         throw Exception("Loading error")
     }
 
-    override suspend fun loadArticles(userId: UserID, blogInfo: BlogInfo): List<ArticleInfo> {
+    override suspend fun loadOrders(userId: UserID, shopInfo: ShopInfo): List<Order> {
         log("Loading articles starts")
         delay(1000)
-        return listOf<ArticleInfo>()
+        return listOf<Order>()
             .also { log("Loading articles completes: loaded ${it.size} articles") }
     }
 }
