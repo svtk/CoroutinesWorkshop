@@ -15,13 +15,13 @@ import com.kotlinconf.workshop.ChatMessage
 
 @Composable
 fun ChatView(chatViewModel: ChatViewModel) {
-    val feedMessages = chatViewModel.chatMessages.collectAsState()
-    val privateMessages = chatViewModel.mentions.collectAsState()
+    val importantMessages = chatViewModel.importantMessages.collectAsState()
+    val allOtherMessages = chatViewModel.allOtherMessages.collectAsState()
     var textFieldState by remember { mutableStateOf("") }
     Column {
         Row {
-            MessageList(feedMessages.value)
-            MessageList(privateMessages.value)
+            MessageList(importantMessages.value)
+            MessageList(allOtherMessages.value)
         }
         Row {
             TextField(

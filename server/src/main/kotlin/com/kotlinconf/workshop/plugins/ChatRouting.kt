@@ -20,7 +20,7 @@ fun Application.configureChatRouting(chat: Chat = Chat()) {
                     }
                 }
                 launch {
-                    chat.chat.collect {
+                    chat.messageFlow.collect {
                         sess.sendSerialized(it)
                     }
                 }
@@ -30,9 +30,9 @@ fun Application.configureChatRouting(chat: Chat = Chat()) {
 }
 
 class Chat {
-    val _chat: MutableSharedFlow<ChatMessage> = MutableSharedFlow()
-    val chat: MutableSharedFlow<ChatMessage> get() = _chat
+    private val _messageFlow: MutableSharedFlow<ChatMessage> = MutableSharedFlow()
+    val messageFlow: MutableSharedFlow<ChatMessage> get() = _messageFlow
     suspend fun sendMessage(message: ChatMessage) {
-        _chat.emit(message)
+        _messageFlow.emit(message)
     }
 }

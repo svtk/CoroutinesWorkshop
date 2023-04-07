@@ -10,13 +10,13 @@ import kotlinx.coroutines.launch
 
 
 class ChatViewModel(val chatService: ChatService) {
-    val scope = CoroutineScope(SupervisorJob())
+    private val scope = CoroutineScope(SupervisorJob())
 
-    val _mentions = MutableStateFlow<List<ChatMessage>>(listOf())
-    val mentions: MutableStateFlow<List<ChatMessage>> get() = _mentions
+    private val _importantMessages = MutableStateFlow<List<ChatMessage>>(listOf())
+    val importantMessages: MutableStateFlow<List<ChatMessage>> get() = _importantMessages
 
-    val _chatMessages = MutableStateFlow<List<ChatMessage>>(listOf())
-    val chatMessages: MutableStateFlow<List<ChatMessage>> get() = _chatMessages
+    private val _allOtherMessages = MutableStateFlow<List<ChatMessage>>(listOf())
+    val allOtherMessages: MutableStateFlow<List<ChatMessage>> get() = _allOtherMessages
 
     fun sendMessage(message: ChatMessage) {
         scope.launch {
@@ -28,9 +28,9 @@ class ChatViewModel(val chatService: ChatService) {
         scope.launch {
             chatService.observeMessageEvents().collect { message ->
                 if (message.content.contains("@channel")) {
-                    _mentions.update { it + message }
+                    _importantMessages.update { it + message }
                 } else {
-                    _chatMessages.update { it + message }
+                    _allOtherMessages.update { it + message }
                 }
             }
         }

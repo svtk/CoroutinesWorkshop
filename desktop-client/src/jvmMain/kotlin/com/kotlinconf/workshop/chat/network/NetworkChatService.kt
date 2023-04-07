@@ -42,7 +42,7 @@ class NetworkChatService : ChatService {
         myWsSession?.sendSerialized(chatMessage)
     }
 
-    var myWsSession: DefaultClientWebSocketSession? = null
+    private var myWsSession: DefaultClientWebSocketSession? = null
 
     override fun observeMessageEvents(): Flow<ChatMessage> = flow {
         val ws = openWebSocketSession()
