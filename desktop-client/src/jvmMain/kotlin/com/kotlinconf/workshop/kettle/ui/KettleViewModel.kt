@@ -87,7 +87,7 @@ class KettleViewModel(
 
 private fun Flow<Double>.averageOfLast(n: Int): Flow<Double> = flow {
     val deque = ArrayDeque<Double>(n)
-    this@averageOfLast.collect {
+    collect {
         if (deque.size > n) {
             deque.removeFirst()
         }
