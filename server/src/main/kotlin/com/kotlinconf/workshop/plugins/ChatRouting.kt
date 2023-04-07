@@ -4,6 +4,7 @@ import com.kotlinconf.workshop.ChatMessage
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
@@ -11,15 +12,17 @@ fun Application.configureChatRouting(chat: Chat = Chat()) {
     routing {
         webSocket("/chat") { // websocketSession
             val sess = this
-            launch {
-                while (true) {
-                    val message = sess.receiveDeserialized<ChatMessage>()
-                    chat.sendMessage(message)
+            coroutineScope {
+                launch {
+                    while (true) {
+                        val message = sess.receiveDeserialized<ChatMessage>()
+                        chat.sendMessage(message)
+                    }
                 }
-            }
-            launch {
-                chat.chat.collect {
-                    sess.sendSerialized(it)
+                launch {
+                    chat.chat.collect {
+                        sess.sendSerialized(it)
+                    }
                 }
             }
         }

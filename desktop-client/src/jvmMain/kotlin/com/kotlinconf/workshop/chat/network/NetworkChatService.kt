@@ -32,7 +32,7 @@ class NetworkChatService : ChatService {
             method = HttpMethod.Get,
             host = WorkshopServerConfig.HOST,
             port = WorkshopServerConfig.PORT,
-            path = "/issueEvents"
+            path = "/chat"
         ).also {
             log("Opening a web socket session for ${WorkshopServerConfig.WS_SERVER_URL}/issueEvents")
         }

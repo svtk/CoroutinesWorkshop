@@ -1,27 +1,47 @@
 package com.kotlinconf.workshop.chat.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.ChatMessage
 
 @Composable
 fun ChatView(chatViewModel: ChatViewModel) {
-    val feedMessages = chatViewModel.feedMessages.collectAsState()
-    val privateMessages = chatViewModel.privateMessages.collectAsState()
-
-    Row {
-        MessageList(feedMessages.value)
-        MessageList(privateMessages.value)
+    val feedMessages = chatViewModel.chatMessages.collectAsState()
+    val privateMessages = chatViewModel.mentions.collectAsState()
+    var textFieldState by remember { mutableStateOf("") }
+    Column {
+        Row {
+            MessageList(feedMessages.value)
+            MessageList(privateMessages.value)
+        }
+        Row {
+            TextField(
+                value = textFieldState,
+                onValueChange = { textFieldState = it }
+            )
+            Button(onClick = {
+                chatViewModel.sendMessage(ChatMessage(textFieldState))
+                textFieldState = ""
+            }) {
+                Text(text = "Send")
+            }
+        }
     }
+
 }
 
 @Composable
 fun MessageList(chatMessages: List<ChatMessage>) {
-    LazyColumn {
+    LazyColumn(Modifier.width(200.dp)) {
         items(chatMessages) { message ->
             Message(message)
         }

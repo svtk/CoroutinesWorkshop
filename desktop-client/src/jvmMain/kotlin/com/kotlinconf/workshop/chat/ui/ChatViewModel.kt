@@ -1,7 +1,6 @@
 package com.kotlinconf.workshop.chat.ui
 
-import com.kotlinconf.workshop.FeedMessage
-import com.kotlinconf.workshop.PrivateMessage
+import com.kotlinconf.workshop.ChatMessage
 import com.kotlinconf.workshop.chat.network.ChatService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -10,21 +9,28 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class ChatViewModel(chatService: ChatService) {
+class ChatViewModel(val chatService: ChatService) {
     val scope = CoroutineScope(SupervisorJob())
 
-    val _privateMessages = MutableStateFlow<List<PrivateMessage>>(listOf())
-    val privateMessages: MutableStateFlow<List<PrivateMessage>> get() = _privateMessages
+    val _mentions = MutableStateFlow<List<ChatMessage>>(listOf())
+    val mentions: MutableStateFlow<List<ChatMessage>> get() = _mentions
 
-    val _feedMessages = MutableStateFlow<List<FeedMessage>>(listOf())
-    val feedMessages: MutableStateFlow<List<FeedMessage>> get() = _feedMessages
+    val _chatMessages = MutableStateFlow<List<ChatMessage>>(listOf())
+    val chatMessages: MutableStateFlow<List<ChatMessage>> get() = _chatMessages
+
+    fun sendMessage(message: ChatMessage) {
+        scope.launch {
+            chatService.sendMessage(message)
+        }
+    }
 
     init {
         scope.launch {
             chatService.observeMessageEvents().collect { message ->
-                when (message) {
-                    is PrivateMessage -> privateMessages.update { it + message }
-                    is FeedMessage -> feedMessages.update { it + message }
+                if (message.content.contains("@channel")) {
+                    _mentions.update { it + message }
+                } else {
+                    _chatMessages.update { it + message }
                 }
             }
         }

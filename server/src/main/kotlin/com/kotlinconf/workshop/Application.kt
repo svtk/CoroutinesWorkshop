@@ -18,7 +18,6 @@ fun Application.module() {
     configureSerialization()
     configureArticlesRouting()
     configureWalletRouting()
-    configureChatRouting()
     configureSockets()
     val issueTracker = setupIssueTracker()
     configureRouting(issueTracker)
@@ -26,4 +25,5 @@ fun Application.module() {
     val kettle = Kettle(CoroutineScope(coroutineContext))
     configureKettleRouting(kettle)
     configureKettleSockets(kettle)
+    configureChatRouting()
 }
