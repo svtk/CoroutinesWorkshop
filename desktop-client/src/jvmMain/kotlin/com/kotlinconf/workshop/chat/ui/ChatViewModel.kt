@@ -2,21 +2,23 @@ package com.kotlinconf.workshop.chat.ui
 
 import com.kotlinconf.workshop.ChatMessage
 import com.kotlinconf.workshop.chat.network.ChatService
+import com.kotlinconf.workshop.isImportant
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class ChatViewModel(val chatService: ChatService) {
+class ChatViewModel(private val chatService: ChatService) {
     private val scope = CoroutineScope(SupervisorJob())
 
     private val _importantMessages = MutableStateFlow<List<ChatMessage>>(listOf())
-    val importantMessages: MutableStateFlow<List<ChatMessage>> get() = _importantMessages
+    val importantMessages: StateFlow<List<ChatMessage>> get() = _importantMessages
 
     private val _allOtherMessages = MutableStateFlow<List<ChatMessage>>(listOf())
-    val allOtherMessages: MutableStateFlow<List<ChatMessage>> get() = _allOtherMessages
+    val allOtherMessages: StateFlow<List<ChatMessage>> get() = _allOtherMessages
 
     fun sendMessage(message: ChatMessage) {
         scope.launch {
@@ -27,7 +29,7 @@ class ChatViewModel(val chatService: ChatService) {
     init {
         scope.launch {
             chatService.observeMessageEvents().collect { message ->
-                if (message.content.contains("@channel")) {
+                if (message.isImportant()) {
                     _importantMessages.update { it + message }
                 } else {
                     _allOtherMessages.update { it + message }

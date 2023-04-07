@@ -1,54 +1,46 @@
 package com.kotlinconf.workshop.chat.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.ChatMessage
 
 @Composable
 fun ChatView(chatViewModel: ChatViewModel) {
-    val importantMessages = chatViewModel.importantMessages.collectAsState()
-    val allOtherMessages = chatViewModel.allOtherMessages.collectAsState()
-    var textFieldState by remember { mutableStateOf("") }
-    Column {
-        Row {
-            MessageList(importantMessages.value)
-            MessageList(allOtherMessages.value)
-        }
-        Row {
-            TextField(
-                value = textFieldState,
-                onValueChange = { textFieldState = it }
+    val importantMessages = chatViewModel.importantMessages.collectAsState().value
+    val allOtherMessages = chatViewModel.allOtherMessages.collectAsState().value
+    ChatView(
+        importantMessages,
+        allOtherMessages,
+        chatViewModel::sendMessage,
+    )
+}
+
+@Composable
+fun ChatView(
+    importantMessages: List<ChatMessage>,
+    allOtherMessages: List<ChatMessage>,
+    onMessageSent: (ChatMessage) -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Row(modifier = Modifier.weight(1f).fillMaxWidth()) {
+            MessageList(
+                modifier = Modifier.fillMaxWidth(0.5f),
+                messages = allOtherMessages,
+                title = "Messages",
+                contentAlignment = Alignment.CenterStart,
             )
-            Button(onClick = {
-                chatViewModel.sendMessage(ChatMessage(textFieldState))
-                textFieldState = ""
-            }) {
-                Text(text = "Send")
-            }
+            MessageList(
+                modifier = Modifier.fillMaxWidth(),
+                messages = importantMessages,
+                title = "Important messages",
+                contentAlignment = Alignment.CenterEnd,
+            )
         }
+        CreateMessage(onMessageSent = onMessageSent)
     }
-
-}
-
-@Composable
-fun MessageList(chatMessages: List<ChatMessage>) {
-    LazyColumn(Modifier.width(200.dp)) {
-        items(chatMessages) { message ->
-            Message(message)
-        }
-    }
-}
-
-@Composable
-fun Message(chatMessage: ChatMessage) {
-    Text(text = chatMessage.content)
 }
