@@ -50,7 +50,7 @@ class VirtualUser {
         "needs to be watered"
     )
 
-    fun createRandomIssue(issueTracker: IssueTracker) {
+    suspend fun createRandomIssue(issueTracker: IssueTracker) {
         issueTracker.addIssue(
             User(authors.random()),
             "${subject.random()} ${action.random()}"
