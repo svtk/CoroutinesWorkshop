@@ -17,9 +17,11 @@ suspend fun main0() {
 }
 
 // runBlocking
-fun main1() = runBlocking {
-    val result = service.networkCall()
-    log(result)
+fun main1() {
+    runBlocking {
+        val result = service.networkCall()
+        log(result)
+    }
 }
 
 // Launch + Job
@@ -70,19 +72,4 @@ fun main5() = runBlocking(Dispatchers.Default) {
     }
     val orders = service.loadOrders(userId.await(), blogInfo.await())
     log(orders)
-}
-
-// Extract loadOrders into a separate function
-fun main6() = runBlocking(Dispatchers.Default) {
-    log(loadOrders())
-}
-
-suspend fun loadOrders(): List<Order> = coroutineScope {
-    val userId = async(CoroutineName("login")) {
-        service.login("user", "1234")
-    }
-    val blogInfo = async(CoroutineName("bloginfo")) {
-        service.loadShopInfo()
-    }
-    service.loadOrders(userId.await(), blogInfo.await())
 }
