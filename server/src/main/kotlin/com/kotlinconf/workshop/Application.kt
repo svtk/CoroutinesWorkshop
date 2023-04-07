@@ -18,6 +18,7 @@ fun Application.module() {
     configureSerialization()
     configureArticlesRouting()
     configureWalletRouting()
+    configureChatRouting()
     configureSockets()
     val issueTracker = setupIssueTracker()
     configureRouting(issueTracker)
