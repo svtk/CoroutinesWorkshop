@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.kotlinconf.workshop.kettle.*
 import com.kotlinconf.workshop.kettle.network.KettleService
+import com.kotlinconf.workshop.kettle.utils.averageOfLast
 import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -66,33 +67,4 @@ class KettleViewModel(
             .map { it.value }
             .averageOfLast(5)
             .map { it.celsius }
-
-
-    // Alternative implementation using StateFlow
-    private val _celsiusStateFlow = MutableStateFlow<CelsiusTemperature?>(null)
-    val celsiusStateFlow: StateFlow<CelsiusTemperature?> get() = _celsiusStateFlow
-
-    private val _fahrenheitStateFlow = MutableStateFlow<FahrenheitTemperature?>(null)
-    val fahrenheitStateFlow: StateFlow<FahrenheitTemperature?> get() = _fahrenheitStateFlow
-
-    init {
-        scope.launch {
-            kettleService.observeTemperature().collect {
-                _celsiusStateFlow.value = it
-                _fahrenheitStateFlow.value = it?.toFahrenheit()
-            }
-        }
-    }
-}
-
-private fun Flow<Double>.averageOfLast(n: Int): Flow<Double> = flow {
-    // initial code: empty
-    val deque = ArrayDeque<Double>(n)
-    collect {
-        if (deque.size > n) {
-            deque.removeFirst()
-        }
-        deque.addLast(it)
-        emit(deque.average())
-    }
 }
