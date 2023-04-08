@@ -86,6 +86,7 @@ class KettleViewModel(
 }
 
 private fun Flow<Double>.averageOfLast(n: Int): Flow<Double> = flow {
+    // initial code: empty
     val deque = ArrayDeque<Double>(n)
     collect {
         if (deque.size > n) {
