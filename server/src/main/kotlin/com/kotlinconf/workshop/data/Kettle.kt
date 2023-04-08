@@ -53,7 +53,7 @@ class Kettle(
     }
 
     private fun coolABit() {
-        currentTemperature = (currentTemperature - 0.02).coerceAtLeast(ROOM_TEMPERATURE)
+        currentTemperature = (currentTemperature - 0.32).coerceAtLeast(ROOM_TEMPERATURE)
     }
 
     fun getTemperature(): CelsiusTemperature {
