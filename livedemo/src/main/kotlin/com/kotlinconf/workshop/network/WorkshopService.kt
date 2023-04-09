@@ -36,7 +36,7 @@ class WorkshopServiceImpl : WorkshopService {
 
     override suspend fun anotherNetworkCall(): String {
         log("Sending another network request")
-        delay(800)
+        delay(1500)
         log("Receiving another result")
         return "Another Result"
     }
