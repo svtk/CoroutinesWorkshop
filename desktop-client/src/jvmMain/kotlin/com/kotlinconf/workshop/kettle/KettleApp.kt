@@ -16,7 +16,7 @@ import com.kotlinconf.workshop.kettle.ui.KettleViewModel
 
 @Composable
 @Preview
-fun App(kettleViewModel: KettleViewModel) {
+fun KettleApp(kettleViewModel: KettleViewModel) {
     KettleAppTheme {
         KettleView(kettleViewModel)
     }
@@ -36,6 +36,6 @@ fun main() = application {
         title = "Kettle Flow Example",
         state = rememberWindowState(width = 200.dp, height = 500.dp),
     ) {
-        App(kettleViewModel)
+        KettleApp(kettleViewModel)
     }
 }

@@ -21,8 +21,13 @@ import com.kotlinconf.workshop.network.WorkshopKtorService
 
 @Composable
 @Preview
-fun App(viewModel: ArticlesViewModel) {
-    ArticlesView(viewModel)
+fun ArticlesApp(viewModel: ArticlesViewModel) {
+    MaterialTheme {
+        ProvideTextStyle(LocalTextStyle.current.copy(letterSpacing = 0.sp)) {
+            ArticlesView(viewModel)
+        }
+    }
+
 }
 
 fun main() = application {
@@ -42,13 +47,9 @@ fun main() = application {
         onCloseRequest = {
             exitApplication()
         },
-        title = "Coroutine Workshop",
-        state = rememberWindowState(width = 800.dp, height = 600.dp),
+        title = "Articles Example",
+        state = rememberWindowState(width = 760.dp, height = 760.dp),
     ) {
-        MaterialTheme() {
-            ProvideTextStyle(LocalTextStyle.current.copy(letterSpacing = 0.sp)) {
-                App(viewModel)
-            }
-        }
+        ArticlesApp(viewModel)
     }
 }

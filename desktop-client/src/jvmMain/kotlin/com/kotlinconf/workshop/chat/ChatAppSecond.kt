@@ -14,22 +14,22 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.kotlinconf.workshop.chat.network.NetworkChatService
-import com.kotlinconf.workshop.chat.ui.SimpleChatView
-import com.kotlinconf.workshop.chat.ui.SimpleChatViewModel
+import com.kotlinconf.workshop.chat.ui.ChatView
+import com.kotlinconf.workshop.chat.ui.ChatViewModel
 
 @Composable
 @Preview
-fun App(simpleChatViewModel: SimpleChatViewModel) {
+fun ChatAppSecond(chatViewModel: ChatViewModel) {
     MaterialTheme {
         Box(Modifier.fillMaxSize().padding(10.dp)) {
-            SimpleChatView(simpleChatViewModel)
+            ChatView(chatViewModel)
         }
     }
 }
 
 fun main() = application {
     val chatService = remember { NetworkChatService() }
-    val chatViewModel = remember { SimpleChatViewModel(chatService) }
+    val chatViewModel = remember { ChatViewModel(chatService) }
     LaunchedEffect(true) {
         chatService.ensureServerIsRunning()
     }
@@ -37,9 +37,9 @@ fun main() = application {
         onCloseRequest = {
             exitApplication()
         },
-        title = "Simple chat example",
+        title = "Chat example",
         state = rememberWindowState(width = 500.dp, height = 300.dp),
     ) {
-        App(chatViewModel)
+        ChatAppSecond(chatViewModel)
     }
 }
