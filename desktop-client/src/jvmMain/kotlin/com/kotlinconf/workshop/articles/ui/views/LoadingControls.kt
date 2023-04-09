@@ -69,10 +69,12 @@ fun LoadingModesDropdown(
     loadingMode: LoadingMode,
     updateLoadingMode: (LoadingMode) -> Unit
 ) {
+    val width = 400.dp
     var expanded by remember { mutableStateOf(false) }
-    Box {
+    Box(modifier = Modifier.width(width)) {
         OutlinedTextField(
-            value = loadingMode.name,
+            modifier = Modifier.width(width),
+            value = loadingMode.title,
             onValueChange = {},
             readOnly = true,
         )
@@ -86,6 +88,7 @@ fun LoadingModesDropdown(
             )
         }
         DropdownMenu(
+            modifier = Modifier.width(width),
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
@@ -94,7 +97,7 @@ fun LoadingModesDropdown(
                     updateLoadingMode(chosenMode)
                     expanded = false
                 }) {
-                    Text(text = chosenMode.name)
+                    Text(text = chosenMode.title)
                 }
             }
         }
