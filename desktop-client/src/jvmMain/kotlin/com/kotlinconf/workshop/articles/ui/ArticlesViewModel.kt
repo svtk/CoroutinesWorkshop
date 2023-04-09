@@ -25,7 +25,7 @@ class ArticlesViewModel(
         markLoadingCompletion(exception)
     }
 
-    // Task X.
+    // Task: Using SupervisorJob to handle errors
     // initial code: Job()
     // Replace Job() with SupervisorJob() and make sure the app keeps working on a child failure (LoadingMode.UNSTABLE_NETWORK).
     private val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler)
@@ -76,10 +76,12 @@ class ArticlesViewModel(
                     val articleList = loadArticles(blockingService)
                     updateResults(articleList, startTime)
                 }
+
                 SUSPENDING -> {
                     val articleList = loadArticles(service)
                     updateResults(articleList, startTime)
                 }
+
                 CONCURRENT -> {
                     val articleList = loadArticlesConcurrently(service)
                     updateResults(articleList, startTime)
@@ -94,14 +96,17 @@ class ArticlesViewModel(
                     val articleFlow = observeArticlesLoading(service)
                     updateResultsWithProgress(articleFlow, startTime)
                 }
+
                 CONCURRENT_WITH_PROGRESS -> {
                     val articleFlow = observeArticlesConcurrently(service)
                     updateResultsWithProgress(articleFlow, startTime)
                 }
+
                 UNSTABLE_NETWORK -> {
                     val articles = observeArticlesUnstable(service)
                     updateResultsWithProgress(articles, startTime)
                 }
+
                 UNSTABLE_WITH_RETRY -> {
                     val articles = observeArticlesUnstableWithRetry(service)
                     updateResultsWithProgress(articles, startTime)
