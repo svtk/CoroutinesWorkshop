@@ -34,7 +34,7 @@ class NetworkChatService : ChatService {
             port = WorkshopServerConfig.PORT,
             path = "/chat"
         ).also {
-            log("Opening a web socket session for ${WorkshopServerConfig.WS_SERVER_URL}/issueEvents")
+            log("Opening a web socket session for ${WorkshopServerConfig.WS_SERVER_URL}/chat")
         }
     }
 
