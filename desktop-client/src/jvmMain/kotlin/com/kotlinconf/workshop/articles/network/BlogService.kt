@@ -1,8 +1,6 @@
 package com.kotlinconf.workshop.articles.network
 
-import com.kotlinconf.workshop.WorkshopServerConfig.articlesEndpoint
-import com.kotlinconf.workshop.WorkshopServerConfig.commentsEndpoint
-import com.kotlinconf.workshop.WorkshopServerConfig.commentsUnstableEndpoint
+import com.kotlinconf.workshop.WorkshopServerConfig
 import com.kotlinconf.workshop.blog.ArticleInfo
 import com.kotlinconf.workshop.blog.Comment
 import com.kotlinconf.workshop.network.WorkshopKtorService
@@ -22,6 +20,10 @@ interface BlogService {
 fun createBlogService(): BlogService = BlogServiceImpl()
 
 private class BlogServiceImpl: BlogService, WorkshopKtorService() {
+    val articlesEndpoint = "${WorkshopServerConfig.WORKSHOP_SERVER_URL}/articles"
+    fun commentsEndpoint(id: Int) = "${WorkshopServerConfig.WORKSHOP_SERVER_URL}/articles/$id/comments"
+    fun commentsUnstableEndpoint(id: Int) = commentsEndpoint(id) + "?failure=0.3"
+
     override suspend fun getArticleInfoList(): List<ArticleInfo> {
         log("Started loading articles")
         return client.get(articlesEndpoint)
