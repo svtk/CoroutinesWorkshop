@@ -16,14 +16,12 @@ fun main() {
 fun Application.module() {
     configureMonitoring()
     configureSerialization()
+    configureSockets()
+
+    configureStatusRouting()
     configureArticlesRouting()
     configureWalletRouting()
-    configureSockets()
-    val issueTracker = setupIssueTracker()
-    configureRouting(issueTracker)
-    configureIssueTrackerEventSockets(issueTracker)
     val kettle = Kettle(CoroutineScope(coroutineContext))
     configureKettleRouting(kettle)
-    configureKettleSockets(kettle)
     configureChatRouting()
 }
