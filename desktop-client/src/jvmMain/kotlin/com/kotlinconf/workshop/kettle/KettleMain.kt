@@ -2,6 +2,7 @@ package com.kotlinconf.workshop.kettle
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
@@ -23,7 +24,11 @@ fun App(kettleViewModel: KettleViewModel) {
 
 fun main() = application {
     val scope = rememberCoroutineScope()
-    val kettleViewModel = remember { KettleViewModel(NetworkKettleService(), scope) }
+    val kettleService = remember { NetworkKettleService() }
+    val kettleViewModel = remember { KettleViewModel(kettleService, scope) }
+    LaunchedEffect(true) {
+        kettleService.ensureServerIsRunning()
+    }
     Window(
         onCloseRequest = {
             exitApplication()

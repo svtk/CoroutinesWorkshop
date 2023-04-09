@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,11 @@ fun App(chatViewModel: ChatViewModel) {
 }
 
 fun main() = application {
-    val chatViewModel = remember { ChatViewModel(NetworkChatService()) }
+    val chatService = remember { NetworkChatService() }
+    val chatViewModel = remember { ChatViewModel(chatService) }
+    LaunchedEffect(true) {
+        chatService.ensureServerIsRunning()
+    }
     Window(
         onCloseRequest = {
             exitApplication()

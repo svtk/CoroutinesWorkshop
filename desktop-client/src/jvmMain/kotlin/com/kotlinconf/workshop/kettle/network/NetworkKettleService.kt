@@ -5,32 +5,17 @@ import com.kotlinconf.workshop.WorkshopServerConfig.PORT
 import com.kotlinconf.workshop.WorkshopServerConfig.WS_SERVER_URL
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import com.kotlinconf.workshop.kettle.KettlePowerState
+import com.kotlinconf.workshop.network.WorkshopKtorService
 import com.kotlinconf.workshop.util.log
-import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.serialization.kotlinx.*
-import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.json.Json
 
-open class NetworkKettleService : KettleService {
-    private val client = HttpClient {
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-            })
-        }
-        install(WebSockets) {
-            contentConverter = KotlinxWebsocketSerializationConverter(Json)
-        }
-    }
+open class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsockets = true) {
     private var stableNetwork = true
     private val host = "http://0.0.0.0:9020/"
     private val onEndpoint = "$host/kettle/on"
