@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 class ChatViewModel(private val chatService: ChatService) {
     private val scope = CoroutineScope(SupervisorJob())
 
+    // Task: Split chat into two StateFlows
+
     private val _importantMessages = MutableStateFlow<List<ChatMessage>>(listOf())
     val importantMessages: StateFlow<List<ChatMessage>> get() = _importantMessages
 

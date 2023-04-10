@@ -25,7 +25,7 @@ class ArticlesViewModel(
         markLoadingCompletion(exception)
     }
 
-    // Task: Using SupervisorJob to handle errors
+    // Task: Use SupervisorJob to handle errors
     // initial code: Job()
     // Replace Job() with SupervisorJob() and make sure the app keeps working on a child failure (LoadingMode.UNSTABLE_NETWORK).
     private val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler)

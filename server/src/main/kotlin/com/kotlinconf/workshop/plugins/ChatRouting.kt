@@ -17,22 +17,23 @@ fun Application.configureChatRouting(chat: Chat = Chat()) {
     }
 }
 
-private suspend fun handleSocket(
-    session: WebSocketServerSession,
+// Task: Implement chat server using SharedFlow
+suspend fun handleSocket(
+    socket: WebSocketServerSession,
     chat: Chat
 ) {
     coroutineScope {
         launch {
             // use socket.receiveDeserialized<ChatMessage>() to receive a message from the WebSocket
             while (true) {
-                val message = session.receiveDeserialized<ChatMessage>()
+                val message = socket.receiveDeserialized<ChatMessage>()
                 chat.broadcastMessage(message)
             }
         }
         launch {
             // use session.sendSerialized(message) to send a message to the WebSocket
             chat.messageFlow.collect {
-                session.sendSerialized(it)
+                socket.sendSerialized(it)
             }
         }
     }

@@ -6,8 +6,7 @@ import com.kotlinconf.workshop.articles.network.BlogServiceBlocking
 import com.kotlinconf.workshop.articles.network.createBlogService
 import com.kotlinconf.workshop.blog.ArticleInfo
 
-// TODO
-// Implement 'loadArticlesWithComments' in two versions: blocking and suspend
+// Task: Implement blocking and non-blocking versions for articles loading
 
 // This function is invoked when you select the "BLOCKING" option in the UI.
 fun loadArticles(serviceBlocking: BlogServiceBlocking): List<Article> {
