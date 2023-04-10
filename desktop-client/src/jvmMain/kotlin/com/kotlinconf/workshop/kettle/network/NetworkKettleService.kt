@@ -45,17 +45,14 @@ open class NetworkKettleService : KettleService, WorkshopKtorService(configureWe
         client.post(offEndpoint)
     }
 
-    private suspend fun getTemperature(): CelsiusTemperature? {
+    private suspend fun getTemperature(): CelsiusTemperature {
         val response = client.get(temperatureEndpoint())
-        if (!response.status.isSuccess()) {
-            log("Network error occurred: ${response.status}")
-            return null
-        }
         return response.body<CelsiusTemperature>()
             .also { log("Loading temperature: $it Celsius") }
     }
 
-    override fun observeTemperature(): Flow<CelsiusTemperature?> = flow {
+    // Task. Create a flow that emits the kettle temperature every second
+    override fun observeTemperature(): Flow<CelsiusTemperature> = flow {
         // initial code:
 //        emit(getTemperature())
         while (true) {

@@ -36,7 +36,7 @@ fun KettleView(
     errorMessage: String,
     celsiusTemperature: CelsiusTemperature?,
     fahrenheitTemperature: FahrenheitTemperature?,
-    smoothedCelsiusTemperature: CelsiusTemperature,
+    smoothedCelsiusTemperature: CelsiusTemperature?,
     switchOn: () -> Unit,
     switchOff: () -> Unit,
 ) {
@@ -85,16 +85,22 @@ fun KettleView(
             text = "Temperature:",
             style = MaterialTheme.typography.h6
         )
-        Text("${celsiusTemperature ?: '?'} C", style = MaterialTheme.typography.h4)
-        Spacer(modifier = Modifier.height(10.dp))
-        Text("${fahrenheitTemperature ?: '?'} F", style = MaterialTheme.typography.h4)
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            modifier = Modifier.padding(20.dp),
-            text = "Smoothed temperature:",
-            style = MaterialTheme.typography.h6
-        )
-        Text("$smoothedCelsiusTemperature C", style = MaterialTheme.typography.h4)
+        if (celsiusTemperature != null) {
+            Text("$celsiusTemperature C", style = MaterialTheme.typography.h4)
+        }
+        if (fahrenheitTemperature != null) {
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("$fahrenheitTemperature F", style = MaterialTheme.typography.h4)
+        }
+        if (smoothedCelsiusTemperature != null) {
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                modifier = Modifier.padding(20.dp),
+                text = "Smoothed temperature:",
+                style = MaterialTheme.typography.h6
+            )
+            Text("$smoothedCelsiusTemperature C", style = MaterialTheme.typography.h4)
+        }
     }
 }
 

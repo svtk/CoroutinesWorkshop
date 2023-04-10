@@ -19,7 +19,7 @@ class FakeKettleService : KettleService {
         TODO("Not yet implemented")
     }
 
-    override fun observeTemperature(): Flow<CelsiusTemperature?> {
+    override fun observeTemperature(): Flow<CelsiusTemperature> {
         return flowOf(20.0.celsius, 25.0.celsius, 100.0.celsius)
     }
 

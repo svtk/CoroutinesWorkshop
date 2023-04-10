@@ -62,6 +62,8 @@ class KettleViewModel(
         celsiusTemperature.map { it?.toFahrenheit() }
 
     val smoothCelsiusTemperature: Flow<CelsiusTemperature> =
+    // initial code:
+//        flowOf(null)
         celsiusTemperature
             .filterNotNull()
             .map { it.value }
