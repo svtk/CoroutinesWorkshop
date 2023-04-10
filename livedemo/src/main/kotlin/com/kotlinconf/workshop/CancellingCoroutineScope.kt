@@ -2,7 +2,31 @@ package com.kotlinconf.workshop
 
 import kotlinx.coroutines.*
 
-suspend fun main() = runBlocking {
+
+suspend fun main() {
+    coroutineScope {
+        launch {
+            while (true) {
+                println("X")
+                delay(500)
+            }
+        }
+        launch {
+            while (true) {
+                println("Y")
+                delay(500)
+            }
+        }
+        delay(2000)
+        cancel()
+    }
+}
+
+// Alternative implementation that demonstrates coroutine scope cancellation is cooperative when using the
+// CoroutineScope function
+
+
+suspend fun mainX() = runBlocking {
     val myScope = CoroutineScope(coroutineContext + Dispatchers.IO)
 
     myScope.launch {
