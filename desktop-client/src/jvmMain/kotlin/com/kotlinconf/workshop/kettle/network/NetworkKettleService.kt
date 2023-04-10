@@ -15,7 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-open class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsockets = true) {
+class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsockets = true) {
     private var stableNetwork = true
     private val host = "http://0.0.0.0:9020/"
     private val onEndpoint = "$host/kettle/on"
@@ -61,6 +61,7 @@ open class NetworkKettleService : KettleService, WorkshopKtorService(configureWe
         }
     }
 
+    // Task. Create a flow that emits the Kettle power state whenever it receives a WebSocket message
     override fun observeKettlePowerState(): Flow<KettlePowerState> = flow {
         // initial code:
 //        val socketSession = openWebSocketSession()
