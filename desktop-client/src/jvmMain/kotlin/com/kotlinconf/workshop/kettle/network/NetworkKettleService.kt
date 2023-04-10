@@ -37,11 +37,8 @@ open class NetworkKettleService : KettleService, WorkshopKtorService(configureWe
         }
     }
 
-    override suspend fun switchOn(desiredTemperature: CelsiusTemperature) {
-        client.post(onEndpoint) {
-            contentType(ContentType.Application.Json)
-            setBody(desiredTemperature)
-        }
+    override suspend fun switchOn() {
+        client.post(onEndpoint)
     }
 
     override suspend fun switchOff() {

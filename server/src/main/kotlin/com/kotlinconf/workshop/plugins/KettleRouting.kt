@@ -13,8 +13,7 @@ import kotlin.random.Random
 fun Application.configureKettleRouting(kettle: Kettle) {
     routing {
         post("kettle/on") {
-            val desiredTemperature = call.receive<CelsiusTemperature>()
-            kettle.switchOn(desired = desiredTemperature)
+            kettle.switchOn()
         }
         post("kettle/off") {
             kettle.switchOff()

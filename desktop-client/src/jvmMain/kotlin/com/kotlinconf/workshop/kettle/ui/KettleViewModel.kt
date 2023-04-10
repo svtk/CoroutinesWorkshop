@@ -35,7 +35,7 @@ class KettleViewModel(
 
     fun switchOn() {
         scope.launch {
-            kettleService.switchOn(100.0.celsius)
+            kettleService.switchOn()
         }
     }
 

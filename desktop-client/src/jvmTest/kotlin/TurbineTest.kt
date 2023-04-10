@@ -11,7 +11,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class FakeKettleService : KettleService {
-    override suspend fun switchOn(desiredTemperature: CelsiusTemperature) {
+    override suspend fun switchOn() {
         TODO("Not yet implemented")
     }
 
