@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Kettle" type="JetRunConfigurationType" singleton="false">
-    <option name="MAIN_CLASS_NAME" value="com.kotlinconf.workshop.kettle.KettleMainKt" />
+    <option name="MAIN_CLASS_NAME" value="com.kotlinconf.workshop.kettle.KettleAppKt" />
     <module name="CoroutinesWorkshop.desktop-client.jvmMain" />
     <shortenClasspath name="NONE" />
     <option name="VM_PARAMETERS" value="-Dkotlinx.coroutines.debug" />

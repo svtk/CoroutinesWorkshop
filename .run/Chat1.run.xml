@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Chat1" type="JetRunConfigurationType" singleton="false">
-    <option name="MAIN_CLASS_NAME" value="com.kotlinconf.workshop.chat.Chat1Kt" />
+    <option name="MAIN_CLASS_NAME" value="com.kotlinconf.workshop.chat.ChatAppFirstKt" />
     <module name="CoroutinesWorkshop.desktop-client.jvmMain" />
     <shortenClasspath name="NONE" />
     <method v="2">
