@@ -30,9 +30,21 @@ fun main1() = runBlocking<Unit> {
     }
 }
 
+// Whenever we start a new coroutine,
+// it inherits the context
+// and registers itself as a child of a parent coroutine
+fun main2() = runBlocking<Unit> {
+    val job = launch {
+        delay(100)
+    }
+    println(job)
+    println("Children of the coroutine: ${coroutineContext.job.children.toList()}")
+}
+
+// probably not
 // how does it work with suspend fun? which context does it have
 // the same output as above: suspend fun accesses the context it was called in
-fun main2() = runBlocking<Unit> {
+fun main3() = runBlocking<Unit> {
     whichContextDoIHave("grandparent")
 
     launch(Dispatchers.Default + CoroutineName("my")) {
@@ -44,25 +56,4 @@ fun main2() = runBlocking<Unit> {
 
 suspend fun whichContextDoIHave(whoAmI: String) {
     println("$whoAmI: $coroutineContext")
-}
-
-// how exactly does it work with loadArticlesConcurrently? Why is it cancellable?
-// TODO try to visualize this hierarchy in slides
-fun main3() = runBlocking<Unit> {
-    launch {
-        loadArticlesConcurrently()
-    }
-    println("Children of the main coroutine: ${coroutineContext.job.children.toList()}")
-
-}
-
-suspend fun loadArticlesConcurrently() {
-    val parentContext = coroutineContext
-    delay(100)
-    println("Launch context: ${parentContext.job}")
-    coroutineScope {
-        delay(200)
-        println("Children of launch job: ${parentContext.job.children.toList()}")
-        println("Coroutine scope context: ${coroutineContext.job}")
-    }
 }
