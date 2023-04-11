@@ -9,16 +9,13 @@ import kotlinx.coroutines.*
 
 // Extract loadOrders into a separate function
 fun main() = runBlocking {
-    val orders = coroutineScope {
-        val userId = async {
-            service.login("user", "1234")
-        }
-        val blogInfo = async {
-            service.loadShopInfo()
-        }
-        service.loadOrders(userId.await(), blogInfo.await())
+    val userId = async {
+        service.login("user", "1234")
     }
-    log(orders)
+    val blogInfo = async {
+        service.loadShopInfo()
+    }
+    log(service.loadOrders(userId.await(), blogInfo.await()))
 }
 
 fun loadOrders(): List<Order> {
