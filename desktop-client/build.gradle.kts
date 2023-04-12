@@ -49,6 +49,8 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+                implementation("com.squareup.okhttp3:okhttp:4.9.0")
                 implementation("io.ktor:ktor-client-websockets:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
                 implementation("ch.qos.logback:logback-classic:$logback_version")
