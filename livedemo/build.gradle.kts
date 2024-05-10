@@ -9,8 +9,8 @@ repositories {
     mavenCentral()
 }
 
-val ktor_version = "2.2.3"
-val logback_version="1.2.11"
+val ktor_version = "2.3.11"
+val logback_version="1.3.14"
 
 dependencies {
     implementation("io.ktor:ktor-client-core:$ktor_version")

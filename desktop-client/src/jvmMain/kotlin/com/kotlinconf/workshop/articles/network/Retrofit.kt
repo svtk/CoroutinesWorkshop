@@ -1,12 +1,12 @@
 package com.kotlinconf.workshop.articles.network
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.kotlinconf.workshop.WorkshopServerConfig
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 object WorkshopRetrofitClient {
     @OptIn(ExperimentalSerializationApi::class)
