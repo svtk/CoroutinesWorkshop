@@ -61,6 +61,7 @@ fun main4() = runBlocking {
     log(orders)
 }
 
+// These functions also take arguments
 // Change Dispatcher and CoroutineName
 fun main5() = runBlocking(Dispatchers.Default) {
     log("Start")
