@@ -14,7 +14,7 @@ fun main0() = runBlocking<Unit> {
 }
 
 // context is an immutable set of elements such as:
-// (slides?)
+// Dispatcher, Job, CoroutineName, etc.
 
 // inheriting context from parent
 // adding more elements to it
@@ -30,21 +30,9 @@ fun main1() = runBlocking<Unit> {
     }
 }
 
-// Whenever we start a new coroutine,
-// it inherits the context
-// and registers itself as a child of a parent coroutine
-fun main2() = runBlocking<Unit> {
-    val job = launch {
-        delay(100)
-    }
-    println(job)
-    println("Children of the coroutine: ${coroutineContext.job.children.toList()}")
-}
-
-// probably not
 // how does it work with suspend fun? which context does it have
 // the same output as above: suspend fun accesses the context it was called in
-fun main3() = runBlocking<Unit> {
+fun main2() = runBlocking<Unit> {
     whichContextDoIHave("grandparent")
 
     launch(Dispatchers.Default + CoroutineName("my")) {
@@ -54,6 +42,19 @@ fun main3() = runBlocking<Unit> {
     }
 }
 
+// CoroutineContext is available in all suspend functions!
 suspend fun whichContextDoIHave(whoAmI: String) {
     println("$whoAmI: $coroutineContext")
+}
+
+// Whenever we start a new coroutine,
+// it inherits the context
+// and registers itself as a child of a parent coroutine
+fun main3() = runBlocking<Unit> {
+    val job = launch {
+        delay(100)
+    }
+    println(job)
+    println(job in coroutineContext.job.children.toList())
+    println("Children of the coroutine: ${coroutineContext.job.children.toList()}")
 }
