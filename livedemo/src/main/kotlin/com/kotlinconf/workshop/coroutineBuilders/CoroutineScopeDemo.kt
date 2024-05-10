@@ -22,3 +22,17 @@ fun loadOrders(): List<Order> {
     TODO()
 }
 
+// Result
+fun main1() = runBlocking {
+    log(loadOrders1())
+}
+
+suspend fun loadOrders1(): List<Order> = coroutineScope {
+    val userId = async {
+        service.login("user", "1234")
+    }
+    val blogInfo = async {
+        service.loadShopInfo()
+    }
+    service.loadOrders(userId.await(), blogInfo.await())
+}
