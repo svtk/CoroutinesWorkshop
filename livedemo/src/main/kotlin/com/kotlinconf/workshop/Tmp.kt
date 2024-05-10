@@ -5,14 +5,14 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.system.measureTimeMillis
 
-@OptIn(DelicateCoroutinesApi::class)
 
+@OptIn(ExperimentalCoroutinesApi::class)
 
 val counterContext =
-    newSingleThreadContext("CounterContext")
-//var counter = 0
+    Dispatchers.Default.limitedParallelism(1)
+var counter = 0
 
-fun main1() = runBlocking {
+fun main() = runBlocking {
     withContext(Dispatchers.Default) {
         massiveRun {
             withContext(counterContext) {
@@ -24,9 +24,9 @@ fun main1() = runBlocking {
 }
 
 val mutex = Mutex()
-var counter = 0
+// var counter = 0
 
-fun main() = runBlocking {
+fun main1() = runBlocking {
     withContext(Dispatchers.Default) {
         massiveRun {
             mutex.withLock {
