@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Chat2" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="KettleApp" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$/desktop-client" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="-DmainClass=com.kotlinconf.workshop.chat.ChatAppSecondKt --quiet" />
+      <option name="scriptParameters" value="-DmainClass=com.kotlinconf.workshop.kettle.KettleAppKt --quiet" />
       <option name="taskDescriptions">
         <list />
       </option>
