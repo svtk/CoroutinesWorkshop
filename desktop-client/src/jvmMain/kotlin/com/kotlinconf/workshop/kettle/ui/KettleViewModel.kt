@@ -54,9 +54,9 @@ class KettleViewModel(
 
     val smoothCelsiusTemperature: Flow<CelsiusTemperature?> =
         flowOf(null)
-//        celsiusTemperature.map {
-//            it.value
-//        }.averageOfLast(5).map {
-//            CelsiusTemperature(it)
-//        }
+//        celsiusTemperature
+//            .filterNotNull()
+//            .map { it.value }
+//            .averageOfLast(5)
+//            .map { it.celsius }
 }
