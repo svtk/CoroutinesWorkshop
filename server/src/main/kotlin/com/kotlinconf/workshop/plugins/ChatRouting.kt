@@ -25,16 +25,9 @@ suspend fun handleSocket(
     coroutineScope {
         launch {
             // use socket.receiveDeserialized<ChatMessage>() to receive a message from the WebSocket
-            while (true) {
-                val message = socket.receiveDeserialized<ChatMessage>()
-                chat.broadcastMessage(message)
-            }
         }
         launch {
             // use session.sendSerialized(message) to send a message to the WebSocket
-            chat.messageFlow.collect {
-                socket.sendSerialized(it)
-            }
         }
     }
 }

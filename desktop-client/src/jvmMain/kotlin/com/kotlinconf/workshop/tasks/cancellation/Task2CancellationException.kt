@@ -8,9 +8,7 @@ fun main() = runBlocking {
         while (true) {
             try {
                 doSomeWorkThatMayFail()
-            // initial code:
-//            } catch (e: Exception) {
-            } catch (e: MyException) {
+            } catch (e: Exception) {
                 println("Oops! ${e.message}")
             }
         }
