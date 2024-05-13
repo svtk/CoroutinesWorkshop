@@ -6,9 +6,7 @@ import kotlin.time.Duration.Companion.seconds
 fun main() = runBlocking {
     val job = launch(Dispatchers.IO) {
         var index = 0
-        // initial code:
-//        while (true) {
-        while (isActive) {
+        while (true) {
             val result = doCpuHeavyWork(200)
             println("Done (${index++}): $result")
         }
