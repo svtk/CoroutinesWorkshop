@@ -44,28 +44,18 @@ class KettleViewModel(
 
     val kettlePowerState: Flow<KettlePowerState> =
         kettleService.observeKettlePowerState()
-//            .stateIn(viewModelScope, SharingStarted.Lazily, KettleState.OFF)
-            .catch { showErrorMessage(it) }
-            .shareIn(viewModelScope, SharingStarted.Lazily)
 
     val celsiusTemperature: Flow<CelsiusTemperature?> =
         kettleService.observeTemperature()
-            // initial code: no stateIn
-            .catch { showErrorMessage(it) }
-            .shareIn(viewModelScope, SharingStarted.Lazily)
-//            .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     val fahrenheitTemperature: Flow<FahrenheitTemperature?> =
-    // initial code:
-//        flowOf(null)
-        celsiusTemperature.map { it?.toFahrenheit() }
+        flowOf(null)
 
-    val smoothCelsiusTemperature: Flow<CelsiusTemperature> =
-    // initial code:
-//        flowOf(null)
-        celsiusTemperature
-            .filterNotNull()
-            .map { it.value }
-            .averageOfLast(5)
-            .map { it.celsius }
+    val smoothCelsiusTemperature: Flow<CelsiusTemperature?> =
+        flowOf(null)
+//        celsiusTemperature.map {
+//            it.value
+//        }.averageOfLast(5).map {
+//            CelsiusTemperature(it)
+//        }
 }
