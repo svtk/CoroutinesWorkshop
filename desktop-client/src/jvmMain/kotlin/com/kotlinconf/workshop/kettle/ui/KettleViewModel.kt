@@ -28,9 +28,7 @@ class KettleViewModel(
         CoroutineExceptionHandler { _, throwable -> showErrorMessage(throwable) }
 
     private val scope = CoroutineScope(
-        // initial code:
-//        parentScope.coroutineContext
-        parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler
+        parentScope.coroutineContext
     )
 
     fun switchOn() {
@@ -47,26 +45,18 @@ class KettleViewModel(
 
     val kettlePowerState: Flow<KettlePowerState> =
         kettleService.observeKettlePowerState()
-//            .stateIn(scope, SharingStarted.Lazily, KettleState.OFF)
-            .shareIn(scope, SharingStarted.Lazily)
 
     val celsiusTemperature: Flow<CelsiusTemperature?> =
         kettleService.observeTemperature()
-            // initial code: no stateIn
-            .shareIn(scope, SharingStarted.Lazily)
-//            .stateIn(scope, SharingStarted.Lazily, null)
 
     val fahrenheitTemperature: Flow<FahrenheitTemperature?> =
-    // initial code:
-//        flowOf(null)
-        celsiusTemperature.map { it?.toFahrenheit() }
+        flowOf(null)
 
-    val smoothCelsiusTemperature: Flow<CelsiusTemperature> =
-    // initial code:
-//        flowOf(null)
-        celsiusTemperature
-            .filterNotNull()
-            .map { it.value }
-            .averageOfLast(5)
-            .map { it.celsius }
+    val smoothCelsiusTemperature: Flow<CelsiusTemperature?> =
+        flowOf(null)
+//        celsiusTemperature.map {
+//            it.value
+//        }.averageOfLast(5).map {
+//            CelsiusTemperature(it)
+//        }
 }
