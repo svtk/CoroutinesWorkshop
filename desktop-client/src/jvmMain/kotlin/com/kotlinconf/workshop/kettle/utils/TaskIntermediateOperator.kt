@@ -6,12 +6,12 @@ import kotlinx.coroutines.flow.flow
 // Task: Implement a custom averageOfLast flow operator
 fun Flow<Double>.averageOfLast(n: Int): Flow<Double> = flow {
     // initial code: empty
-    val deque = ArrayDeque<Double>(n)
-    collect {
-        if (deque.size >= n) {
-            deque.removeFirst()
+    val lastElements = ArrayDeque<Double>()
+    collect { value ->
+        lastElements.add(value)
+        if (lastElements.size > n) {
+            lastElements.removeFirst()
         }
-        deque.addLast(it)
-        emit(deque.average())
+        emit(lastElements.average())
     }
 }
