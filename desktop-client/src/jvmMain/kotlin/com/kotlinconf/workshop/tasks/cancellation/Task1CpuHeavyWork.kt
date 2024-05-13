@@ -4,7 +4,7 @@ import kotlinx.coroutines.*
 import kotlin.time.Duration.Companion.seconds
 
 fun main() = runBlocking {
-    val job = launch(Dispatchers.IO) {
+    val job = launch(Dispatchers.Default) {
         var index = 0
         while (true) {
             val result = doCpuHeavyWork(200)
