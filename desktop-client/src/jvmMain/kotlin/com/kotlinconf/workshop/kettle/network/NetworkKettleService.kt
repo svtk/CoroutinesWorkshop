@@ -53,26 +53,13 @@ class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsock
 
     // Task. Create a flow that emits the kettle temperature every second
     override fun observeTemperature(): Flow<CelsiusTemperature> = flow {
-        // initial code:
-//        emit(getTemperature())
-        while (true) {
-            delay(1000)
-            emit(getTemperature())
-        }
+        emit(getTemperature())
     }
 
     // Task. Create a flow that emits the Kettle power state whenever it receives a WebSocket message
     override fun observeKettlePowerState(): Flow<KettlePowerState> = flow {
-        // initial code:
-//        val socketSession = openWebSocketSession()
-//        val kettlePowerState: KettlePowerState = socketSession.receiveDeserialized()
-//        log("Received element via websocket: $kettlePowerState")
-
         val socketSession = openWebSocketSession()
-        while (true) {
-            val kettlePowerState: KettlePowerState = socketSession.receiveDeserialized()
-            log("Received element via websocket: $kettlePowerState")
-            emit(kettlePowerState)
-        }
+        val kettlePowerState: KettlePowerState = socketSession.receiveDeserialized()
+        log("Received element via websocket: $kettlePowerState")
     }
 }
