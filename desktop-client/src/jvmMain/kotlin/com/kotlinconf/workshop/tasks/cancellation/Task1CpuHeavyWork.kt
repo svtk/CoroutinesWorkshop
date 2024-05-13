@@ -3,7 +3,7 @@ package com.kotlinconf.workshop.tasks.cancellation
 import kotlinx.coroutines.*
 
 fun main() = runBlocking {
-    val job = launch(Dispatchers.IO) {
+    val job = launch(Dispatchers.Default) {
         var index = 0
         while (true) {
             val result = doCpuHeavyWork(200)

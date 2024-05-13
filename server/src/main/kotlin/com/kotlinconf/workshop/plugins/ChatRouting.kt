@@ -27,7 +27,7 @@ suspend fun handleSocket(
             // use socket.receiveDeserialized<ChatMessage>() to receive a message from the WebSocket
         }
         launch {
-            // use session.sendSerialized(message) to send a message to the WebSocket
+            // use socket.sendSerialized(message) to send a message to the WebSocket
         }
     }
 }
