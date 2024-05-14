@@ -5,10 +5,6 @@ plugins {
 group = "org.example"
 version = "unspecified"
 
-repositories {
-    mavenCentral()
-}
-
 val ktor_version = "2.3.11"
 val logback_version="1.3.14"
 
