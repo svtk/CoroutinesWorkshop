@@ -12,13 +12,15 @@ plugins {
 group = "com.kotlinconf.workshop"
 version = "1.0-SNAPSHOT"
 
+val jdkToolchainVersion = 11
+
 kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
     }
 
-    jvmToolchain(11)
+    jvmToolchain(jdkToolchainVersion)
     jvm {
         withJava()
     }
@@ -67,6 +69,14 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "desktop-client"
             packageVersion = "1.0.0"
+        }
+    }
+}
+
+tasks.withType<JavaExec>().configureEach {
+    if (name == "jvmRun") {
+        javaLauncher = javaToolchains.launcherFor {
+            languageVersion = JavaLanguageVersion.of(jdkToolchainVersion)
         }
     }
 }
