@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -12,10 +13,16 @@ group = "com.kotlinconf.workshop"
 version = "1.0-SNAPSHOT"
 
 kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
+
     jvmToolchain(11)
     jvm {
         withJava()
     }
+
     sourceSets {
         val jvmMain by getting {
             dependencies {
@@ -49,9 +56,6 @@ kotlin {
                 implementation(libs.turbine)
 
             }
-        }
-        all {
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
     }
 }
