@@ -12,11 +12,4 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
 }
 
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-//    targetCompatibility = JavaVersion.VERSION_17
-//    sourceCompatibility = JavaVersion.VERSION_17
-}
+kotlin.jvmToolchain(11)

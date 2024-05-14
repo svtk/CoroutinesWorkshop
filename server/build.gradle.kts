@@ -14,13 +14,7 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-//    targetCompatibility = JavaVersion.VERSION_17
-//    sourceCompatibility = JavaVersion.VERSION_17
-}
+kotlin.jvmToolchain(11)
 
 dependencies {
     implementation(projects.shared)
