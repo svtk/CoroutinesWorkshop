@@ -1,17 +1,15 @@
-val datetime_version: String by project
-
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization") version "2.0.0-RC3"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "com.kcworkshop.coroutines"
 version = "unspecified"
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.collections.immutable)
 }
 
 

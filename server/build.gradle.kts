@@ -1,13 +1,9 @@
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization") version "1.8.0"
-    id("io.ktor.plugin") version "2.2.3"
-    id("org.jetbrains.kotlinx.kover") version "0.6.1"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktor)
+    alias(libs.plugins.kover)
 }
-
-val kotlin_version: String by project // = "1.8.0"
-val logback_version: String by project // = "1.2.11"
-val datetime_version: String by project // = "0.4.0"
 
 group = "com.kcworkshop.coroutines"
 version = "0.0.1"
@@ -34,8 +30,8 @@ dependencies {
     implementation("io.ktor:ktor-server-call-logging-jvm")
     implementation("io.ktor:ktor-server-websockets")
     implementation("io.ktor:ktor-server-netty")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
+    implementation(libs.logback.classic)
+    implementation(libs.kotlinx.datetime)
     testImplementation("io.ktor:ktor-server-tests")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation(libs.kotlin.test.junit)
 }
