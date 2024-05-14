@@ -23,7 +23,7 @@ java {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(projects.shared)
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
