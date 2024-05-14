@@ -17,6 +17,8 @@ dependencyResolutionManagement {
     repositoriesMode = RepositoriesMode.PREFER_SETTINGS
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "CoroutinesWorkshop"
 include(":desktop-client")
 include(":server")

@@ -15,7 +15,7 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.logback.classic)
-    implementation(project(":shared"))
+    implementation(projects.shared)
     testImplementation(libs.turbine)
 
     testImplementation(libs.junit.jupiter.api)
