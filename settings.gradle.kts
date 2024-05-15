@@ -11,6 +11,22 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
+fun getRuntimeVersion(): Int {
+    val version = System.getProperty("java.version")
+    return version.substringBefore('.').toInt()
+}
+
+if (getRuntimeVersion() < 11) {
+    throw GradleException(
+        """
+        This repository requires running Gradle daemon on JDK 11 or later.
+        Please either modify your 'JAVA_HOME' environment variable
+         or add following into 'gradle.properties': org.gradle.java.home=/path_to_jdk11+_directory
+         or in IDEA open Settings -> Build, Execution, Deployment -> Build and Deployment -> Gradle and select proper Gradle JVM.
+        """.trimIndent()
+    )
+}
+
 dependencyResolutionManagement {
     repositories {
         google()
