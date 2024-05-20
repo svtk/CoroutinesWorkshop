@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import com.kotlinconf.workshop.kettle.FahrenheitTemperature
@@ -97,7 +98,8 @@ fun KettleView(
             Text(
                 modifier = Modifier.padding(20.dp),
                 text = "Smoothed temperature:",
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.h6,
+                textAlign = TextAlign.Center
             )
             Text("$smoothedCelsiusTemperature°C", style = MaterialTheme.typography.h4)
         }
