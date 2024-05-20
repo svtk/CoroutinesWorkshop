@@ -86,11 +86,11 @@ fun KettleView(
             style = MaterialTheme.typography.h6
         )
         if (celsiusTemperature != null) {
-            Text("$celsiusTemperature C", style = MaterialTheme.typography.h4)
+            Text("$celsiusTemperature°C", style = MaterialTheme.typography.h4)
         }
         if (fahrenheitTemperature != null) {
             Spacer(modifier = Modifier.height(10.dp))
-            Text("$fahrenheitTemperature F", style = MaterialTheme.typography.h4)
+            Text("$fahrenheitTemperature°F", style = MaterialTheme.typography.h4)
         }
         if (smoothedCelsiusTemperature != null) {
             Spacer(modifier = Modifier.height(10.dp))
@@ -99,7 +99,7 @@ fun KettleView(
                 text = "Smoothed temperature:",
                 style = MaterialTheme.typography.h6
             )
-            Text("$smoothedCelsiusTemperature C", style = MaterialTheme.typography.h4)
+            Text("$smoothedCelsiusTemperature°C", style = MaterialTheme.typography.h4)
         }
     }
 }
