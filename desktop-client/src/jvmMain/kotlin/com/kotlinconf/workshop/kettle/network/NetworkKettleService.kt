@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.flow
 
 class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsockets = true) {
     private var stableNetwork = true
-    private val host = "http://0.0.0.0:9020/"
+    private val host = "http://127.0.0.1:9020/"
     private val onEndpoint = "$host/kettle/on"
     private val offEndpoint = "$host/kettle/off"
     private fun temperatureEndpoint(): String {
