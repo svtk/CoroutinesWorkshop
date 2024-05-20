@@ -7,18 +7,27 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.ChatMessage
 
 @Composable
 internal fun CreateMessage(
-    onMessageSent: (ChatMessage) -> Unit
+    onMessageSent: (ChatMessage) -> Unit,
 ) {
     var message by remember { mutableStateOf("") }
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth()
             .padding(horizontal = 10.dp)
-            .padding(bottom = 10.dp),
+            .padding(bottom = 10.dp)
+            .onKeyEvent {
+                if (it.key != Key.Enter || message.isBlank()) return@onKeyEvent true
+                onMessageSent(ChatMessage(message.trim()))
+                message = ""
+                true
+            },
         value = message,
         onValueChange = { message = it },
         label = { Text("Message") },
@@ -26,7 +35,7 @@ internal fun CreateMessage(
             if (message.isNotBlank()) {
                 IconButton(
                     onClick = {
-                        onMessageSent(ChatMessage(message))
+                        onMessageSent(ChatMessage(message.trim()))
                         message = ""
                     },
                 ) {
