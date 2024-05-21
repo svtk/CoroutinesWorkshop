@@ -10,31 +10,11 @@ class NumbersStation {
     private val scope = CoroutineScope(SupervisorJob())
 
     // Initially no code below this line
-    private val _numbers: MutableSharedFlow<Int> = MutableSharedFlow(50)
-    val numbers: SharedFlow<Int> get() = _numbers
-
-    fun beginBroadcasting() {
-        scope.launch {
-            while (true) {
-                _numbers.emit(getNewNumber())
-            }
-        }
-    }
 }
 
 suspend fun main() {
     val station = NumbersStation()
     // Initially no code below this
-    station.beginBroadcasting()
-    // Nobody listening!
-    delay(5000)
-    coroutineScope {
-        launch {
-            station.numbers.collect {
-                println("Received $it")
-            }
-        }
-    }
 }
 
 
