@@ -2,14 +2,13 @@ package com.kotlinconf.workshop.flows
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
-// Finite flow
-// Collect once
-// Collect twice
-// Infinite flow
+// Finite flow -- repeat(4)
+// Collect once -- first launch "A Received"
+// Collect twice -- second launch "B Received". Generation happens twice!
+// Infinite flow -- replacing repeat(10) with while(true)
 
 suspend fun main(): Unit = coroutineScope {
     val numbers = flow<Int> {
