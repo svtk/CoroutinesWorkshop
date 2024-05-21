@@ -1,8 +1,7 @@
 package com.kotlinconf.workshop
 
+import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlin.random.Random
 
 
@@ -17,10 +16,9 @@ suspend fun main() {
     // Initially no code below this
 }
 
-
 suspend fun getNewNumber(): Int {
     val number = Random.nextInt()
-    println("Generated $number")
+    log("Generated $number")
     delay(500)
     return number
 }

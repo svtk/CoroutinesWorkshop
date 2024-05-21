@@ -1,12 +1,12 @@
-package com.kotlinconf.workshop.demoversion
+package com.kotlinconf.workshop.demoVersion
 
+import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlin.random.Random
 
-
-class NumbersStation {
+class NumbersStationDemoVersion {
     private val scope = CoroutineScope(SupervisorJob())
 
     // Initially no code below this line
@@ -22,25 +22,22 @@ class NumbersStation {
     }
 }
 
-suspend fun main() {
-    val station = NumbersStation()
+fun main() = runBlocking<Unit> {
+    val station = NumbersStationDemoVersion()
     // Initially no code below this
     station.beginBroadcasting()
     // Nobody listening!
     delay(5000)
-    coroutineScope {
-        launch {
-            station.numbers.collect {
-                println("Received $it")
-            }
+    launch {
+        station.numbers.collect {
+            log("Received $it")
         }
     }
 }
 
-
 suspend fun getNewNumber(): Int {
     val number = Random.nextInt()
-    println("Generated $number")
+    log("Generated $number")
     delay(500)
     return number
 }
