@@ -49,22 +49,22 @@ class WorkshopServiceImpl : WorkshopService {
     }
 
     override suspend fun loadShopInfo(): ShopInfo {
-        log("Loading blog info starts")
+        log("Loading shop info starts")
         delay(1000)
         return ShopInfo("Kotlin")
-            .also { log("Loading blog info completes: $it") }
+            .also { log("Loading shop info completes: $it") }
     }
 
     override suspend fun loadShopInfoFailing(): ShopInfo {
-        log("Loading blog info starts")
+        log("Loading shop info starts")
         delay(500)
         throw Exception("Loading error")
     }
 
     override suspend fun loadOrders(userId: UserID, shopInfo: ShopInfo): List<Order> {
-        log("Loading articles starts")
+        log("Loading orders starts")
         delay(1000)
         return listOf<Order>()
-            .also { log("Loading articles completes: loaded ${it.size} articles") }
+            .also { log("Loading orders completes: loaded ${it.size} orders") }
     }
 }
