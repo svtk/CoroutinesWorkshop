@@ -1,4 +1,4 @@
-package com.kotlinconf.workshop
+package com.kotlinconf.workshop.limitedparallelism
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
