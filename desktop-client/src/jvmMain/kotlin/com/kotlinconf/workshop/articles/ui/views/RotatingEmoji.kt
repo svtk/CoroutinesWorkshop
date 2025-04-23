@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.res.painterResource
+import org.jetbrains.compose.resources.painterResource
+import com.kotlinconf.workshop.desktop_client.generated.resources.Res
+import com.kotlinconf.workshop.desktop_client.generated.resources.smile
 
 @Composable
 fun RotatingEmoji() {
@@ -21,7 +23,7 @@ fun RotatingEmoji() {
     )
     Image(
         modifier = Modifier.rotate(rotation),
-        painter = painterResource("smile.png"),
+        painter = painterResource(Res.drawable.smile),
         contentDescription =
         null
     )

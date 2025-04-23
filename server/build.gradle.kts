@@ -21,11 +21,11 @@ dependencies {
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
-    implementation("io.ktor:ktor-server-call-logging-jvm")
+    implementation("io.ktor:ktor-server-call-logging")
     implementation("io.ktor:ktor-server-websockets")
     implementation("io.ktor:ktor-server-netty")
     implementation(libs.logback.classic)
     implementation(libs.kotlinx.datetime)
-    testImplementation("io.ktor:ktor-server-tests")
+    testImplementation("io.ktor:ktor-server-test-host")
     testImplementation(libs.kotlin.test.junit)
 }
