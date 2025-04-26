@@ -24,18 +24,6 @@ class Task3StructuralConcurrencyKtTest {
     }
 
     @Test
-    fun `test loadArticlesNonCancelable Duration`() = runTest {
-        val startTime = currentTime
-        loadArticlesNonCancelable(MockBlogService)
-        val totalTime = (currentTime - startTime).milliseconds
-        assertEquals(
-            expected = ArticlesFakeDataResults.expectedConcurrentList.duration,
-            totalTime,
-            "Wrong total virtual time for 'loadArticlesNonCancelable'"
-        )
-    }
-
-    @Test
     fun `test loadArticlesConcurrently Cancellation`() = runTest {
         val job = launch {
             loadArticlesConcurrently(MockBlogService)

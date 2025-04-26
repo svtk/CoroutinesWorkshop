@@ -21,11 +21,14 @@ kotlin {
     }
 
     jvmToolchain(jdkToolchainVersion)
-    jvm {
-        withJava()
-    }
+    jvm()
 
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.components.resources)
+            }
+        }
         val jvmMain by getting {
             dependencies {
                 implementation(projects.shared)
