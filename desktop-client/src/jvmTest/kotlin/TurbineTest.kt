@@ -24,7 +24,7 @@ class FakeKettleService : KettleService {
     }
 
     override fun observeKettlePowerState(): Flow<KettlePowerState> {
-        TODO("Not yet implemented")
+        return flowOf(KettlePowerState.ON)
     }
 }
 
