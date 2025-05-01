@@ -25,3 +25,5 @@ dependencies {
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
+
+kotlin.jvmToolchain(11)
