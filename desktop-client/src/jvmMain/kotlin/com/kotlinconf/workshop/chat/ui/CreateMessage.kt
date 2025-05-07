@@ -12,6 +12,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.ChatMessage
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 internal fun CreateMessage(
@@ -42,7 +43,7 @@ internal fun CreateMessage(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.Send,
                         contentDescription = "Send",
-                        tint = MaterialTheme.colors.primary,
+                        tint = MacTheme.defaultColors.primary,
                     )
                 }
             }

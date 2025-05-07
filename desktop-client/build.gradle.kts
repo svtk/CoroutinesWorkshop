@@ -34,6 +34,7 @@ kotlin {
                 implementation(projects.shared)
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
+                implementation(libs.macos.theme)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.retrofit)

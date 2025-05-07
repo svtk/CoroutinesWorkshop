@@ -1,9 +1,9 @@
 package com.github.jetbrains.timetracker.androidapp.ui.theme
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import io.chozzle.composemacostheme.MacTheme
 
 val indigoMain = Color(0xff3949ab)
 val indigoLight = Color(0xffaab6fe)
@@ -29,7 +29,7 @@ private val ColorPalette = lightColors(
 fun KettleAppTheme(
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
+    MacTheme(
         colors = ColorPalette,
         content = content
     )

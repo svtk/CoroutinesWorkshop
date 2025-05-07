@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.ChatMessage
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 internal fun MessageList(
@@ -31,7 +31,7 @@ internal fun MessageList(
             Text(
                 modifier = Modifier.padding(5.dp),
                 text = title,
-                style = MaterialTheme.typography.subtitle2.copy(fontWeight = FontWeight.Bold),
+                style = MacTheme.defaultTypography.subtitle2.copy(fontWeight = FontWeight.Bold),
             )
         }
 

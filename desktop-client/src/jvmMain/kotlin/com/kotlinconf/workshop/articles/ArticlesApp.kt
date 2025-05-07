@@ -2,7 +2,6 @@ package com.kotlinconf.workshop.articles
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,11 +17,12 @@ import com.kotlinconf.workshop.articles.network.createBlogService
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
 import com.kotlinconf.workshop.articles.ui.views.ArticlesView
 import com.kotlinconf.workshop.network.WorkshopKtorService
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 @Preview
 fun ArticlesApp(viewModel: ArticlesViewModel) {
-    MaterialTheme {
+    MacTheme {
         ProvideTextStyle(LocalTextStyle.current.copy(letterSpacing = 0.sp)) {
             ArticlesView(viewModel)
         }

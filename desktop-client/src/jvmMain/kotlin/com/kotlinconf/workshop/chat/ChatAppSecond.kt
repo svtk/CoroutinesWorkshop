@@ -4,7 +4,6 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -16,11 +15,12 @@ import androidx.compose.ui.window.rememberWindowState
 import com.kotlinconf.workshop.chat.network.NetworkChatService
 import com.kotlinconf.workshop.chat.ui.ChatView
 import com.kotlinconf.workshop.chat.ui.ChatViewModel
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 @Preview
 fun ChatAppSecond(chatViewModel: ChatViewModel) {
-    MaterialTheme {
+    MacTheme {
         Box(Modifier.fillMaxSize().padding(10.dp)) {
             ChatView(chatViewModel)
         }

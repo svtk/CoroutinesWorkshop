@@ -3,7 +3,6 @@ package com.kotlinconf.workshop.articles.ui.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel.LoadingStatus.*
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 fun LoadingStatus(
@@ -47,12 +47,12 @@ fun LoadingStatus(
                                 }
 
                         Text(
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MacTheme.defaultTypography.subtitle1,
                             text = loadingText
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MacTheme.defaultTypography.subtitle1,
                             text = "Number of loaded articles: $articlesNumber"
                         )
                     }

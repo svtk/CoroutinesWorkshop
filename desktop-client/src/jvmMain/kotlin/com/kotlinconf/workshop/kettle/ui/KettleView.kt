@@ -17,6 +17,7 @@ import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import com.kotlinconf.workshop.kettle.FahrenheitTemperature
 import com.kotlinconf.workshop.kettle.KettlePowerState
 import com.kotlinconf.workshop.kettle.celsius
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 fun KettleView(kettleViewModel: KettleViewModel) {
@@ -52,7 +53,7 @@ fun KettleView(
                 modifier = Modifier.fillMaxWidth(0.5f),
                 contentDescription = "Start",
                 imageVector = Icons.Filled.PlayCircle,
-                color = MaterialTheme.colors.secondary,
+                color = MacTheme.defaultColors.secondary,
                 onClick = switchOn,
                 enabled = kettlePowerState == KettlePowerState.OFF,
             )
@@ -60,7 +61,7 @@ fun KettleView(
                 modifier = Modifier.fillMaxWidth(),
                 contentDescription = "Finish",
                 imageVector = Icons.Filled.StopCircle,
-                color = MaterialTheme.colors.primary,
+                color = MacTheme.defaultColors.primary,
                 onClick = switchOff,
                 enabled = kettlePowerState == KettlePowerState.ON,
             )
@@ -79,29 +80,29 @@ fun KettleView(
             }
         }
         if (errorMessage.isNotEmpty()) {
-            Text(text = errorMessage, color = MaterialTheme.colors.error, style = MaterialTheme.typography.caption)
+            Text(text = errorMessage, color = MacTheme.defaultColors.error, style = MacTheme.defaultTypography.caption)
         }
         Text(
             modifier = Modifier.padding(20.dp),
             text = "Temperature:",
-            style = MaterialTheme.typography.h6
+            style = MacTheme.defaultTypography.h6
         )
         if (celsiusTemperature != null) {
-            Text("$celsiusTemperature°C", style = MaterialTheme.typography.h4)
+            Text("$celsiusTemperature°C", style = MacTheme.defaultTypography.h4)
         }
         if (fahrenheitTemperature != null) {
             Spacer(modifier = Modifier.height(10.dp))
-            Text("$fahrenheitTemperature°F", style = MaterialTheme.typography.h4)
+            Text("$fahrenheitTemperature°F", style = MacTheme.defaultTypography.h4)
         }
         if (smoothedCelsiusTemperature != null) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 modifier = Modifier.padding(20.dp),
                 text = "Smoothed temperature:",
-                style = MaterialTheme.typography.h6,
+                style = MacTheme.defaultTypography.h6,
                 textAlign = TextAlign.Center
             )
-            Text("$smoothedCelsiusTemperature°C", style = MaterialTheme.typography.h4)
+            Text("$smoothedCelsiusTemperature°C", style = MacTheme.defaultTypography.h4)
         }
     }
 }

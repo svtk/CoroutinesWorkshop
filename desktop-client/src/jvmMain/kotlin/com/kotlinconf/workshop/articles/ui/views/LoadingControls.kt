@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.articles.ui.LoadingMode
+import io.chozzle.composemacostheme.MacTheme
 
 @Composable
 fun LoadingControls(
@@ -92,7 +93,7 @@ fun LoadingModesDropdown(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            LoadingMode.values().forEach { chosenMode ->
+            LoadingMode.entries.forEach { chosenMode ->
                 DropdownMenuItem(onClick = {
                     updateLoadingMode(chosenMode)
                     expanded = false
@@ -116,7 +117,7 @@ fun LabeledElement(label: String, content: @Composable () -> Unit) {
             contentAlignment = Alignment.CenterStart,
         ) {
             Text(
-                style = MaterialTheme.typography.subtitle1,
+                style = MacTheme.defaultTypography.subtitle1,
                 text = label
             )
         }
