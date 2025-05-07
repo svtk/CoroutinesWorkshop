@@ -14,9 +14,11 @@ fun Application.configureKettleRouting(kettle: Kettle) {
     routing {
         post("kettle/on") {
             kettle.switchOn()
+            call.respond(HttpStatusCode.OK)
         }
         post("kettle/off") {
             kettle.switchOff()
+            call.respond(HttpStatusCode.OK)
         }
         get("kettle/temperature") {
             val failureProbability = call.request.queryParameters["failure"]?.toDouble() ?: 0.0
