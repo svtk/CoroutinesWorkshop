@@ -25,6 +25,9 @@ fun main1() {
 }
 
 // Launch + Job
+// You can use "delay" to see that orders may be different
+// launch is an extension on CoroutineScope!
+// There is no need for me to explicitly call .join
 fun main() = runBlocking {
     val job = launch {
         log(service.networkCall())
