@@ -4,6 +4,7 @@ import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 
 // Option+Shift
+// CoroutineScope -- the mechanism by which structured concurrency is implemented
 // GlobalScope -- no longer waits
 // Dispatcher
 // CoroutineName("my")
