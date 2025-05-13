@@ -1,8 +1,19 @@
 package com.kotlinconf.workshop.util
 
+import com.github.ajalt.mordant.table.horizontalLayout
+import com.github.ajalt.mordant.terminal.Terminal
+
 private const val loggerOn = true
 
 fun log(message: Any?) {
     if (!loggerOn) return
-    println("${currentTime()} [${Thread.currentThread().name}] $message")
+    with(Terminal()) {
+        println(
+            horizontalLayout {
+                cell(theme.info("${currentTime()}"))
+                cell(theme.warning("[${Thread.currentThread().name}]"))
+                cell(message)
+            }
+        )
+    }
 }
