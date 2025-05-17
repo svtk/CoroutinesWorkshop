@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Chat2" type="GradleRunConfiguration" factoryName="Gradle" singleton="false">
+  <configuration default="false" name="ChatWithPriorities" type="GradleRunConfiguration" factoryName="Gradle" singleton="false">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$/desktop-client" />
