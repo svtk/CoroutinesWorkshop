@@ -1,6 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Server" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
+      <option name="env">
+        <map>
+          <entry key="DEVELOPER_DIR" value="/Applications/Xcode.app/Contents/Developer" />
+        </map>
+      </option>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
       <option name="externalSystemIdString" value="GRADLE" />
@@ -13,7 +18,7 @@
           <option value="run" />
         </list>
       </option>
-      <option name="vmOptions" />
+      <option name="vmOptions" value="-Dkotlinx.coroutines.debug" />
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>

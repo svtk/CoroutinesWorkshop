@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="true" type="JetRunConfigurationType">
+    <shortenClasspath name="NONE" />
+    <option name="VM_PARAMETERS" value="-Dkotlinx.coroutines.debug" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
