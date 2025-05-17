@@ -18,6 +18,7 @@ fun main() = runBlocking {
     delay(2000)
     println("Enough!")
     myJob.cancelAndJoin()
+    println("✅ Process finished correctly.")
 }
 
 suspend fun doSomeWorkThatMayFail() {
