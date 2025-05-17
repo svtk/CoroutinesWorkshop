@@ -15,6 +15,7 @@ fun main() = runBlocking {
 
     delay(1000)
     job.cancelAndJoin()
+    println("✅ Process finished correctly.")
 }
 
 fun doCpuHeavyWork(timeMillis: Int): Int {
