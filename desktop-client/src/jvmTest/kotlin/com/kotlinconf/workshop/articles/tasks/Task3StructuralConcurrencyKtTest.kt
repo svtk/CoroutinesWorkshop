@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class Task3StructuralConcurrencyKtTest {
@@ -28,7 +28,7 @@ class Task3StructuralConcurrencyKtTest {
         val job = launch {
             loadArticlesConcurrently(MockBlogService)
         }
-        delay(1000)
+        delay(1.seconds)
         job.cancel()
         // TODO Test that the articles loading was cancelled?
     }

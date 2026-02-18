@@ -3,9 +3,10 @@ package com.kotlinconf.workshop.cancellation
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 suspend fun performLongComputation(): Int {
-    delay(500)
+    delay(500.milliseconds)
     return 5
 }
 

@@ -14,6 +14,7 @@ import io.ktor.http.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlin.time.Duration.Companion.seconds
 
 class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsockets = true) {
     private var stableNetwork = true
@@ -56,7 +57,7 @@ class NetworkKettleService : KettleService, WorkshopKtorService(configureWebsock
         // initial code:
 //        emit(getTemperature())
         while (true) {
-            delay(1000)
+            delay(1.seconds)
             emit(getTemperature())
         }
     }

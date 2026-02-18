@@ -8,6 +8,7 @@ import com.kotlinconf.workshop.kettle.utils.averageOfLast
 import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlin.time.Duration.Companion.seconds
 
 class KettleViewModel(
     private val kettleService: KettleService,
@@ -19,7 +20,7 @@ class KettleViewModel(
         log("Error occurred: $throwable")
         _errorMessage.value = "Can't perform an operation: network error"
         scope.launch {
-            delay(5000)
+            delay(5.seconds)
             _errorMessage.value = ""
         }
     }

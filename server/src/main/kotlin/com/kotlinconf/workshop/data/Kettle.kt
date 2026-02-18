@@ -4,6 +4,8 @@ import com.kotlinconf.workshop.kettle.CelsiusTemperature
 import com.kotlinconf.workshop.kettle.KettlePowerState
 import com.kotlinconf.workshop.kettle.celsius
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.sync.Mutex
@@ -26,10 +28,10 @@ class Kettle(
         changingTemperatureJob?.cancel()
         changingTemperatureJob = scope.launch {
             while (currentTemperature < desiredTemperature) {
-                delay(100)
+                delay(100.milliseconds)
                 heatABit()
             }
-            delay(1000)
+            delay(1.seconds)
             switchOff()
         }
     }
@@ -39,7 +41,7 @@ class Kettle(
         changingTemperatureJob?.cancel()
         changingTemperatureJob = scope.launch {
             while (currentTemperature > ROOM_TEMPERATURE) {
-                delay(100)
+                delay(100.milliseconds)
                 coolABit()
             }
             if (currentTemperature <= ROOM_TEMPERATURE) {

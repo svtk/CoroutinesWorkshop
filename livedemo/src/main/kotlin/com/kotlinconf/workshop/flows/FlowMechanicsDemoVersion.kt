@@ -5,6 +5,8 @@ package com.kotlinconf.workshop.flows.demoversion
 import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 // Change second launch to launch(Dispatcher.Default),
 // ask on which dispatcher the collection will now happen
@@ -16,13 +18,13 @@ fun main(): Unit = runBlocking {
         repeat(4) {
             log("Generated $x")
             emit(x++)
-            delay(500)
+            delay(500.milliseconds)
         }
     }
     launch {
         numbers.collect {
             log("A Received $it")
-            delay(1000)
+            delay(1.seconds)
         }
     }
     launch(Dispatchers.Default) {

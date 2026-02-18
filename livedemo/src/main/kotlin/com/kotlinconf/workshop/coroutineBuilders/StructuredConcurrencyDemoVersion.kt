@@ -2,6 +2,8 @@ package com.kotlinconf.workshop.coroutineBuilders.structured.demo
 
 import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 // Option+Shift
 // CoroutineScope -- the mechanism by which structured concurrency is implemented
@@ -14,20 +16,20 @@ fun main0() = runBlocking {
         log("Parent starts")
         val firstChildJob = launch {
             log("First child starts!")
-            delay(1000)
+            delay(1.seconds)
             log("First child completes!")
         }
         val secondChildJob = launch {
             log("Second child starts!")
-            delay(1500)
+            delay(1500.milliseconds)
             log("Second child completes!")
         }
         log("Parent completes")
     }
-    delay(500)
+    delay(500.milliseconds)
     log("I've changed my mind")
     parentJob.cancel()
-    delay(2000)
+    delay(2.seconds)
 }
 
 fun main1() = runBlocking {
@@ -35,20 +37,20 @@ fun main1() = runBlocking {
         log("Parent starts")
         val firstChildJob = GlobalScope.launch {
             log("First child starts!")
-            delay(1000)
+            delay(1.seconds)
             log("First child completes!")
         }
         val secondChildJob = GlobalScope.launch {
             log("Second child starts!")
-            delay(1500)
+            delay(1500.milliseconds)
             log("Second child completes!")
         }
         log("Parent completes")
     }
-    delay(500)
+    delay(500.milliseconds)
     log("I've changed my mind")
     parentJob.cancel()
-    delay(2000)
+    delay(2.seconds)
 }
 
 // Remove GlobalScope
@@ -60,18 +62,18 @@ fun main() = runBlocking {
         log("Parent starts")
         val firstChildJob = launch {
             log("First child starts!")
-            delay(1000)
+            delay(1.seconds)
             log("First child completes!")
         }
         val secondChildJob = launch {
             log("Second child starts!")
-            delay(1500)
+            delay(1500.milliseconds)
             log("Second child completes!")
         }
         log("Parent completes")
     }
-    delay(500)
+    delay(500.milliseconds)
     log("I've changed my mind")
     parentJob.cancel()
-    delay(2000)
+    delay(2.seconds)
 }

@@ -4,6 +4,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 // Finite flow -- repeat(4)
 // Collect once -- first launch "A Received"
@@ -16,13 +18,13 @@ suspend fun main(): Unit = coroutineScope {
         while (true) {
             println("Generated $x")
             emit(x++)
-            delay(500)
+            delay(500.milliseconds)
         }
     }
     launch {
         numbers.collect {
             println("A Received $it")
-            delay(2000)
+            delay(2.seconds)
         }
     }
     launch {

@@ -3,6 +3,8 @@ package com.kotlinconf.workshop.network
 import com.kotlinconf.workshop.blog.ArticleInfo
 import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 // TODO network
 data class UserID(val id: Long)
@@ -29,41 +31,41 @@ class WorkshopServiceImpl : WorkshopService {
 
     override suspend fun networkCall(): String {
         log("Sending network request")
-        delay(1000)
+        delay(1.seconds)
         log("Receiving result")
         return "Result"
     }
 
     override suspend fun anotherNetworkCall(): String {
         log("Sending another network request")
-        delay(1500)
+        delay(1500.milliseconds)
         log("Receiving another result")
         return "Another Result"
     }
 
     override suspend fun login(username: String, password: String): UserID {
         log("Login $username starts")
-        delay(1000)
+        delay(1.seconds)
         return UserID(0)
             .also { log("User $username successfully logged!") }
     }
 
     override suspend fun loadShopInfo(): ShopInfo {
         log("Loading shop info starts")
-        delay(1000)
+        delay(1.seconds)
         return ShopInfo("Kotlin")
             .also { log("Loading shop info completes: $it") }
     }
 
     override suspend fun loadShopInfoFailing(): ShopInfo {
         log("Loading shop info starts")
-        delay(500)
+        delay(500.milliseconds)
         throw Exception("Loading error")
     }
 
     override suspend fun loadOrders(userId: UserID, shopInfo: ShopInfo): List<Order> {
         log("Loading orders starts")
-        delay(1000)
+        delay(1.seconds)
         return listOf<Order>()
             .also { log("Loading orders completes: loaded ${it.size} orders") }
     }

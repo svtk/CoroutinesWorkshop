@@ -5,6 +5,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 class NumbersStationDemoVersion {
     private val scope = CoroutineScope(SupervisorJob())
@@ -27,7 +29,7 @@ fun main() = runBlocking<Unit> {
     // Initially no code below this
     station.beginBroadcasting()
     // Nobody listening!
-    delay(5000)
+    delay(5.seconds)
     launch {
         station.numbers.collect {
             log("Received $it")
@@ -38,6 +40,6 @@ fun main() = runBlocking<Unit> {
 suspend fun getNewNumber(): Int {
     val number = Random.nextInt()
     log("Generated $number")
-    delay(500)
+    delay(500.milliseconds)
     return number
 }

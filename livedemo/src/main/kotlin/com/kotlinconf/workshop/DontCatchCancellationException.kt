@@ -1,10 +1,12 @@
 package foo
 
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 suspend fun doSomeWorkThatMayFail() {
     println("I'm working...")
-    delay(500)
+    delay(500.milliseconds)
 }
 
 suspend fun main() {
@@ -18,7 +20,7 @@ suspend fun main() {
             }
         }
     }
-    delay(2000)
+    delay(2.seconds)
     println("Enough!")
     myJob.cancelAndJoin()
 }

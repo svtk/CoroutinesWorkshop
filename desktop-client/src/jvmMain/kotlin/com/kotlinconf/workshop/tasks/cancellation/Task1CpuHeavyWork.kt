@@ -1,6 +1,7 @@
 package com.kotlinconf.workshop.tasks.cancellation
 
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.seconds
 
 fun main() = runBlocking {
     val job = launch(Dispatchers.IO) {
@@ -13,7 +14,7 @@ fun main() = runBlocking {
         }
     }
 
-    delay(1000)
+    delay(1.seconds)
     job.cancelAndJoin()
     println("✅ Process finished correctly.")
 }

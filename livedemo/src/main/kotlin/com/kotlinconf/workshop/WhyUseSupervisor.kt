@@ -3,6 +3,7 @@ package com.kotlinconf.workshop
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 val counterFlow = flow {
     var x = 0
@@ -28,5 +29,5 @@ suspend fun main() {
             println("B: $it")
         }
     }
-    delay(10000)
+    delay(10.seconds)
 }

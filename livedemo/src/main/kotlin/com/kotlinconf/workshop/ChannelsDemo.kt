@@ -4,6 +4,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlin.time.Duration.Companion.seconds
 
 fun main(): Unit = runBlocking {
     // Creating a channel
@@ -18,7 +19,7 @@ fun main(): Unit = runBlocking {
             println("Sending $i...")
             channel.send(i)
             println("Sent $i.")
-            delay(1000)
+            delay(1.seconds)
         }
         channel.close() // Close the channel when done sending
     }
@@ -35,7 +36,7 @@ fun main(): Unit = runBlocking {
     launch {
         for (value in channel) {
             println("B received $value")
-            delay(2000)
+            delay(2.seconds)
         }
     }
 

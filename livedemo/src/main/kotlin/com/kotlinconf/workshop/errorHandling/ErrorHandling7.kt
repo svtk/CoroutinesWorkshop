@@ -1,6 +1,7 @@
 package com.kotlinconf.workshop.errorHandling
 
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.seconds
 
 // Handling exception with CoroutineExceptionHandler
 suspend fun main() {
@@ -15,7 +16,7 @@ suspend fun main() {
     scope.launch {
         deferred.await()
     }
-    delay(6000)
+    delay(6.seconds)
 }
 
 

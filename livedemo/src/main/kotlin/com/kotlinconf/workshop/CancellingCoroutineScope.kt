@@ -1,6 +1,8 @@
 package com.kotlinconf.workshop
 
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 
 suspend fun main() {
@@ -8,16 +10,16 @@ suspend fun main() {
         launch {
             while (true) {
                 println("X")
-                delay(500)
+                delay(500.milliseconds)
             }
         }
         launch {
             while (true) {
                 println("Y")
-                delay(500)
+                delay(500.milliseconds)
             }
         }
-        delay(2000)
+        delay(2.seconds)
         cancel()
     }
 }
@@ -33,7 +35,7 @@ suspend fun mainX() = runBlocking {
         var x = 0
         while (true) {
             println("A: ${x++}")
-            delay(200)
+            delay(200.milliseconds)
         }
     }
 
@@ -48,7 +50,7 @@ suspend fun mainX() = runBlocking {
         }
     }
 
-    delay(2000)
+    delay(2.seconds)
     myScope.cancel()
 }
 

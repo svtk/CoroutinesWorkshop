@@ -3,6 +3,7 @@ package com.kotlinconf.workshop
 import com.kotlinconf.workshop.util.log
 import kotlinx.coroutines.*
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 
 class NumbersStation {
@@ -19,6 +20,6 @@ suspend fun main() {
 suspend fun getNewNumber(): Int {
     val number = Random.nextInt()
     log("Generated $number")
-    delay(500)
+    delay(500.milliseconds)
     return number
 }

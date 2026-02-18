@@ -2,6 +2,7 @@ package com.kotlinconf.workshop.context.demo
 
 import kotlinx.coroutines.*
 import kotlin.coroutines.coroutineContext
+import kotlin.time.Duration.Companion.milliseconds
 
 // coroutine context is part of scope
 // navigate to coroutine context
@@ -52,7 +53,7 @@ suspend fun whichContextDoIHave(whoAmI: String) {
 // and registers itself as a child of a parent coroutine
 fun main3() = runBlocking<Unit> {
     val job = launch {
-        delay(100)
+        delay(100.milliseconds)
     }
     println(job)
     println(job in coroutineContext.job.children.toList())
