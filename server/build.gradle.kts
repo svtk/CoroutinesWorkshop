@@ -26,6 +26,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty")
     implementation(libs.logback.classic)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.collections.immutable)
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation(libs.kotlin.test.junit)
 }
