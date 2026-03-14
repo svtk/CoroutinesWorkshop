@@ -12,13 +12,13 @@ class NumbersStationDemoVersion {
     private val scope = CoroutineScope(SupervisorJob())
 
     // Initially no code below this line
-    private val _numbers: MutableSharedFlow<Int> = MutableSharedFlow(50)
-    val numbers: SharedFlow<Int> get() = _numbers
+    val numbers: SharedFlow<Int>
+        field = MutableSharedFlow(50)
 
     fun beginBroadcasting() {
         scope.launch {
             while (true) {
-                _numbers.emit(getNewNumber())
+                numbers.emit(getNewNumber())
             }
         }
     }

@@ -14,14 +14,15 @@ class KettleViewModel(
     private val kettleService: KettleService,
     parentScope: CoroutineScope,
 ) {
-    private val _errorMessage = mutableStateOf("")
-    val errorMessage: State<String> get() = _errorMessage
+    val errorMessage: State<String>
+        field = mutableStateOf("")
+
     private fun showErrorMessage(throwable: Throwable) {
         log("Error occurred: $throwable")
-        _errorMessage.value = "Can't perform an operation: network error"
+        errorMessage.value = "Can't perform an operation: network error"
         scope.launch {
             delay(5.seconds)
-            _errorMessage.value = ""
+            errorMessage.value = ""
         }
     }
 

@@ -16,11 +16,11 @@ class ChatViewModel(private val chatService: ChatService) {
 
     // Task: Split chat into two StateFlows
 
-    private val _importantMessages = MutableStateFlow<List<ChatMessage>>(listOf())
-    val importantMessages: StateFlow<List<ChatMessage>> get() = _importantMessages
+    val importantMessages: StateFlow<List<ChatMessage>>
+        field = MutableStateFlow(listOf())
 
-    private val _allOtherMessages = MutableStateFlow<List<ChatMessage>>(listOf())
-    val allOtherMessages: StateFlow<List<ChatMessage>> get() = _allOtherMessages
+    val allOtherMessages: StateFlow<List<ChatMessage>>
+        field = MutableStateFlow(listOf())
 
     fun sendMessage(message: ChatMessage) {
         scope.launch {
@@ -32,9 +32,9 @@ class ChatViewModel(private val chatService: ChatService) {
         scope.launch {
             chatService.observeMessageEvents().collect { message ->
                 if (message.isImportant()) {
-                    _importantMessages.update { it + message }
+                    importantMessages.update { it + message }
                 } else {
-                    _allOtherMessages.update { it + message }
+                    allOtherMessages.update { it + message }
                 }
             }
         }

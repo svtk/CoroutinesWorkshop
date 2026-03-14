@@ -53,8 +53,8 @@ class ArticlesViewModel(
 
     private var loadingJob by mutableStateOf<Job?>(null)
 
-    private val _articlesFlow = MutableStateFlow(listOf<Article>())
-    val articlesFlow: StateFlow<List<Article>> get() = _articlesFlow
+    val articlesFlow: StateFlow<List<Article>>
+        field = MutableStateFlow(listOf())
 
     init {
         try {
@@ -122,7 +122,7 @@ class ArticlesViewModel(
     ) {
         loadingStatus = if (completed) COMPLETED else IN_PROGRESS
         currentLoadingTimeMillis = System.currentTimeMillis() - startTime
-        _articlesFlow.value = articles
+        articlesFlow.value = articles
         if (completed) {
             markLoadingCompletion()
         }
@@ -158,7 +158,7 @@ class ArticlesViewModel(
     }
 
     private fun clearResults() {
-        _articlesFlow.value = listOf()
+        articlesFlow.value = listOf()
         loadingStatus = IN_PROGRESS
         newLoadingEnabled = false
         cancellationEnabled = false

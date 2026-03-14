@@ -40,9 +40,10 @@ suspend fun handleSocket(
 }
 
 class Chat {
-    private val _messageFlow: MutableSharedFlow<ChatMessage> = MutableSharedFlow()
-    val messageFlow: SharedFlow<ChatMessage> get() = _messageFlow
+    val messageFlow: SharedFlow<ChatMessage>
+        field = MutableSharedFlow()
+
     suspend fun broadcastMessage(message: ChatMessage) {
-        _messageFlow.emit(message)
+        messageFlow.emit(message)
     }
 }

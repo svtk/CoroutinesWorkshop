@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 class SimpleChatViewModel(private val chatService: ChatService) {
     private val scope = CoroutineScope(SupervisorJob())
 
-    private val _messages = MutableStateFlow<List<ChatMessage>>(listOf())
-    val messages: StateFlow<List<ChatMessage>> get() = _messages
+    val messages: StateFlow<List<ChatMessage>>
+        field = MutableStateFlow(listOf())
 
     fun sendMessage(message: ChatMessage) {
         scope.launch {
@@ -25,7 +25,7 @@ class SimpleChatViewModel(private val chatService: ChatService) {
     init {
         scope.launch {
             chatService.observeMessageEvents().collect { message ->
-                _messages.update { it + message }
+                messages.update { it + message }
             }
         }
     }
