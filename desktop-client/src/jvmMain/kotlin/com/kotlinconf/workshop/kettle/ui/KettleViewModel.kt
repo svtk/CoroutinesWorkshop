@@ -2,6 +2,8 @@ package com.kotlinconf.workshop.kettle.ui
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kotlinconf.workshop.kettle.*
 import com.kotlinconf.workshop.kettle.network.KettleService
 import com.kotlinconf.workshop.kettle.utils.averageOfLast
@@ -12,8 +14,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class KettleViewModel(
     private val kettleService: KettleService,
-    parentScope: CoroutineScope,
-) {
+) : ViewModel() {
     val errorMessage: State<String>
         field = mutableStateOf("")
 
@@ -29,20 +30,14 @@ class KettleViewModel(
     private val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable -> showErrorMessage(throwable) }
 
-    private val viewModelScope = CoroutineScope(
-        // initial code:
-//        parentScope.coroutineContext
-        parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler
-    )
-
     fun switchOn() {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             kettleService.switchOn()
         }
     }
 
     fun switchOff() {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             kettleService.switchOff()
         }
     }
@@ -50,11 +45,13 @@ class KettleViewModel(
     val kettlePowerState: Flow<KettlePowerState> =
         kettleService.observeKettlePowerState()
 //            .stateIn(viewModelScope, SharingStarted.Lazily, KettleState.OFF)
+            .catch { showErrorMessage(it) }
             .shareIn(viewModelScope, SharingStarted.Lazily)
 
     val celsiusTemperature: Flow<CelsiusTemperature?> =
         kettleService.observeTemperature()
             // initial code: no stateIn
+            .catch { showErrorMessage(it) }
             .shareIn(viewModelScope, SharingStarted.Lazily)
 //            .stateIn(viewModelScope, SharingStarted.Lazily, null)
 

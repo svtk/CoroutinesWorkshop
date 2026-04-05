@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -29,7 +30,6 @@ fun ChatAppSecond(chatViewModel: ChatViewModel) {
 
 fun main() = application {
     val chatService = remember { NetworkChatService() }
-    val chatViewModel = remember { ChatViewModel(chatService) }
     LaunchedEffect(true) {
         chatService.ensureServerIsRunning()
     }
@@ -40,6 +40,7 @@ fun main() = application {
         title = "Chat example",
         state = rememberWindowState(width = 500.dp, height = 300.dp),
     ) {
+        val chatViewModel = viewModel { ChatViewModel(chatService) }
         ChatAppSecond(chatViewModel)
     }
 }

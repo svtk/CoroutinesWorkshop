@@ -4,7 +4,7 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -23,9 +23,7 @@ fun KettleApp(kettleViewModel: KettleViewModel) {
 }
 
 fun main() = application {
-    val scope = rememberCoroutineScope()
     val kettleService = remember { NetworkKettleService() }
-    val kettleViewModel = remember { KettleViewModel(kettleService, scope) }
     LaunchedEffect(true) {
         kettleService.ensureServerIsRunning()
     }
@@ -36,6 +34,7 @@ fun main() = application {
         title = "Kettle Flow Example",
         state = rememberWindowState(width = 200.dp, height = 500.dp),
     ) {
+        val kettleViewModel = viewModel { KettleViewModel(kettleService) }
         KettleApp(kettleViewModel)
     }
 }

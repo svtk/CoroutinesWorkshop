@@ -3,6 +3,8 @@ package com.kotlinconf.workshop.articles.ui
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kotlinconf.workshop.articles.model.Article
 import com.kotlinconf.workshop.articles.network.BlogService
 import com.kotlinconf.workshop.articles.network.BlogServiceBlocking
@@ -18,17 +20,17 @@ import kotlinx.coroutines.flow.*
 class ArticlesViewModel(
     private val blockingService: BlogServiceBlocking,
     private val service: BlogService,
-    parentScope: CoroutineScope
-) {
+) : ViewModel() {
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         markLoadingCompletion(exception)
     }
 
-    // Task: Use SupervisorJob to handle errors
-    // initial code: Job()
-    // Replace Job() with SupervisorJob() and make sure the app keeps working on a child failure (LoadingMode.UNSTABLE_NETWORK).
-    private val viewModelScope =
-        CoroutineScope(parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler)
+    // Task: Use SupervisorJob for the dedicated loadingScope.
+    // Replace Job(...) with SupervisorJob(...) so a failed loading attempt in LoadingMode.UNSTABLE_NETWORK
+    // doesn't permanently cancel the loadingScope and break later loading attempts.
+    // initial code: Job(viewModelScope.coroutineContext.job)
+    private val loadingScope =
+        CoroutineScope(SupervisorJob(viewModelScope.coroutineContext.job))
 
     var loadingMode by mutableStateOf(BLOCKING)
         private set
@@ -69,7 +71,7 @@ class ArticlesViewModel(
         saveParams(loadingMode)
         clearResults()
         cancellationEnabled = true
-        loadingJob = viewModelScope.launch {
+        loadingJob = loadingScope.launch(coroutineExceptionHandler) {
             val startTime = System.currentTimeMillis()
             when (loadingMode) {
                 BLOCKING -> {

@@ -7,7 +7,7 @@ import androidx.compose.material.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
@@ -31,15 +31,7 @@ fun ArticlesApp(viewModel: ArticlesViewModel) {
 }
 
 fun main() = application {
-    val coroutineScope = rememberCoroutineScope()
     val blogService = remember { createBlogService() }
-    val viewModel = remember {
-        ArticlesViewModel(
-            blockingService = BlogServiceBlocking(),
-            service = blogService,
-            parentScope = coroutineScope
-        )
-    }
     LaunchedEffect(true) {
         (blogService as WorkshopKtorService).ensureServerIsRunning()
     }
@@ -50,6 +42,12 @@ fun main() = application {
         title = "Articles Example",
         state = rememberWindowState(width = 760.dp, height = 760.dp),
     ) {
+        val viewModel = viewModel {
+            ArticlesViewModel(
+                blockingService = BlogServiceBlocking(),
+                service = blogService,
+            )
+        }
         ArticlesApp(viewModel)
     }
 }
