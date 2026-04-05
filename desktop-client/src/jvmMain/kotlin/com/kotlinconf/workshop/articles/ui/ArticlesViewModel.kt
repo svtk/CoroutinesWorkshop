@@ -12,7 +12,6 @@ import com.kotlinconf.workshop.articles.ui.LoadingMode.*
 import com.kotlinconf.workshop.articles.util.loadStoredMode
 import com.kotlinconf.workshop.articles.util.removeStoredMode
 import com.kotlinconf.workshop.articles.util.saveParams
-import io.ktor.utils.io.CancellationException
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
