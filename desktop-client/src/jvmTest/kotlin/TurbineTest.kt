@@ -7,6 +7,7 @@ import com.kotlinconf.workshop.kettle.ui.KettleViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -31,8 +32,8 @@ class FakeKettleService : KettleService {
 class TurbineTest {
 
     @Test
-    fun `viewmodel should properly convert celsius to fahrenheit`() = runBlocking {
-        // initial code: just the runBlocking
+    fun `viewmodel should properly convert celsius to fahrenheit`() = runTest {
+        // initial code: just the runTest
         val vm = KettleViewModel(FakeKettleService(), this)
         vm.fahrenheitTemperature.test {
             assertEquals(68.0, awaitItem()!!.value, 0.05)
