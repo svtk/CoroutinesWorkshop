@@ -49,21 +49,21 @@ object ArticlesFakeData {
     }
 
     init {
-        addArticle(1.seconds, "Andrey", "Kotlin 1.8.0 Released",
+        addArticle(1.seconds, "Andrey", "Kotlin on the Moon and Underwater",
             listOf("Emma", "Yara", "Milan", "James", "Finn", "Yara", "Milan"))
-        addArticle(1.5.seconds, "Ekaterina", "Shout-Out to Kotlin Multiplatform Content Creators!",
+        addArticle(1.5.seconds, "Kate", "Shout-Out to Kotlin Multiplatform Content Creators!",
             listOf("James", "Yara", "Milan", "James", "Milan", "James", "Milan", "James", "Yara"))
         addArticle(0.75.seconds, "Ksenia", "Apply to Google Summer of Code – Kotlin Projects Available",
             listOf("Luca", "James", "Luca", "James"))
-        addArticle(0.25.seconds, "Roman", "The K2 Compiler is going stable in Kotlin 2.0",
+        addArticle(0.25.seconds, "Roman", "Compiler News",
             listOf("Emma", "James"))
-        addArticle(2.seconds, "Ekaterina", "Update Regarding Kotlin/Native Targets",
+        addArticle(2.seconds, "Kate", "Update Regarding Kotlin/Native Targets",
             listOf("Milan", "Levi", "Sem", "Levi", "Sem", "James"))
         addArticle(1.75.seconds, "Denis", "We Are Improving Library Authors’ Experience!",
             listOf("James", "Yara"))
         addArticle(0.5.seconds, "Ksenia", "Advent of Code in Kotlin",
             listOf("Luca"))
-        addArticle(1.25.seconds, "Ekaterina", "We Are Looking For EAP Champions!",
+        addArticle(1.25.seconds, "Kate", "We Are Looking for EAP Champions!",
             listOf("Emma", "Luca", "Milan"))
     }
 }
