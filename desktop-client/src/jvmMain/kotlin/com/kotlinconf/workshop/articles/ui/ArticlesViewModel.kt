@@ -28,7 +28,8 @@ class ArticlesViewModel(
     // Task: Use SupervisorJob to handle errors
     // initial code: Job()
     // Replace Job() with SupervisorJob() and make sure the app keeps working on a child failure (LoadingMode.UNSTABLE_NETWORK).
-    private val scope = CoroutineScope(parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler)
+    private val viewModelScope =
+        CoroutineScope(parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler)
 
     var loadingMode by mutableStateOf(BLOCKING)
         private set
@@ -69,7 +70,7 @@ class ArticlesViewModel(
         saveParams(loadingMode)
         clearResults()
         cancellationEnabled = true
-        loadingJob = scope.launch {
+        loadingJob = viewModelScope.launch {
             val startTime = System.currentTimeMillis()
             when (loadingMode) {
                 BLOCKING -> {

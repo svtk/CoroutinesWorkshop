@@ -20,7 +20,7 @@ class KettleViewModel(
     private fun showErrorMessage(throwable: Throwable) {
         log("Error occurred: $throwable")
         errorMessage.value = "Can't perform an operation: network error"
-        scope.launch {
+        viewModelScope.launch {
             delay(5.seconds)
             errorMessage.value = ""
         }
@@ -29,34 +29,34 @@ class KettleViewModel(
     private val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable -> showErrorMessage(throwable) }
 
-    private val scope = CoroutineScope(
+    private val viewModelScope = CoroutineScope(
         // initial code:
 //        parentScope.coroutineContext
         parentScope.coroutineContext + SupervisorJob() + coroutineExceptionHandler
     )
 
     fun switchOn() {
-        scope.launch {
+        viewModelScope.launch {
             kettleService.switchOn()
         }
     }
 
     fun switchOff() {
-        scope.launch {
+        viewModelScope.launch {
             kettleService.switchOff()
         }
     }
 
     val kettlePowerState: Flow<KettlePowerState> =
         kettleService.observeKettlePowerState()
-//            .stateIn(scope, SharingStarted.Lazily, KettleState.OFF)
-            .shareIn(scope, SharingStarted.Lazily)
+//            .stateIn(viewModelScope, SharingStarted.Lazily, KettleState.OFF)
+            .shareIn(viewModelScope, SharingStarted.Lazily)
 
     val celsiusTemperature: Flow<CelsiusTemperature?> =
         kettleService.observeTemperature()
             // initial code: no stateIn
-            .shareIn(scope, SharingStarted.Lazily)
-//            .stateIn(scope, SharingStarted.Lazily, null)
+            .shareIn(viewModelScope, SharingStarted.Lazily)
+//            .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     val fahrenheitTemperature: Flow<FahrenheitTemperature?> =
     // initial code:

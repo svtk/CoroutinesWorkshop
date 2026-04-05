@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 
 class ChatViewModel(private val chatService: ChatService) {
-    private val scope = CoroutineScope(SupervisorJob())
+    private val viewModelScope = CoroutineScope(SupervisorJob())
 
     // Task: Split chat into two StateFlows
 
@@ -23,13 +23,13 @@ class ChatViewModel(private val chatService: ChatService) {
         field = MutableStateFlow(listOf())
 
     fun sendMessage(message: ChatMessage) {
-        scope.launch {
+        viewModelScope.launch {
             chatService.sendMessage(message)
         }
     }
 
     init {
-        scope.launch {
+        viewModelScope.launch {
             chatService.observeMessageEvents().collect { message ->
                 if (message.isImportant()) {
                     importantMessages.update { it + message }
