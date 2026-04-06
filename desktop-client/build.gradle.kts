@@ -32,6 +32,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(projects.shared)
+                implementation(projects.server)
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
                 implementation(libs.androidx.lifecycle.viewmodel)
@@ -70,7 +71,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "com.kotlinconf.workshop.MainKt"
+        mainClass = "com.kotlinconf.workshop.launcher.LauncherMainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "desktop-client"

@@ -7,12 +7,12 @@ import androidx.compose.material.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kotlinconf.workshop.articles.network.BlogServiceBlocking
 import com.kotlinconf.workshop.articles.network.createBlogService
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
@@ -30,16 +30,20 @@ fun ArticlesApp(viewModel: ArticlesViewModel) {
 
 }
 
-fun main() = application {
+@Composable
+fun ArticlesWindow(
+    onCloseRequest: () -> Unit,
+    verifyServerOnLaunch: Boolean,
+) {
     val blogService = remember { createBlogService() }
-    LaunchedEffect(true) {
-        (blogService as WorkshopKtorService).ensureServerIsRunning()
+    if (verifyServerOnLaunch) {
+        LaunchedEffect(blogService) {
+            (blogService as WorkshopKtorService).ensureServerIsRunning()
+        }
     }
     Window(
-        onCloseRequest = {
-            exitApplication()
-        },
-        title = "Articles Example",
+        onCloseRequest = onCloseRequest,
+        title = "Articles",
         state = rememberWindowState(width = 760.dp, height = 760.dp),
     ) {
         val viewModel = viewModel {
@@ -50,4 +54,11 @@ fun main() = application {
         }
         ArticlesApp(viewModel)
     }
+}
+
+fun main() = application {
+    ArticlesWindow(
+        onCloseRequest = ::exitApplication,
+        verifyServerOnLaunch = true,
+    )
 }

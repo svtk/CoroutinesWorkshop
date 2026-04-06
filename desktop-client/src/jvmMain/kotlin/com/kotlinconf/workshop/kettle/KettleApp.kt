@@ -22,19 +22,31 @@ fun KettleApp(kettleViewModel: KettleViewModel) {
     }
 }
 
-fun main() = application {
+@Composable
+fun KettleWindow(
+    onCloseRequest: () -> Unit,
+    verifyServerOnLaunch: Boolean,
+    title: String = "Kettle",
+) {
     val kettleService = remember { NetworkKettleService() }
-    LaunchedEffect(true) {
-        kettleService.ensureServerIsRunning()
+    if (verifyServerOnLaunch) {
+        LaunchedEffect(kettleService) {
+            kettleService.ensureServerIsRunning()
+        }
     }
     Window(
-        onCloseRequest = {
-            exitApplication()
-        },
-        title = "Kettle Flow Example",
+        onCloseRequest = onCloseRequest,
+        title = title,
         state = rememberWindowState(width = 200.dp, height = 500.dp),
     ) {
         val kettleViewModel = viewModel { KettleViewModel(kettleService) }
         KettleApp(kettleViewModel)
     }
+}
+
+fun main() = application {
+    KettleWindow(
+        onCloseRequest = ::exitApplication,
+        verifyServerOnLaunch = true,
+    )
 }
