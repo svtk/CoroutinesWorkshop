@@ -1,6 +1,5 @@
 package com.kotlinconf.workshop.kettle
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -15,7 +14,6 @@ import com.kotlinconf.workshop.kettle.ui.KettleView
 import com.kotlinconf.workshop.kettle.ui.KettleViewModel
 
 @Composable
-@Preview
 fun KettleApp(kettleViewModel: KettleViewModel) {
     KettleAppTheme {
         KettleView(kettleViewModel)

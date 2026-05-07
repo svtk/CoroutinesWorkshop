@@ -1,6 +1,5 @@
 package com.kotlinconf.workshop.articles
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
@@ -20,7 +19,6 @@ import com.kotlinconf.workshop.articles.ui.views.ArticlesView
 import com.kotlinconf.workshop.network.WorkshopKtorService
 
 @Composable
-@Preview
 fun ArticlesApp(viewModel: ArticlesViewModel) {
     MaterialTheme {
         ProvideTextStyle(LocalTextStyle.current.copy(letterSpacing = 0.sp)) {
