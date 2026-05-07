@@ -1,6 +1,5 @@
 package com.kotlinconf.workshop.chat
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,7 +18,6 @@ import com.kotlinconf.workshop.chat.ui.ChatView
 import com.kotlinconf.workshop.chat.ui.ChatViewModel
 
 @Composable
-@Preview
 fun ChatAppSecond(chatViewModel: ChatViewModel) {
     MaterialTheme {
         Box(Modifier.fillMaxSize().padding(10.dp)) {

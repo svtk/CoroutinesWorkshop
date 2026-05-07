@@ -12,7 +12,7 @@ plugins {
 group = "com.kotlinconf.workshop"
 version = "1.0-SNAPSHOT"
 
-val jdkToolchainVersion = 11
+val jdkToolchainVersion = 17
 
 kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -26,7 +26,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.components.resources)
+                implementation(libs.compose.components.resources)
             }
         }
         val jvmMain by getting {
@@ -34,7 +34,7 @@ kotlin {
                 implementation(projects.shared)
                 implementation(projects.server)
                 implementation(compose.desktop.currentOs)
-                implementation(compose.materialIconsExtended)
+                implementation(libs.compose.material.icons.extended)
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.viewmodel.compose)
                 implementation(libs.kotlinx.coroutines.core)

@@ -1,17 +1,17 @@
 [versions]
-kotlin_version = "2.3.0"
-logback_version = "1.5.25"
+kotlin_version = "2.3.21"
+logback_version = "1.5.32"
 datetime_version = "0.7.1"
-ktor_version = "3.4.0"
-retrofit_version = "2.12.0"
-serialization_version = "1.9.0"
-kover_version = "0.9.5"
-jetbrains_compose = "1.9.1"
+ktor_version = "3.4.3"
+retrofit_version = "3.0.0"
+serialization_version = "1.11.0"
+kover_version = "0.9.8"
+jetbrains_compose = "1.10.3"
 androidx_lifecycle = "2.10.0"
 kotlinx_collections = "0.4.0"
 kotlinx_coroutines = "1.10.2"
 turbine = "1.2.1"
-junit-jupiter = "5.14.2"
+junit-jupiter = "6.0.3"
 okhttp = "5.3.2"
 mordant = "3.0.2"
 
@@ -38,6 +38,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-mock = { module = "com.squareup.retrofit2:retrofit-mock", version.ref = "retrofit_version" }
 retrofit-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit_version" }
 mordant = { module = "com.github.ajalt.mordant:mordant", version.ref = "mordant" }
+compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version = "1.7.3" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "jetbrains_compose" }
 
 # test dependencies
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin_version" }
