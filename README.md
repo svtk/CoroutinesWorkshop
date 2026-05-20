@@ -1,3 +1,3 @@
 # Coroutines Workshop: Accompanying materials and exercises
 
-Slides: (updated link will be provided!)
+Slides: https://drive.google.com/file/d/1fnPgPxQO2IPz6cOVjara7aFbk7YmWGhD/view?usp=sharing
