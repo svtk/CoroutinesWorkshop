@@ -9,6 +9,7 @@ import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -25,11 +26,22 @@ class Task3StructuralConcurrencyKtTest {
 
     @Test
     fun `test loadArticlesConcurrently Cancellation`() = runTest {
+        val startTime = currentTime
         val job = launch {
             loadArticlesConcurrently(MockBlogService)
         }
         delay(1.seconds)
         job.cancel()
-        // TODO Test that the articles loading was cancelled?
+        job.join()
+
+        assertTrue(job.isCancelled, "Job should be cancelled")
+
+        val totalTime = currentTime - startTime
+        val uncancelledDuration = ArticlesFakeDataResults.expectedConcurrentList.duration.inWholeMilliseconds
+        assertTrue(
+            totalTime < uncancelledDuration,
+            "Cancelling after 1s of virtual time should stop the remaining requests instead of " +
+                    "letting loading run for the full $uncancelledDuration ms, but took $totalTime ms"
+        )
     }
 }
