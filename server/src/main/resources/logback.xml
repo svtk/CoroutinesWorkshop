@@ -3,7 +3,7 @@
         <!-- Hide Ktor's stack trace for intentional HttpRequestLifecycle cancellations (see Monitoring.kt) -->
         <filter class="com.kotlinconf.workshop.logging.HttpRequestLifecycleCancellationFilter"/>
         <encoder>
-            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>[SERVER] %d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
     <root level="INFO">
