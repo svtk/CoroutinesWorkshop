@@ -2,7 +2,7 @@
 kotlin_version = "2.4.0"
 logback_version = "1.5.25"
 datetime_version = "0.7.1"
-ktor_version = "3.4.0"
+ktor_version = "3.6.1"
 retrofit_version = "2.12.0"
 serialization_version = "1.9.0"
 kover_version = "0.9.5"
