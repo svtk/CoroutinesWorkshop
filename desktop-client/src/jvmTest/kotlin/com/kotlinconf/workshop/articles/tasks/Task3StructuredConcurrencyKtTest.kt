@@ -11,7 +11,7 @@ import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.measureTime
 
-class Task3StructuralConcurrencyKtTest {
+class Task3StructuredConcurrencyKtTest {
     @Test
     fun `test loadArticlesNonCancelable Result`() = runTest {
         val result = loadArticlesNonCancelable(MockBlogService)
