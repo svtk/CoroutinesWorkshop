@@ -16,6 +16,9 @@ import com.kotlinconf.workshop.articles.util.removeStoredMode
 import com.kotlinconf.workshop.articles.util.saveParams
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlin.time.Duration
+import kotlin.time.TimeMark
+import kotlin.time.TimeSource
 
 class ArticlesViewModel(
     private val blockingService: BlogServiceBlocking,
@@ -44,7 +47,7 @@ class ArticlesViewModel(
     var loadingStatus by mutableStateOf(NOT_STARTED)
         private set
 
-    var currentLoadingTimeMillis by mutableStateOf(0L)
+    var currentLoadingTime by mutableStateOf(Duration.ZERO)
         private set
 
     var newLoadingEnabled by mutableStateOf(true)
@@ -72,7 +75,7 @@ class ArticlesViewModel(
         clearResults()
         cancellationEnabled = true
         loadingJob = loadingScope.launch(coroutineExceptionHandler) {
-            val startTime = System.currentTimeMillis()
+            val startTime = TimeSource.Monotonic.markNow()
             when (loadingMode) {
                 BLOCKING -> {
                     val articleList = loadArticles(blockingService)
@@ -119,11 +122,11 @@ class ArticlesViewModel(
 
     private fun updateResults(
         articles: List<Article>,
-        startTime: Long,
+        startTime: TimeMark,
         completed: Boolean = true,
     ) {
         loadingStatus = if (completed) COMPLETED else IN_PROGRESS
-        currentLoadingTimeMillis = System.currentTimeMillis() - startTime
+        currentLoadingTime = startTime.elapsedNow()
         articlesFlow.value = articles
         if (completed) {
             markLoadingCompletion()
@@ -132,7 +135,7 @@ class ArticlesViewModel(
 
     private suspend fun updateResultsWithProgress(
         articleFlow: Flow<Article>,
-        startTime: Long
+        startTime: TimeMark,
     ) {
         articleFlow
             .runningFold(listOf<Article>()) { list, article -> list + article }
@@ -156,7 +159,7 @@ class ArticlesViewModel(
         loadingStatus = CANCELED
         newLoadingEnabled = true
         cancellationEnabled = false
-        currentLoadingTimeMillis = 0
+        currentLoadingTime = Duration.ZERO
     }
 
     private fun clearResults() {
@@ -164,6 +167,6 @@ class ArticlesViewModel(
         loadingStatus = IN_PROGRESS
         newLoadingEnabled = false
         cancellationEnabled = false
-        currentLoadingTimeMillis = 0
+        currentLoadingTime = Duration.ZERO
     }
 }

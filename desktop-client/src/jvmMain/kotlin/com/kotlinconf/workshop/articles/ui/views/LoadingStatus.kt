@@ -11,12 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel
 import com.kotlinconf.workshop.articles.ui.ArticlesViewModel.LoadingStatus.*
+import kotlin.time.Duration
 
 @Composable
 fun LoadingStatus(
     articlesNumber: Int,
     loadingStatus: ArticlesViewModel.LoadingStatus,
-    currentLoadingTimeMillis: Long,
+    currentLoadingTime: Duration,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -33,8 +34,9 @@ fun LoadingStatus(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column {
-                        val timeText = currentLoadingTimeMillis.let { time ->
-                            if (time == 0L) "" else "${(time / 1000)}.${time % 1000 / 100} sec"
+                        val timeText = currentLoadingTime.let { time ->
+                            val timeMillis = time.inWholeMilliseconds
+                            if (timeMillis == 0L) "" else "${(timeMillis / 1000)}.${timeMillis % 1000 / 100} sec"
                         }
 
                         val loadingText = "Loading status: " +

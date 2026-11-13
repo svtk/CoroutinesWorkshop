@@ -37,7 +37,7 @@ fun ArticlesView(viewModel: ArticlesViewModel) {
         LoadingStatus(
             articlesNumber = articles.size,
             loadingStatus = viewModel.loadingStatus,
-            currentLoadingTimeMillis = viewModel.currentLoadingTimeMillis,
+            currentLoadingTime = viewModel.currentLoadingTime,
         )
 //        ActiveUsersView(
 //            activeUsers = viewModel.activeUsers.collectAsState(setOf()).value
