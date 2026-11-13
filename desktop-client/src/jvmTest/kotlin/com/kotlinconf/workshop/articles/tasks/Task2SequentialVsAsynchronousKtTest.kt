@@ -1,15 +1,12 @@
 package com.kotlinconf.workshop.articles.tasks
 
+import kotlinx.coroutines.test.runTest
 import com.kotlinconf.workshop.articles.data.ArticlesFakeDataResults
 import com.kotlinconf.workshop.articles.data.MockBlogService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.currentTime
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.measureTime
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class Task2SequentialVsAsynchronousKtTest {
     @Test
     fun `test loadArticlesConcurrently Result`() = runTest {
@@ -23,9 +20,9 @@ class Task2SequentialVsAsynchronousKtTest {
 
     @Test
     fun `test loadArticlesConcurrently Duration`() = runTest {
-        val startTime = currentTime
-        loadArticlesConcurrently(MockBlogService)
-        val totalTime = (currentTime - startTime).milliseconds
+        val totalTime = testScheduler.timeSource.measureTime {
+            loadArticlesConcurrently(MockBlogService)
+        }
         assertEquals(
             expected = ArticlesFakeDataResults.expectedConcurrentList.duration,
             totalTime,

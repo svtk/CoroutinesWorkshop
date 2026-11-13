@@ -1,18 +1,16 @@
 package com.kotlinconf.workshop.articles.tasks
 
 import app.cash.turbine.test
+import kotlinx.coroutines.test.runTest
 import com.kotlinconf.workshop.articles.data.ArticlesFakeDataResults
 import com.kotlinconf.workshop.articles.data.MockBlogService
 import com.kotlinconf.workshop.articles.model.Article
 import com.kotlinconf.workshop.data.ArticlesFakeData
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.currentTime
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.time.measureTime
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class Task5AsyncProgressKtTest {
     @Test
     fun `test observeArticlesConcurrently Result`() = runTest {
@@ -33,16 +31,16 @@ class Task5AsyncProgressKtTest {
 
     @Test
     fun `test observeArticlesConcurrently Duration`() = runTest {
-        val startTime = currentTime
-        observeArticlesConcurrently(MockBlogService).test {
-            repeat(ArticlesFakeData.getArticles().size) { awaitItem() }
-            awaitComplete()
+        val totalTime = testScheduler.timeSource.measureTime {
+            observeArticlesConcurrently(MockBlogService).test {
+                repeat(ArticlesFakeData.getArticles().size) { awaitItem() }
+                awaitComplete()
+            }
         }
-        val totalTime = currentTime - startTime
-        val upperBound = ArticlesFakeDataResults.expectedConcurrentList.duration.inWholeMilliseconds
+        val upperBound = ArticlesFakeDataResults.expectedConcurrentList.duration
         assertTrue(
             totalTime <= upperBound,
-            "Concurrent loading took $totalTime ms of virtual time, expected at most $upperBound ms"
+            "Concurrent loading took $totalTime of virtual time, expected at most $upperBound"
         )
     }
 }

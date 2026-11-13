@@ -1,18 +1,16 @@
 package com.kotlinconf.workshop.articles.tasks
 
-import com.kotlinconf.workshop.articles.data.ArticlesFakeDataResults
-import com.kotlinconf.workshop.articles.data.MockBlogService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
+import com.kotlinconf.workshop.articles.data.ArticlesFakeDataResults
+import com.kotlinconf.workshop.articles.data.MockBlogService
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.measureTime
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class Task3StructuralConcurrencyKtTest {
     @Test
     fun `test loadArticlesNonCancelable Result`() = runTest {
@@ -26,22 +24,21 @@ class Task3StructuralConcurrencyKtTest {
 
     @Test
     fun `test loadArticlesConcurrently Cancellation`() = runTest {
-        val startTime = currentTime
-        val job = launch {
-            loadArticlesConcurrently(MockBlogService)
+        val totalTime = testScheduler.timeSource.measureTime {
+            val job = launch {
+                loadArticlesConcurrently(MockBlogService)
+            }
+            delay(1.seconds)
+            job.cancel()
+            job.join()
+
+            assertTrue(job.isCancelled, "Job should be cancelled")
         }
-        delay(1.seconds)
-        job.cancel()
-        job.join()
-
-        assertTrue(job.isCancelled, "Job should be cancelled")
-
-        val totalTime = currentTime - startTime
-        val uncancelledDuration = ArticlesFakeDataResults.expectedConcurrentList.duration.inWholeMilliseconds
+        val uncancelledDuration = ArticlesFakeDataResults.expectedConcurrentList.duration
         assertTrue(
             totalTime < uncancelledDuration,
             "Cancelling after 1s of virtual time should stop the remaining requests instead of " +
-                    "letting loading run for the full $uncancelledDuration ms, but took $totalTime ms"
+                    "letting loading run for the full $uncancelledDuration, but took $totalTime"
         )
     }
 }

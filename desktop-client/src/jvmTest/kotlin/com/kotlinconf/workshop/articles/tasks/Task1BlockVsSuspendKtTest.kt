@@ -7,6 +7,7 @@ import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.measureTime
 import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -23,10 +24,9 @@ class Task1BlockVsSuspendKtTest {
 
     @Test
     fun `test loadArticles Duration`() = runTest {
-
-        val startTime = currentTime
-        loadArticles(MockBlogService)
-        val totalTime = (currentTime - startTime).milliseconds
+        val totalTime = testScheduler.timeSource.measureTime {
+            loadArticles(MockBlogService)
+        }
         assertEquals(
             expected = ArticlesFakeDataResults.expectedSequentialList.duration,
             totalTime,
