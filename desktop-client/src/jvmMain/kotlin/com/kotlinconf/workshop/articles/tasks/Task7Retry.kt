@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
-import kotlinx.coroutines.flow.toList
 
 // observeArticlesUnstableWithRetry is already implemented for you.
 fun observeArticlesUnstableWithRetry(service: BlogService): Flow<Article> = flow {

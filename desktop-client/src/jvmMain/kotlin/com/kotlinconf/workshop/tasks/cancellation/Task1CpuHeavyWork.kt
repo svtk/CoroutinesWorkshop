@@ -6,18 +6,20 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.TimeSource
 
-fun main() = runBlocking {
-    val job = launch(Dispatchers.Default) {
-        var index = 0
-        while (true) {
-            val result = doCpuHeavyWork(200.milliseconds)
-            println("Done (${index++}): $result")
+suspend fun main() {
+    coroutineScope {
+        val job = launch(Dispatchers.Default) {
+            var index = 0
+            while (true) {
+                val result = doCpuHeavyWork(200.milliseconds)
+                println("Done (${index++}): $result")
+            }
         }
-    }
 
-    delay(1.seconds)
-    job.cancelAndJoin()
-    println("✅ Process finished correctly.")
+        delay(1.seconds)
+        job.cancelAndJoin()
+        println("✅ Process finished correctly.")
+    }
 }
 
 fun doCpuHeavyWork(duration: Duration): Int {

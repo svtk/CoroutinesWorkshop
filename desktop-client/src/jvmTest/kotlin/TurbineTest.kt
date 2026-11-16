@@ -6,14 +6,14 @@ import com.kotlinconf.workshop.kettle.network.KettleService
 import com.kotlinconf.workshop.kettle.ui.KettleViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class TurbineTest {
 
     @Test
-    fun `viewmodel should properly convert celsius to fahrenheit`() = runBlocking {
-        assert(false)
+    fun `viewmodel should properly convert celsius to fahrenheit`() = runTest {
+        TODO()
     }
 }
