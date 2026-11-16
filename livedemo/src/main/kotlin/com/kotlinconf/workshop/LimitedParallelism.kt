@@ -3,10 +3,7 @@ package com.kotlinconf.workshop.limitedparallelism
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.system.measureTimeMillis
-
-
-@OptIn(ExperimentalCoroutinesApi::class)
+import kotlin.time.measureTime
 
 val counterContext =
     Dispatchers.Default.limitedParallelism(1)
@@ -40,7 +37,7 @@ fun main1() = runBlocking {
 suspend fun massiveRun(action: suspend () -> Unit) {
     val n = 100  // number of coroutines to launch
     val k = 1000 // times an action is repeated by each coroutine
-    val time = measureTimeMillis {
+    val time = measureTime {
         coroutineScope { // scope for coroutines
             repeat(n) {
                 launch {
@@ -49,5 +46,5 @@ suspend fun massiveRun(action: suspend () -> Unit) {
             }
         }
     }
-    println("Completed ${n * k} actions in $time ms")
+    println("Completed ${n * k} actions in $time")
 }

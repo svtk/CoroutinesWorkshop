@@ -17,7 +17,7 @@ class TheProblemOfWithTimeout {
                     println("Heartbeat")
                 }
             }
-            withTimeout(500) {
+            withTimeout(500.milliseconds) {
                 println("I'm working")
                 delay(600.milliseconds)
                 println("I did some work!")
@@ -35,7 +35,7 @@ fun main() {
 suspend fun timeoutFunction() {
 
     try {
-        withTimeout(500) {
+        withTimeout(500.milliseconds) {
             performSlowOperation()
         }
     } catch (t: TimeoutCancellationException) {
