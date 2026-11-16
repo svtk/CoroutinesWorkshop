@@ -20,6 +20,7 @@ import com.kotlinconf.workshop.chat.BasicChatWindow
 import com.kotlinconf.workshop.chat.ChatWithPrioritiesWindow
 import com.kotlinconf.workshop.kettle.KettleWindow
 import kotlinx.coroutines.CancellationException
+import kotlin.time.TimeSource
 
 fun main() = application {
     val launcherState = remember { LauncherState(ServerController()) }
@@ -113,7 +114,7 @@ private class LauncherState(
         serverStatus = ServerStatus.Starting
         serverStatus = try {
             serverController.start()
-            ServerStatus.Running(startedAtMillis = System.currentTimeMillis())
+            ServerStatus.Running(startedAt = TimeSource.Monotonic.markNow())
         } catch (exception: CancellationException) {
             throw exception
         } catch (throwable: Throwable) {

@@ -1,13 +1,16 @@
 package com.kotlinconf.workshop.tasks.cancellation
 
 import kotlinx.coroutines.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeSource
 
 fun main() = runBlocking {
     val job = launch(Dispatchers.Default) {
         var index = 0
         while (true) {
-            val result = doCpuHeavyWork(200)
+            val result = doCpuHeavyWork(200.milliseconds)
             println("Done (${index++}): $result")
         }
     }
@@ -17,10 +20,10 @@ fun main() = runBlocking {
     println("✅ Process finished correctly.")
 }
 
-fun doCpuHeavyWork(timeMillis: Int): Int {
+fun doCpuHeavyWork(duration: Duration): Int {
     var counter = 0
-    val startTime = System.currentTimeMillis()
-    while (System.currentTimeMillis() < startTime + timeMillis) {
+    val startTime = TimeSource.Monotonic.markNow()
+    while (startTime.elapsedNow() < duration) {
         counter++
     }
     return counter

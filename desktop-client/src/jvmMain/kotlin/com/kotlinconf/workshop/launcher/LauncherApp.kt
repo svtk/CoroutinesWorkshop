@@ -22,6 +22,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.kotlinconf.workshop.WorkshopServerConfig.PORT
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeMark
 
 private const val browserHost = "localhost"
 private const val serverRootPath = "/"
@@ -39,7 +41,7 @@ fun LauncherApp(
     var elapsedSeconds by remember(serverStatus) {
         mutableLongStateOf(
             when (serverStatus) {
-                is ServerStatus.Running -> ((System.currentTimeMillis() - serverStatus.startedAtMillis) / 1_000).coerceAtLeast(0)
+                is ServerStatus.Running -> serverStatus.startedAt.elapsedNow().inWholeSeconds
                 else -> 0L
             }
         )
@@ -48,8 +50,8 @@ fun LauncherApp(
     LaunchedEffect(serverStatus) {
         if (serverStatus is ServerStatus.Running) {
             while (true) {
-                elapsedSeconds = ((System.currentTimeMillis() - serverStatus.startedAtMillis) / 1_000).coerceAtLeast(0)
-                delay(1_000)
+                elapsedSeconds = serverStatus.startedAt.elapsedNow().inWholeSeconds
+                delay(1.seconds)
             }
         }
     }
@@ -139,7 +141,7 @@ sealed interface ServerStatus {
         override fun message(elapsedSeconds: Long) = "Starting workshop server..."
     }
 
-    data class Running(val startedAtMillis: Long) : ServerStatus {
+    data class Running(val startedAt: TimeMark) : ServerStatus {
         override val canLaunchClients = true
 
         override fun message(elapsedSeconds: Long): String {
