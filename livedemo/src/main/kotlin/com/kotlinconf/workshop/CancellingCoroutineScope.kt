@@ -1,6 +1,7 @@
 package com.kotlinconf.workshop
 
 import kotlinx.coroutines.*
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -44,7 +45,7 @@ suspend fun mainX() = runBlocking {
         while (true) {
             y += 2
             println("B: $y")
-            doCpuHeavyWork(200)
+            doCpuHeavyWork(200.milliseconds)
             // Cancellation is cooperative!
             // try: Yield, ensureActive, isActive
         }
@@ -54,6 +55,6 @@ suspend fun mainX() = runBlocking {
     myScope.cancel()
 }
 
-fun doCpuHeavyWork(timeMillis: Int) {
-    Thread.sleep(timeMillis.toLong())
+fun doCpuHeavyWork(duration: Duration) {
+    Thread.sleep(duration.inWholeMilliseconds)
 }
