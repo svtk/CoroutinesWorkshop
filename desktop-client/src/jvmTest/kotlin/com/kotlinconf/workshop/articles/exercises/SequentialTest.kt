@@ -1,11 +1,9 @@
 package com.kotlinconf.workshop.articles.exercises
 
 import com.kotlinconf.workshop.articles.tasks.observeArticlesLoading
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SequentialTest {
     // Task: Write a test that collects the articles emitted by observeArticlesLoading and
     // asserts they match the expected articles, in order. ArticlesFakeData provides the mock
