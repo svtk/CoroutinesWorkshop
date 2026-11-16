@@ -14,7 +14,7 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
-kotlin.jvmToolchain(11)
+kotlin.jvmToolchain(17)
 
 dependencies {
     implementation(projects.shared)

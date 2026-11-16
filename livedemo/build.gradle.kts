@@ -26,4 +26,4 @@ tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
 
-kotlin.jvmToolchain(11)
+kotlin.jvmToolchain(17)

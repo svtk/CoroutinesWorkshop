@@ -12,4 +12,4 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
 }
 
-kotlin.jvmToolchain(11)
+kotlin.jvmToolchain(17)
