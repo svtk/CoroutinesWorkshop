@@ -8,5 +8,11 @@ import kotlinx.coroutines.awaitAll
 
 // Run both versions and try to cancel
 suspend fun loadArticlesNonCancelable(service: BlogService): List<Article> {
-    TODO()
+    val articleInfoList = service.getArticleInfoList()
+    val deferreds = articleInfoList.map { article ->
+        GlobalScope.async {
+            Article(article, service.getComments(article))
+        }
+    }
+    return deferreds.awaitAll()
 }

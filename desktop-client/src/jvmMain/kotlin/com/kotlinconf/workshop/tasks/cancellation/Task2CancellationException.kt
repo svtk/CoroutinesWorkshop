@@ -10,7 +10,9 @@ suspend fun main() = coroutineScope {
         while (true) {
             try {
                 doSomeWorkThatMayFail()
-            } catch (e: Exception) {
+                // initial code:
+//            } catch (e: Exception) {
+            } catch (e: MyException) {
                 println("Oops! ${e.message}")
             }
         }

@@ -10,10 +10,34 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
+class FakeKettleService : KettleService {
+    override suspend fun switchOn() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun switchOff() {
+        TODO("Not yet implemented")
+    }
+
+    override fun observeTemperature(): Flow<CelsiusTemperature> {
+        return flowOf(20.0.celsius, 25.0.celsius, 100.0.celsius)
+    }
+
+    override fun observeKettlePowerState(): Flow<KettlePowerState> {
+        return flowOf(KettlePowerState.ON)
+    }
+}
+
 class TurbineTest {
 
     @Test
     fun `viewmodel should properly convert celsius to fahrenheit`() = runTest {
-        TODO()
+        // initial code: just the runTest
+        val vm = KettleViewModel(FakeKettleService())
+        vm.fahrenheitTemperature.test {
+            assertEquals(68.0, awaitItem()!!.value, 0.05)
+            assertEquals(77.0, awaitItem()!!.value, 0.05)
+            assertEquals(212.0, awaitItem()!!.value, 0.05)
+        }
     }
 }

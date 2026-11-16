@@ -33,7 +33,7 @@ class ArticlesViewModel(
     // doesn't permanently cancel the loadingScope and break later loading attempts.
     // initial code: Job(viewModelScope.coroutineContext.job)
     private val loadingScope =
-        CoroutineScope(Job(viewModelScope.coroutineContext.job) + Dispatchers.Main)
+        CoroutineScope(SupervisorJob(viewModelScope.coroutineContext.job) + Dispatchers.Main)
 
     var loadingMode by mutableStateOf(BLOCKING)
         private set

@@ -18,5 +18,10 @@ fun observeArticlesUnstableWithRetry(service: BlogService): Flow<Article> = flow
 }
 
 suspend fun getCommentsWithRetry(service: BlogService, articleInfo: ArticleInfo): List<Comment> {
-    return service.getCommentsUnstable(articleInfo) // TODO: Implement me correctly!
+    // initial code:
+//    return service.getCommentsUnstable(articleInfo) // TODO: Implement me correctly!
+    val flow = flow {
+        this.emit(service.getCommentsUnstable(articleInfo))
+    }
+    return flow.retry(retries = 5).first()
 }

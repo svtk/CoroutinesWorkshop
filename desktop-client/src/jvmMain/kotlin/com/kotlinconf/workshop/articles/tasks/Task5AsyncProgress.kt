@@ -8,5 +8,12 @@ import kotlinx.coroutines.launch
 
 // Task: Implement concurrent loading of comments using flows
 fun observeArticlesConcurrently(service: BlogService): Flow<Article> {
-    TODO()
+    return channelFlow {
+        val list = service.getArticleInfoList()
+        for (articleInfo in list) {
+            launch {
+                send(Article(articleInfo, service.getComments(articleInfo)))
+            }
+        }
+    }
 }
