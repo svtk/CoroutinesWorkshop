@@ -5,22 +5,20 @@ import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Duration.Companion.milliseconds
 
-suspend fun main() {
-    coroutineScope {
-        val myJob = launch {
-            while (true) {
-                try {
-                    doSomeWorkThatMayFail()
-                } catch (e: Exception) {
-                    println("Oops! ${e.message}")
-                }
+suspend fun main() = coroutineScope {
+    val myJob = launch {
+        while (true) {
+            try {
+                doSomeWorkThatMayFail()
+            } catch (e: Exception) {
+                println("Oops! ${e.message}")
             }
         }
-        delay(2.seconds)
-        println("Enough!")
-        myJob.cancelAndJoin()
-        println("✅ Process finished correctly.")
     }
+    delay(2.seconds)
+    println("Enough!")
+    myJob.cancelAndJoin()
+    println("✅ Process finished correctly.")
 }
 
 suspend fun doSomeWorkThatMayFail() {
